@@ -1,19 +1,5 @@
-import { useEffect } from "react";
-import styled from "styled-components";
-import About from "../Components/About";
-import EducationJourney from "../Components/EducationJourney";
-import Navbar from "../Components/Navbar";
-
-const Container = styled.div``;
-
 const Home = () => {
-  return (
-    <Container>
-      <Navbar />
-      <EducationJourney />
-      {/* <About /> */}
-    </Container>
-  );
+  return <div>Hello World</div>;
 };
 
 export default Home;

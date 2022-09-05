@@ -1,93 +1,99 @@
-import React, { useState, useEffect } from 'react';
-import { CssBaseline } from '@material-ui/core';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import RegistrationBasicInfo from "./Pages/RegistrationBasicInfo";
+import RegistrationInterests from "./Pages/RegistrationInterests";
+import RegistrationMoreDetails from "./Pages/RegistrationMoreDetails";
+import ShortlistPage from "./Pages/ShortlistPage";
+import SchoolFinder from "./Pages/SchoolFinder";
+import RecommendationsPage from "./Pages/RecommendationsPage";
 
-import { Navbar, Products, Cart, Checkout } from './components';
-import { commerce } from './lib/commerce';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import PAGES from "./pageRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import UserAccountPage from "./Pages/UserAccountPage";
+import { getSchools } from "./redux/apiCalls";
+import SearchResultPage from "./Pages/SearchResultPage";
+import SchoolProfilePage from "./Pages/SchoolProfilePage";
 
 const App = () => {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState({});
-  const [order, setOrder] = useState({});
-  const [errorMessage, setErrorMessage] = useState('');
+  const currentUser = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+  getSchools(dispatch);
 
-  const fetchProducts = async () => {
-    const { data } = await commerce.products.list();
-
-    setProducts(data);
-  };
-
-  const fetchCart = async () => {
-    setCart(await commerce.cart.retrieve());
-  };
-
-  const handleAddToCart = async (productId, quantity) => {
-    const item = await commerce.cart.add(productId, quantity);
-
-    setCart(item.cart);
-  };
-
-  const handleUpdateCartQty = async (lineItemId, quantity) => {
-    const response = await commerce.cart.update(lineItemId, { quantity });
-
-    setCart(response.cart);
-  };
-
-  const handleRemoveFromCart = async (lineItemId) => {
-    const response = await commerce.cart.remove(lineItemId);
-
-    setCart(response.cart);
-  };
-
-  const handleEmptyCart = async () => {
-    const response = await commerce.cart.empty();
-
-    setCart(response.cart);
-  };
-
-  const refreshCart = async () => {
-    const newCart = await commerce.cart.refresh();
-
-    setCart(newCart);
-  };
-
-  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
-    try {
-      const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
-
-      setOrder(incomingOrder);
-
-      refreshCart();
-    } catch (error) {
-      setErrorMessage(error.data.error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-    fetchCart();
-  }, []);
-
-  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
-
+  useEffect(() => {}, [currentUser]);
   return (
     <Router>
-      <div style={{ display: 'flex' }}>
-        <CssBaseline />
-        <Navbar totalItems={cart.total_items} handleDrawerToggle={handleDrawerToggle} />
-        <Switch>
-          <Route exact path="/">
-            <Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />
-          </Route>
-          <Route exact path="/cart">
-            <Cart cart={cart} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />
-          </Route>
-          <Route path="/checkout" exact>
-            <Checkout cart={cart} order={order} onCaptureCheckout={handleCaptureCheckout} error={errorMessage} />
-          </Route>
-        </Switch>
-      </div>
+      <Routes>
+        <Route exact path={PAGES.homePage} element={<Home />} />
+
+        <Route
+          path={PAGES.loginPage}
+          element={currentUser.username ? <Navigate to="/" /> : <Login />}
+        />
+        <Route path=":mlc" element={<SchoolFinder />} />
+
+        <Route
+          path={PAGES.registerPage1}
+          element={
+            currentUser.username ? (
+              <Navigate to="/" />
+            ) : (
+              <RegistrationBasicInfo />
+            )
+          }
+        />
+        <Route
+          path={PAGES.registerPage2}
+          element={
+            currentUser.username ? (
+              <Navigate to="/" />
+            ) : (
+              <RegistrationMoreDetails />
+            )
+          }
+        />
+        <Route
+          path={PAGES.registerPage3}
+          element={
+            currentUser.username ? (
+              <Navigate to="/" />
+            ) : (
+              <RegistrationInterests />
+            )
+          }
+        />
+        <Route
+          path={PAGES.shortlistPage}
+          element={
+            currentUser.username ? <ShortlistPage /> : <Navigate to="/" />
+          }
+        />
+        <Route
+          path={PAGES.accountPage}
+          element={
+            currentUser.username ? <UserAccountPage /> : <Navigate to="/" />
+          }
+        />
+
+        <Route path={PAGES.searchResultsPage} element={<SearchResultPage />}>
+          <Route path=":q" element={<SearchResultPage />} />
+        </Route>
+
+        <Route path="school/:lol" element={<SchoolProfilePage />} />
+
+        <Route
+          path={PAGES.recommendationsPage}
+          element={
+            currentUser.username ? <RecommendationsPage /> : <Navigate to="/" />
+          }
+        />
+      </Routes>
     </Router>
   );
 };

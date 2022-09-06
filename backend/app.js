@@ -13,6 +13,8 @@ const logger = require('./utils/logger')
 
 const mongoose = require('mongoose')
 
+
+
 logger.info('connecting to', config.MONGODB_URL)
 
 mongoose.connect(config.MONGODB_URL)

@@ -1,0 +1,8 @@
+@import "default.css";
+.navbar {
+  background-color: white;
+}
+
+.navbar-menu-item {
+  color: var(--main-grey);
+}

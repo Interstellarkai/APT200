@@ -11,12 +11,11 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+
 import { useState } from "react";
 
 import colors from "./colors";
 
-import "./Styles/Navbar.css";
 // import MerchantDiceLogoName from "./MerchantDiceLogoName";
 // import MerchantDiceLogo from "./MerchantDiceLogo";
 
@@ -24,7 +23,7 @@ import MerchantDiceLogo from "../Assets/logo.svg";
 import MerchantDiceLogoName from "../Assets/logo-with-name.svg";
 
 const pages = ["Women", "Men", "Shirts", "Pants", "Shoes"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Dashboard", "Logout"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -50,7 +49,7 @@ const Navbar = () => {
     <AppBar
       className="navbar"
       position="static"
-      sx={{ bgcolor: "white", boxShadow: "none" }}
+      sx={{ bgcolor: "white", boxShadow: "none", fontSize: "17px" }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -140,7 +139,12 @@ const Navbar = () => {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: `${colors.mainGrey}`, display: "block" }}
+                sx={{
+                  my: 2,
+                  color: `${colors.mainGrey}`,
+                  display: "block",
+                  fontSize: "inherit",
+                }}
               >
                 {page}
               </Button>
@@ -184,9 +188,13 @@ const Navbar = () => {
                 flexGrow: 0,
                 color: `${colors.mainGrey}`,
                 justifyContent: "right",
+                fontSize: "inherit",
               }}
             >
-              <Button className="MuiButton-root" sx={{ color: "inherit" }}>
+              <Button
+                className="MuiButton-root"
+                sx={{ color: "inherit", fontSize: "inherit" }}
+              >
                 Sign in
               </Button>
               <Button
@@ -197,6 +205,7 @@ const Navbar = () => {
                   mx: "20px",
                   borderRadius: "20px",
                   textTransform: "none",
+                  fontSize: "inherit",
                 }}
               >
                 Register now!

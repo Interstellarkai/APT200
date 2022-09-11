@@ -21,8 +21,18 @@ import colors from "./colors";
 
 import MerchantDiceLogo from "../Assets/logo.svg";
 import MerchantDiceLogoName from "../Assets/logo-with-name.svg";
+import { Divider } from "@mui/material";
 
 const pages = ["Women", "Men", "Shirts", "Pants", "Shoes"];
+const mobilePages = [
+  "Women",
+  "Men",
+  "Shirts",
+  "Pants",
+  "Shoes",
+  "Sign in",
+  "Register",
+];
 const settings = ["Profile", "Dashboard", "Logout"];
 
 const Navbar = () => {
@@ -47,13 +57,39 @@ const Navbar = () => {
 
   return (
     <AppBar
-      className="navbar"
       position="static"
-      sx={{ bgcolor: "white", boxShadow: "none", fontSize: "17px" }}
+      sx={{
+        bgcolor: "white",
+        boxShadow: "none",
+        fontSize: "17px",
+      }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+
+            // bgcolor: "yellow",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            component="img"
+            sx={{
+              content: `url(${MerchantDiceLogoName})`,
+              mr: 1,
+              cursor: "pointer",
+              // bgcolor: "red",
+            }}
+            alt="Logo"
+          />
+          <Box
+            sx={{
+              display: { md: "none" },
+              // bgcolor: "green",
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -83,48 +119,14 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  className="navbar-menu-item"
-                >
-                  <Typography textAlign="center" className="navbar-menu-item">
-                    {page}
-                  </Typography>
+              {mobilePages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Box
-            component="img"
-            sx={{
-              content: {
-                xs: `url(${MerchantDiceLogo})`, //img src from xs up to md
-                md: `url(${MerchantDiceLogoName})`, //img src from md and up
-              },
-              mr: 1,
-              cursor: "pointer",
-            }}
-            alt="Logo"
-          />
 
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "black",
-              textDecoration: "none",
-            }}
-          ></Typography>
           <Box
             sx={{
               flexGrow: 1,
@@ -184,7 +186,7 @@ const Navbar = () => {
           ) : (
             <Box
               sx={{
-                display: "flex",
+                display: { xs: "none", md: "flex" },
                 flexGrow: 0,
                 color: `${colors.mainGrey}`,
                 justifyContent: "right",
@@ -212,7 +214,7 @@ const Navbar = () => {
               </Button>
             </Box>
           )}
-        </Toolbar>
+        </Box>
       </Container>
     </AppBar>
   );

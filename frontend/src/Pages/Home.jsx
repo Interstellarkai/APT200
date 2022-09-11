@@ -2,12 +2,22 @@ import { Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import Navbar from "../Components/Navbar";
 import colors from "../Components/colors";
+import Divider from "../Components/Divider";
 
 const Home = () => {
   return (
-    <div>
+    <Container maxWidth="xl">
       <Navbar />
-      <Container max-width="xl" sx={{ mt: "100px" }}>
+      <Container
+        sx={{
+          width: "100%",
+          mt: "100px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          // bgcolor: "green",
+        }}
+      >
         <Box color="inherit" textAlign="center">
           <Typography variant="h1">
             Anything,{" "}
@@ -24,8 +34,9 @@ const Home = () => {
             </Typography>
           </Box>
         </Box>
+        <Divider />
       </Container>
-    </div>
+    </Container>
   );
 };
 

@@ -1,10 +1,10 @@
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 
-import { createTheme } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 
-const theme = createTheme({
+let theme = createTheme({
   typography: {
     allVariants: {
       textTransform: "none",
@@ -12,6 +12,8 @@ const theme = createTheme({
     },
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 const App = () => {
   return (

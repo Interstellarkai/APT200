@@ -3,6 +3,7 @@ import { Box, Container } from "@mui/system";
 import Navbar from "../Components/Navbar";
 import colors from "../Components/colors";
 import Divider from "../Components/Divider";
+import Searchbar from "../Components/Searchbar";
 
 const Home = () => {
   return (
@@ -10,11 +11,11 @@ const Home = () => {
       <Navbar />
       <Container
         sx={{
-          width: "100%",
+          width: "inherit",
           mt: "100px",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          alignItems: "center",
           // bgcolor: "green",
         }}
       >
@@ -33,7 +34,9 @@ const Home = () => {
               <br /> Try finding something!
             </Typography>
           </Box>
+          <Searchbar />
         </Box>
+
         <Divider />
       </Container>
     </Container>

@@ -1,10 +1,19 @@
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
+import colors from "./Components/colors";
 
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 
-let theme = createTheme({
+let customTheme = createTheme({
+  palette: {
+    primary: {
+      main: `${colors.mainBlue}`,
+    },
+    secondary: {
+      main: `${colors.mainGrey}`,
+    },
+  },
   typography: {
     allVariants: {
       textTransform: "none",
@@ -13,11 +22,11 @@ let theme = createTheme({
   },
 });
 
-theme = responsiveFontSizes(theme);
+customTheme = responsiveFontSizes(customTheme);
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={customTheme}>
       <Home />
     </ThemeProvider>
   );

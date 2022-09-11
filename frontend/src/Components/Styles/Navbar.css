@@ -6,3 +6,7 @@
 .navbar-menu-item {
   color: var(--main-grey);
 }
+
+.MuiButton-root {
+  text-transform: none;
+}

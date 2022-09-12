@@ -38,7 +38,15 @@ const Home = () => {
           <Searchbar />
         </Box>
         <Divider />
-        <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
+        <Container
+          sx={{
+            // border: "solid black",
+            display: "flex",
+            justifyContent: { md: "space-evenly" },
+            alignItems: "center",
+            flexDirection: { xs: "column", md: "row" },
+          }}
+        >
           <Carousel />
           <Carousel />
         </Container>

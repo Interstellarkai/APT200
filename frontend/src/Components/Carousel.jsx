@@ -41,6 +41,7 @@ const Carousel = () => {
         maxWidth: 400,
         flexGrow: 1,
         my: 5,
+        // border: "solid blue",
       }}
     >
       <div

@@ -11,25 +11,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # mongodb-version: ['5.x']
-
+    
     steps:
     - uses: actions/checkout@v3
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    # - name: Start MongoDB
-    #     uses: supercharge/mongodb-github-action@1.7.0
-    #     with:
-    #       mongodb-version: ${{ matrix.mongodb-version }}
+    - name: CI Testing on Backend
       working-directory: ./backend
       run: |
         npm ci

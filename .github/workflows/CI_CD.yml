@@ -30,9 +30,9 @@ jobs:
     #     uses: supercharge/mongodb-github-action@1.7.0
     #     with:
     #       mongodb-version: ${{ matrix.mongodb-version }}
-    - run: |
-        cd backend &&
-        npm ci &&
+      working-directory: ./backend
+      run: |
+        npm ci
         npm test
     env: 
       CI: true

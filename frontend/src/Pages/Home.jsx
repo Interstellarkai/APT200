@@ -4,6 +4,7 @@ import Navbar from "../Components/Navbar";
 import colors from "../Components/colors";
 import Divider from "../Components/Divider";
 import Searchbar from "../Components/Searchbar";
+import Carousel from "../Components/Carousel";
 
 const Home = () => {
   return (
@@ -36,8 +37,11 @@ const Home = () => {
           </Box>
           <Searchbar />
         </Box>
-
         <Divider />
+        <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
+          <Carousel />
+          <Carousel />
+        </Container>
       </Container>
     </Container>
   );

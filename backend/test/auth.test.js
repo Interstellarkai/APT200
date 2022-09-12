@@ -6,7 +6,6 @@ test("properly adds two numbers", () => {
 	expect(sum(1, 2)).toBe(3);
 });
 
-
 // /* eslint-disable no-undef */
 // const supertest = require('supertest');
 // const mongoose = require('mongoose');

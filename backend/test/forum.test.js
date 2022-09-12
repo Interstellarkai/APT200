@@ -1,3 +1,11 @@
+function sum(a, b) {
+	return a + b;
+}
+
+test("properly adds two numbers", () => {
+	expect(sum(1, 2)).toBe(3);
+});
+
 // /* eslint-disable no-underscore-dangle */
 // /* eslint-disable no-undef */
 // const mongoose = require('mongoose');

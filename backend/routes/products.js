@@ -2,6 +2,27 @@ const productsRouter = require('express').Router()
 const Product = require('../models/product')
 const User = require('../models/user')
 
+//for Image
+/*
+const Image = require('../models/image')
+const multer = require('multer')
+const Storage = multer.diskStorage({
+		destination:(req,file,cb)=>{
+			cb(null, 'uploads')
+	},
+	{
+		filename:(req,file,cb)=>{
+			cb(null, file.originalname)
+		}
+	}
+})
+
+const upload = multer({storage:Storage})
+*/
+//end
+
+
+
 productsRouter.get('/', async (request, response) => {
   const products = await Product
     .find({}).populate('user', { username: 1, name: 1 })
@@ -19,16 +40,24 @@ productsRouter.get('/:id', async (request, response) => {
 })
 
 productsRouter.post('/', async (request, response, next) => {
-  const {name,price,userId} = request.body
+  const {name,price,userId,img} = request.body
+//  const newImage = new Image
 
   const user = await User.findById(userId)
-
   const product = new Product({
     name,
     price,
     date: new Date(),
     rating: 0,
     user: user._id
+	//image
+	//img: img
+	/*
+	img:{
+		data:req.file.filename,
+		contentType:'image/jpg'
+	}
+	*/
   })
 
   const savedProduct = await product.save()
@@ -37,6 +66,45 @@ productsRouter.post('/', async (request, response, next) => {
   
   response.json(savedProduct)
 })
+
+//with image
+productsRouter.post('/upload', async (req, res, next) => {
+  //const {name,price,userId,img} = request.body
+//  upload(req, res, (err)=>{
+//	  if(err){
+//		console.log(err)
+//	  }
+//	  else{
+		
+		//var jreq = JSON.parse(req.body)
+		userId = req.userId
+		const user = await User.findById("6316c74597aba992db4021c7")
+		//const user = await User.findById(userId)
+		const newImg = new Image({
+			img:{
+				data: req.img,
+				contentType:'image/png'
+			}
+		})
+		
+		const product = new Product({
+			name: req.name,
+			price: req.price,
+			
+			date: new Date(),
+			rating: 0,
+			user: user._id,
+			img:newImg
+		})
+		const savedProduct = await product.save()
+		user.products = user.products.concat(savedProduct._id)
+		await user.save()
+		
+		response.json(savedProduct)
+//	  }
+//  })
+})
+//end
 
 productsRouter.delete('/:id', async (request, response, next) => {
       await Product.findByIdAndRemove(request.params.id)
@@ -57,5 +125,13 @@ productsRouter.put('/:id', async(request, response, next) => {
     })
     .catch(error => next(error))
 })
+
+/*
+productsRouter.put('/upload/:id', upload.single("file"), (req, res) => {
+	if (req.file === undefined) return res.send("No file selected.");
+	const imgUrl = `http://localhost:3001/file/${req.file.filename}`;
+	return res.send(imgUrl);
+})
+*/
 
 module.exports = productsRouter

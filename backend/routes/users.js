@@ -1,69 +1,72 @@
-const bcrypt = require('bcrypt')
-const usersRouter = require('express').Router()
-const User = require('../models/user')
+const bcrypt = require("bcrypt");
+const usersRouter = require("express").Router();
+const User = require("../models/user");
 
-usersRouter.get('/', async (request, response) => {
-  const users = await User.find({}).populate('products')
-  response.json(users)
-})
+usersRouter.get("/", async (request, response) => {
+	const users = await User.find({}).populate("products");
+	response.json(users);
+});
 
-usersRouter.get('/:id', async (request, response) => {
-  const user = await User.findById(request.params.id)
-  if (user) {
-    response.json(user)
-  } else {
-    response.status(404).end()
-  }
-})
+//usersRouter.get('/
 
-usersRouter.post('/', async (request, response) => {
-  const { username, name, password } = request.body
+usersRouter.get("/:id", async (request, response) => {
+	const user = await User.findById(request.params.id);
+	if (user) {
+		response.json(user);
+	} else {
+		response.status(404).end();
+	}
+});
 
-  const existingUser = await User.findOne({ username })
-  if (existingUser) {
-    return response.status(400).json({
-      error: 'username must be unique'
-    })
-  }
-  const saltRounds = 10
-  const passwordHash = await bcrypt.hash(password, saltRounds)
+usersRouter.post("/", async (request, response) => {
+	const { username, name, password } = request.body;
 
-  const user = new User({
-    username,
-    name,
-    passwordHash,
-  })
+	const existingUser = await User.findOne({ username });
+	if (existingUser) {
+		return response.status(400).json({
+			error: "username must be unique",
+		});
+	}
+	const saltRounds = 10;
+	const passwordHash = await bcrypt.hash(password, saltRounds);
 
-  const savedUser = await user.save()
+	const user = new User({
+		username,
+		name,
+		passwordHash,
+	});
 
-  response.status(201).json(savedUser)
-})
+	const savedUser = await user.save();
 
-usersRouter.delete('/:id', async (request, response, next) => {
-  await User.findByIdAndRemove(request.params.id)
-  response.status(204).end()
-})
+	response.status(201).json(savedUser);
+});
 
-usersRouter.put('/:id', async(request, response, next) => {
-  
-  const {name,password} = request.body
-  if(name)  {
-    User.findByIdAndUpdate(request.params.id, {name:name}, { new: true })
-    .then(updatedUser => {
-      return response.json(updatedUser)
-    }).catch(error => next(error))
-  }
+usersRouter.delete("/:id", async (request, response, next) => {
+	await User.findByIdAndRemove(request.params.id);
+	response.status(204).end();
+});
 
-  else{
-  const saltRounds = 10
-  const passwordHash = await bcrypt.hash(password, saltRounds)
-   User.findByIdAndUpdate(request.params.id, {passwordHash:passwordHash}, { new: true })
-    .then(updatedUser => {
-      return response.json(updatedUser)
-    }).catch(error => next(error))
-  }
- 
-})
+usersRouter.put("/:id", async (request, response, next) => {
+	const { name, password } = request.body;
+	if (name) {
+		User.findByIdAndUpdate(request.params.id, { name: name }, { new: true })
+			.then((updatedUser) => {
+				return response.json(updatedUser);
+			})
+			.catch((error) => next(error));
+	} else {
+		const saltRounds = 10;
+		const passwordHash = await bcrypt.hash(password, saltRounds);
+		User.findByIdAndUpdate(
+			request.params.id,
+			{ passwordHash: passwordHash },
+			{ new: true }
+		)
+			.then((updatedUser) => {
+				return response.json(updatedUser);
+			})
+			.catch((error) => next(error));
+	}
+});
 
-
-module.exports = usersRouter
+module.exports = usersRouter;

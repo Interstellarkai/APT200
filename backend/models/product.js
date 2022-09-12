@@ -1,17 +1,5 @@
 const mongoose = require('mongoose')
 
-const imageSchema = new mongoose.Schema({
-/*
-	name:{
-		type: String
-	},
-*/
-	img:{
-		data: Buffer,
-		contentType: String
-	}
-})
-
 const productSchema = new mongoose.Schema({
   name:{
     type:String,
@@ -30,7 +18,13 @@ const productSchema = new mongoose.Schema({
   comments:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comments'
-  }
+  },
+  imgs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Image'
+    }
+  ]
 })
 
 productSchema.set('toJSON', {

@@ -5,6 +5,7 @@ const app = express()
 const cors = require('cors') //Cross-Origin Resource Sharing.
 const productsRouter = require('./routes/products') //imports the routing logic
 const usersRouter = require('./routes/users')
+const imagesRouter = require('./routes/images')
 const commentsRouter = require('./routes/comments')
 const loginRouter = require('./routes/login')
 
@@ -12,6 +13,8 @@ const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 
 const mongoose = require('mongoose')
+
+
 
 logger.info('connecting to', config.MONGODB_URL)
 
@@ -30,6 +33,7 @@ app.use(middleware.requestLogger)
 
 app.use('/api/users', usersRouter)
 app.use('/api/products', productsRouter)
+app.use('/api/images', imagesRouter)
 app.use('/api/comments', commentsRouter)
 app.use('/api/login', loginRouter)
 

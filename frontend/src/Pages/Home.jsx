@@ -5,6 +5,7 @@ import colors from "../Components/colors";
 import Divider from "../Components/Divider";
 import Searchbar from "../Components/Searchbar";
 import Carousel from "../Components/Carousel";
+import Footer from "../Components/Footer";
 
 const Home = () => {
   return (
@@ -51,6 +52,7 @@ const Home = () => {
           <Carousel />
         </Container>
       </Container>
+      <Footer />
     </Container>
   );
 };

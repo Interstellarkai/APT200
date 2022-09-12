@@ -7,7 +7,7 @@ const Divider = () => {
     <Container
       maxWidth="xl"
       sx={{
-        width: "inherit",
+        // width: "inherit",
         bgcolor: "#F1EDED",
         height: "5px",
         borderRadius: "5px",

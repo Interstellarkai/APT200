@@ -3,17 +3,18 @@ import React from "react";
 
 const FooterItem = ({ title, value, hasIcon }) => {
   return (
-    <Box>
+    <Box sx={{ my: 1 }}>
       <Typography variant="subtitle2">{title}</Typography>
       {hasIcon ? (
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: { xs: "none", md: "space-evenly" },
+            // bgcolor: "blue",
           }}
         >
           {value.map((icon) => (
-            <IconButton>{icon}</IconButton>
+            <IconButton sx>{icon}</IconButton>
           ))}{" "}
         </Box>
       ) : (

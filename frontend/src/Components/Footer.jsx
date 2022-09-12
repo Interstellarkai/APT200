@@ -15,12 +15,14 @@ const Footer = () => {
         borderTop: "0.5px solid rgba(180, 179, 179, 0.8)",
         display: "flex",
         justifyContent: "space-evenly",
+        flexDirection: { xs: "column", md: "row" },
         alignItems: "center",
       }}
     >
-      <IconButton>
+      <IconButton sx={{ display: { xs: "none", md: "block" } }}>
         <Logo />
       </IconButton>
+
       <Box
         sx={{
           //   bgcolor: "blue",
@@ -28,7 +30,8 @@ const Footer = () => {
           width: "inherit",
           display: "flex",
           justifyContent: "space-evenly",
-          alignItems: "center",
+          flexDirection: "inherit",
+          alignItems: { xs: "none", md: "center" },
         }}
       >
         <FooterItem title="Contact" value="+65 912345678" hasIcon={false} />

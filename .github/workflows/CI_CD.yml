@@ -31,9 +31,9 @@ jobs:
     #     with:
     #       mongodb-version: ${{ matrix.mongodb-version }}
     - run: |
-      cd backend &&
-      npm ci &&
-      npm test
+        cd backend &&
+        npm ci &&
+        npm test
     env: 
       CI: true
 

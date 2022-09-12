@@ -3,18 +3,22 @@ const Product = require('../models/product')
 const User = require('../models/user')
 
 //for Image
+/*
 const Image = require('../models/image')
 const multer = require('multer')
 const Storage = multer.diskStorage({
-	destination:'uploads',
-	filename:(req, file, cb) => {
-		cb(null, file.originalname)
+		destination:(req,file,cb)=>{
+			cb(null, 'uploads')
+	},
+	{
+		filename:(req,file,cb)=>{
+			cb(null, file.originalname)
+		}
 	}
 })
 
-const upload = multer({
-	storage:Storage
-}).single('testImg')
+const upload = multer({storage:Storage})
+*/
 //end
 
 
@@ -71,18 +75,22 @@ productsRouter.post('/upload', async (req, res, next) => {
 //		console.log(err)
 //	  }
 //	  else{
-		userId = req.body.userId
+		
+		//var jreq = JSON.parse(req.body)
+		userId = req.userId
 		const user = await User.findById("6316c74597aba992db4021c7")
+		//const user = await User.findById(userId)
 		const newImg = new Image({
 			img:{
-				data: req.file.filename,
+				data: req.img,
 				contentType:'image/png'
 			}
 		})
 		
 		const product = new Product({
-			name: req.body.name,
-			price: req.body.price,
+			name: req.name,
+			price: req.price,
+			
 			date: new Date(),
 			rating: 0,
 			user: user._id,

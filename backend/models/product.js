@@ -30,10 +30,7 @@ const productSchema = new mongoose.Schema({
   comments:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comments'
-  },
-  //for image
-  img:[imageSchema],  
-  date: Date
+  }
 })
 
 productSchema.set('toJSON', {

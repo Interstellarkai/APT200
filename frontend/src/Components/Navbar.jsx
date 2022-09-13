@@ -22,6 +22,8 @@ import colors from "./colors";
 import MerchantDiceLogo from "../Assets/logo.svg";
 import MerchantDiceLogoName from "../Assets/logo-with-name.svg";
 import { Divider } from "@mui/material";
+import users from "../Data/users";
+import RegisterPopup from "./RegisterPopup";
 
 const pages = ["Women", "Men", "Shirts", "Pants", "Shoes"];
 const mobilePages = [
@@ -34,11 +36,13 @@ const mobilePages = [
   "Register",
 ];
 const settings = ["Profile", "Dashboard", "Logout"];
-
+const emails = ["username@gmail.com", "user02@gmail.com"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(emails[1]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -53,6 +57,16 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  // RegisterPopup Handlers
+  const handleRegisterClick = () => {
+    setRegisterOpen(true);
+  };
+
+  const handleRegisterClose = (value) => {
+    setRegisterOpen(false);
+    setSelectedValue(value);
   };
 
   return (
@@ -121,7 +135,14 @@ const Navbar = () => {
               }}
             >
               {mobilePages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page}
+                  onClick={
+                    page === "Register"
+                      ? handleRegisterClick
+                      : handleCloseNavMenu
+                  }
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -210,9 +231,16 @@ const Navbar = () => {
                   textTransform: "none",
                   fontSize: "inherit",
                 }}
+                onClick={handleRegisterClick}
               >
                 Register now!
               </Button>
+              <RegisterPopup
+                open={registerOpen}
+                onClose={handleRegisterClose}
+                selectedValue={selectedValue}
+                values={emails}
+              />
             </Box>
           )}
         </Box>

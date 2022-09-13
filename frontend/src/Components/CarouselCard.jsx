@@ -29,7 +29,7 @@ const CarouselCard = ({ user, item }) => {
   const [expanded, setExpanded] = useState(false);
   const [fav, setFav] = useState(false);
   const theme = useTheme();
-  console.log(item.img);
+  // console.log(item.img);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };

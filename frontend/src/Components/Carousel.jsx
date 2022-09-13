@@ -22,7 +22,7 @@ const Carousel = () => {
   const [mouseEnter, setMouseEnter] = useState(false);
   const maxSteps = Items.length;
 
-  console.log(Items[0].name);
+  // console.log(Items[0].name);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };

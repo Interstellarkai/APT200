@@ -73,7 +73,7 @@ customTheme = responsiveFontSizes(customTheme);
 const App = () => {
   return (
     <ThemeProvider theme={customTheme}>
-      <Home />
+      <Login />
     </ThemeProvider>
   );
 };

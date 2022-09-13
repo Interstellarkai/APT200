@@ -3,7 +3,9 @@ import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Button,
+  Checkbox,
   Container,
+  FormControlLabel,
   Link,
   Paper,
   TextField,
@@ -17,6 +19,7 @@ import Navbar from "../Components/Navbar";
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [check, setCheck] = useState(false);
   const inputs = ["Email", "Password"];
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +32,10 @@ const Login = () => {
       setLoading(false);
       setSubmitted(true);
     }, 3000);
+  };
+
+  const handleCheckChange = () => {
+    setCheck(!check);
   };
 
   return (
@@ -74,6 +81,33 @@ const Login = () => {
                       sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
                     />
                   ))}
+                  <Box
+                    width="inherit"
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <FormControlLabel
+                      label="Remember me"
+                      control={
+                        <Checkbox
+                          checked={check}
+                          onChange={handleCheckChange}
+                        />
+                      }
+                    />
+                    <Link
+                      sx={{
+                        textDecoration: "none",
+                        cursor: "pointer",
+                        "&:hover": {
+                          textDecoration: "underline",
+                        },
+                      }}
+                    >
+                      Forgot password
+                    </Link>
+                  </Box>
 
                   <LoadingButton
                     type="submit"

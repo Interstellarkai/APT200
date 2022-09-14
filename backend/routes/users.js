@@ -2,6 +2,11 @@ const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
 const User = require("../models/user");
 
+//for auth
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+
+
 usersRouter.get("/", async (request, response) => {
 	const users = await User.find({}).populate("products");
 	response.json(users);
@@ -68,5 +73,58 @@ usersRouter.put("/:id", async (request, response, next) => {
 			.catch((error) => next(error));
 	}
 });
+
+//for auth.
+//batmens12345
+//qwerty
+usersRouter.post("/login", async (req, res, next) => {
+	/*
+	const username = req.body.username
+	const user = {name: username}
+	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+	res.json({accessToken: accessToken})
+	*/
+	const username = req.body.username
+	const password = req.body.password
+	console.log(req.body)
+	const user = await User.findOne({'username': username})
+	if (user==null){
+		return res.status(400).send("Username does not exist")		
+	}
+	try{
+		if(await bcrypt.compare(password, user.passwordHash)){
+			res.send('Success')
+			//res.json(user);
+		} else {
+			res.send('Password does not match.')
+		}
+	} catch{
+		res.status(500).send()
+	}
+	
+});
+
+usersRouter.get("/posts", authenticateToken, (req,res) => {
+	res.json(posts.filter(post => post.username === req.user.name))
+})
+
+function authenticateToken(req, res, next){
+	const authHeader = req.headers['authorisation']
+	//2nd param
+	const token = authHeader && authHeader.split(' ')[1]
+	if(token == null) return res.sendStatus(401)
+	//no token sent
+
+	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
+		if (err) return res.sendStatus(403)
+		//token not valid
+		
+		req.user = user
+		next()
+		
+	})
+	
+	
+}
 
 module.exports = usersRouter;

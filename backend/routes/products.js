@@ -1,6 +1,7 @@
 const productsRouter = require('express').Router()
 const Product = require('../models/product')
 const User = require('../models/user')
+const Image = require('../models/image')
 
 //for Image
 /*
@@ -76,10 +77,12 @@ productsRouter.post('/upload', async (req, res, next) => {
 //	  }
 //	  else{
 		
-		//var jreq = JSON.parse(req.body)
-		userId = req.userId
-		const user = await User.findById("6316c74597aba992db4021c7")
-		//const user = await User.findById(userId)
+		//var jreq = JSON.parse(req.data)
+		//const asdf = JSON.parse(req.data)
+		const userId = req.data.userId
+		console.log(userId)
+		//const user = await User.findById("6316c74597aba992db4021c7")
+		const user = await User.findById(userId)
 		const newImg = new Image({
 			img:{
 				data: req.img,
@@ -88,8 +91,8 @@ productsRouter.post('/upload', async (req, res, next) => {
 		})
 		
 		const product = new Product({
-			name: req.name,
-			price: req.price,
+			name: req.body.name,
+			price: req.body.price,
 			
 			date: new Date(),
 			rating: 0,

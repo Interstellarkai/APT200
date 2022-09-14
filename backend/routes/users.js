@@ -93,19 +93,19 @@ usersRouter.post("/login", async (req, res, next) => {
 	}
 	try{
 		if(await bcrypt.compare(password, user.passwordHash)){
-			res.send('Success')
-			//res.json(user);
+			//res.send('Success')
+			console.log("Success");
+			res.json(user);
 		} else {
 			res.send('Password does not match.')
 		}
 	} catch{
 		res.status(500).send()
 	}
-	
 });
 
-usersRouter.get("/posts", authenticateToken, (req,res) => {
-	res.json(posts.filter(post => post.username === req.user.name))
+usersRouter.get("/products", authenticateToken, (req,res) => {
+	
 })
 
 function authenticateToken(req, res, next){

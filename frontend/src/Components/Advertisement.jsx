@@ -43,7 +43,7 @@ const Advertisement = ({ product }) => {
 						width="30px"
 						sx={{ borderRadius: "10%" }}
 					>
-						<Typography align="center">{hours}</Typography>
+						<Typography align="center">{hours.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}</Typography>
 					</Box>
 				</Grid>
 				<Grid item>
@@ -53,7 +53,7 @@ const Advertisement = ({ product }) => {
 						width="30px"
 						sx={{ borderRadius: "10%" }}
 					>
-						<Typography align="center">{minutes}</Typography>
+						<Typography align="center">{minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}</Typography>
 					</Box>
 				</Grid>
 				<Grid item>
@@ -63,7 +63,7 @@ const Advertisement = ({ product }) => {
 						width="30px"
 						sx={{ borderRadius: "10%" }}
 					>
-						<Typography align="center">{seconds}</Typography>
+						<Typography align="center">{seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}</Typography>
 					</Box>
 				</Grid>
 			</Grid>
@@ -121,7 +121,7 @@ const Advertisement = ({ product }) => {
 						backgroundColor="#4c6fff"
 						width="50%"
 						margin="auto"
-						sx={{ borderRadius: "10%"}}
+						sx={{ borderRadius: "5%"}}
 					>
 						<Typography
 							gutterBottom

@@ -69,7 +69,6 @@ const Advertisement = ({ product }) => {
 			</Grid>
 		);
 	};
-	// };
 
 	return (
 		<Card sx={{ maxWidth: "300px", backgroundColor: "#16192c" }}>

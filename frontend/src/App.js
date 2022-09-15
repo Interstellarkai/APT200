@@ -1,7 +1,8 @@
 // import Products from "./Components/Products";
 // import Home from "./Pages/Home";
 // import Login from "./Pages/Login";
-import Advertisement from "./Components/Advertisement";
+// import Advertisement from "./Components/Advertisement";
+import ProductDetail from "./Components/ProductDetail";
 import colors from "./Components/colors";
 
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
@@ -30,14 +31,24 @@ let product = {
 	id: 1,
 	name: "Jacket",
 	price: 99,
+	history: "2 weeks ago",
 	description: "Jacket",
+	descriptions: ["Jacket", "Cheap", "Good", "Nice"],
+	location: "Pioneer MRT",
 	media: "https://raw.githubusercontent.com/Interstellarkai/APT200/8cbc4e8870f3b88666cb75ebc6ae12e8ef7066a0/frontend/src/Assets/Item/jacket.png",
 };
+
+let user = {
+	id: 1,
+	username: "John",
+
+
+}
 
 const App = () => {
 	return (
 		<ThemeProvider theme={customTheme}>
-			<Advertisement product={product}/>
+			<ProductDetail product={product} user={user}/>
 		</ThemeProvider>
 	);
 };

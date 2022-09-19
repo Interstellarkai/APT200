@@ -1,19 +1,29 @@
 const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
 const User = require("../models/user");
+const {
+	createUser,
+	getUser,
+	getAllUsers,
+	deleteUser,
+	updateUser,
+	
+} = require("../controllers/crudController")
 
 //for auth
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-
+usersRouter.get("/", getAllUsers)
+/*
 usersRouter.get("/", async (request, response) => {
 	const users = await User.find({}).populate("products");
 	response.json(users);
 });
+*/
 
-//usersRouter.get('/
-
+usersRouter.get("/:id", getUser)
+/*
 usersRouter.get("/:id", async (request, response) => {
 	const user = await User.findById(request.params.id);
 	if (user) {
@@ -22,8 +32,12 @@ usersRouter.get("/:id", async (request, response) => {
 		response.status(404).end();
 	}
 });
+*/
 
-usersRouter.post("/", async (request, response) => {
+usersRouter.post("/", createUser)
+/*
+usersRouter.post("/", async (request, response) => {	
+
 	const { username, name, password } = request.body;
 
 	const existingUser = await User.findOne({ username });
@@ -44,13 +58,20 @@ usersRouter.post("/", async (request, response) => {
 	const savedUser = await user.save();
 
 	response.status(201).json(savedUser);
-});
 
+});
+*/
+
+usersRouter.delete("/:id", deleteUser)
+/*
 usersRouter.delete("/:id", async (request, response, next) => {
 	await User.findByIdAndRemove(request.params.id);
 	response.status(204).end();
 });
+*/
 
+usersRouter.put("/:id", updateUser)
+/*
 usersRouter.put("/:id", async (request, response, next) => {
 	const { name, password } = request.body;
 	if (name) {
@@ -73,6 +94,7 @@ usersRouter.put("/:id", async (request, response, next) => {
 			.catch((error) => next(error));
 	}
 });
+*/
 
 //for auth.
 //batmens12345
@@ -95,7 +117,10 @@ usersRouter.post("/login", async (req, res, next) => {
 		if(await bcrypt.compare(password, user.passwordHash)){
 			//res.send('Success')
 			console.log("Success");
-			res.json(user);
+			const user = {name: username}
+			const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+			res.json({accessToken: accessToken})
+			//res.json(user);
 		} else {
 			res.send('Password does not match.')
 		}

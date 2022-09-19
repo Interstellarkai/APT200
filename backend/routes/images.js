@@ -1,8 +1,14 @@
 const imagesRouter = require('express').Router()
 const Product = require('../models/product')
 const User = require('../models/user')
+const {
+	getAllImages,
+	getImage,
+	deleteImage,
+} = require("../controllers/crudController")
 
 //for Image
+/*
 const Image = require('../models/image')
 const fs = require('fs')
 const multer = require('multer')
@@ -17,20 +23,27 @@ const Storage = multer.diskStorage({
 
 const upload = multer({storage:Storage})
 //end
+*/
 
+imagesRouter.get('/', getAllImages)
+/*
 imagesRouter.get('/', async (request, response) => {
   const allImages = await Image.find()
   response.json(allImages)
 });
+*/
 
+imagesRouter.get('/:id', getImage)
+/*
 imagesRouter.get('/:id', async (request, response) => {
     const img = await Image.findById(request.params.id)
     if (img) {
-      response.json(product)
+      response.json(img)
     } else {
       response.status(404).end()
     }
 })
+*/
 
 imagesRouter.post('/', upload.single('img'), async (request, response, next) => {
 	const prodId = request.body.pid
@@ -51,11 +64,13 @@ imagesRouter.post('/', upload.single('img'), async (request, response, next) => 
 	response.json(savedImage)
 })
 
+imagesRouter.delete('/:id', deleteImage)
+/*
 imagesRouter.delete('/:id', async (request, response, next) => {
       await Image.findByIdAndRemove(request.params.id)
       response.status(204).end()
 })
-
+*/
 
 /*
 //with image

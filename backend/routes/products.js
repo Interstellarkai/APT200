@@ -2,6 +2,13 @@ const productsRouter = require('express').Router()
 const Product = require('../models/product')
 const User = require('../models/user')
 const Image = require('../models/image')
+const {
+	getAllProducts,
+	getProduct,
+	createProduct,
+	deleteProduct,
+	updateProduct,
+} = require("../controllers/crudController")
 
 //for Image
 /*
@@ -23,14 +30,20 @@ const upload = multer({storage:Storage})
 //end
 
 
+productsRouter.get('/', getAllProducts)
 
+/*
 productsRouter.get('/', async (request, response) => {
   const products = await Product
     .find({}).populate('user', { username: 1, name: 1 })
 
   response.json(products)
 });
+*/
 
+productsRouter.get('/:id', getProduct)
+
+/*
 productsRouter.get('/:id', async (request, response) => {
     const product = await Product.findById(request.params.id)
     if (product) {
@@ -39,7 +52,10 @@ productsRouter.get('/:id', async (request, response) => {
       response.status(404).end()
     }
 })
+*/
 
+productsRouter.post('/', createProduct)
+/*
 productsRouter.post('/', async (request, response, next) => {
   const {name,price,userId,img} = request.body
 //  const newImage = new Image
@@ -53,12 +69,12 @@ productsRouter.post('/', async (request, response, next) => {
     user: user._id
 	//image
 	//img: img
-	/*
-	img:{
-		data:req.file.filename,
-		contentType:'image/jpg'
-	}
-	*/
+	
+	//img:{
+	//	data:req.file.filename,
+	//	contentType:'image/jpg'
+	//}
+	
   })
 
   const savedProduct = await product.save()
@@ -67,8 +83,10 @@ productsRouter.post('/', async (request, response, next) => {
   
   response.json(savedProduct)
 })
+*/
 
 //with image
+//don't work
 productsRouter.post('/upload', async (req, res, next) => {
   //const {name,price,userId,img} = request.body
 //  upload(req, res, (err)=>{
@@ -109,11 +127,16 @@ productsRouter.post('/upload', async (req, res, next) => {
 })
 //end
 
+productsRouter.delete('/:id', deleteProduct)
+/*
 productsRouter.delete('/:id', async (request, response, next) => {
       await Product.findByIdAndRemove(request.params.id)
       response.status(204).end()
   })
+*/
 
+productsRouter.put('/:id', updateProduct)
+/*
 productsRouter.put('/:id', async(request, response, next) => {
   const {name,price} = request.body
 
@@ -128,6 +151,7 @@ productsRouter.put('/:id', async(request, response, next) => {
     })
     .catch(error => next(error))
 })
+*/
 
 /*
 productsRouter.put('/upload/:id', upload.single("file"), (req, res) => {

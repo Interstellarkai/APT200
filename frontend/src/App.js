@@ -38,8 +38,8 @@ let product = {
 const App = () => {
   return (
     <ThemeProvider theme={customTheme}>
-      {/* <Home /> */}
-      <Login />
+      <Home />
+      {/* <Login /> */}
       {/* <Advertisement product={product} /> */}
     </ThemeProvider>
   );

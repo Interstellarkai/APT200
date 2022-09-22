@@ -1,6 +1,6 @@
-// import Products from "./Components/Products";
-// import Home from "./Pages/Home";
-// import Login from "./Pages/Login";
+import Products from "./Components/Products";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
 import Advertisement from "./Components/Advertisement";
 import colors from "./Components/colors";
 
@@ -40,7 +40,7 @@ const App = () => {
     <ThemeProvider theme={customTheme}>
       {/* <Home /> */}
       <Login />
-      <Advertisement product={product} />
+      {/* <Advertisement product={product} /> */}
     </ThemeProvider>
   );
 };

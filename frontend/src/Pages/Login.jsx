@@ -19,6 +19,7 @@ import Navbar from "../Components/Navbar";
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -38,7 +39,15 @@ const Login = () => {
   };
 
   const handleOnChange = (e) => {
-    const val = e.target.value;
+    let val = e.target.value;
+    let re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if ((e.target.name === "email" && re.test(val)) || val === "") {
+      setIsValidEmail(true);
+    } else {
+      setIsValidEmail(false);
+    }
+
     setInputs({
       ...inputs,
       [e.target.name]: val,
@@ -48,6 +57,8 @@ const Login = () => {
   const handleCheckChange = () => {
     setCheck(!check);
   };
+
+  console.log(isValidEmail);
 
   return (
     <Box position="relative" bgcolor="red" height="100vh" overflow="hidden">
@@ -88,9 +99,12 @@ const Login = () => {
                   <TextField
                     label="Email"
                     name="email"
+                    type="email"
                     sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
                     onChange={handleOnChange}
                     value={inputs.email}
+                    error={!isValidEmail}
+                    helperText={!isValidEmail ? "Invalid Email" : ""}
                   />
 
                   <TextField

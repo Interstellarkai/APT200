@@ -19,8 +19,11 @@ import Navbar from "../Components/Navbar";
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
   const [check, setCheck] = useState(false);
-  const inputs = ["Email", "Password"];
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit");
@@ -32,6 +35,14 @@ const Login = () => {
       setLoading(false);
       setSubmitted(true);
     }, 3000);
+  };
+
+  const handleOnChange = (e) => {
+    const val = e.target.value;
+    setInputs({
+      ...inputs,
+      [e.target.name]: val,
+    });
   };
 
   const handleCheckChange = () => {
@@ -74,13 +85,23 @@ const Login = () => {
                   // bgcolor="yellow"
                   width="inherit"
                 >
-                  {inputs.map((val) => (
-                    <TextField
-                      key={val}
-                      label={val}
-                      sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
-                    />
-                  ))}
+                  <TextField
+                    label="Email"
+                    name="email"
+                    sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
+                    onChange={handleOnChange}
+                    value={inputs.email}
+                  />
+
+                  <TextField
+                    label="Password"
+                    name="password"
+                    type="password"
+                    sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
+                    onChange={handleOnChange}
+                    value={inputs.password}
+                  />
+
                   <Box
                     width="inherit"
                     display="flex"

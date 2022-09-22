@@ -2,11 +2,13 @@ const config = require('./utils/config')
 const express = require('express')
 require('express-async-errors') // handles async errors so we dont have to constantly try-catch within out API requests https://www.npmjs.com/package/express-async-errors
 const app = express()
+const bp = require('body-parser')
 const cors = require('cors') //Cross-Origin Resource Sharing.
 const productsRouter = require('./routes/products') //imports the routing logic
 const usersRouter = require('./routes/users')
 const imagesRouter = require('./routes/images')
 const commentsRouter = require('./routes/comments')
+const messagesRouter = require('./routes/messages')
 const loginRouter = require('./routes/login')
 
 const middleware = require('./utils/middleware')
@@ -29,12 +31,15 @@ mongoose.connect(config.MONGODB_URL)
 app.use(cors())
 app.use(express.static('build')) //used to host static files
 app.use(express.json()) // transform json to js objects
+app.use(bp.json())
+app.use(bp.urlencoded({extended: true}))
 app.use(middleware.requestLogger)
 
 app.use('/api/users', usersRouter)
 app.use('/api/products', productsRouter)
 app.use('/api/images', imagesRouter)
 app.use('/api/comments', commentsRouter)
+app.use('/api/messages', messagesRouter)
 app.use('/api/login', loginRouter)
 
 app.use(middleware.unknownEndpoint)

@@ -1,92 +1,79 @@
-const productsRouter = require('express').Router()
+const imagesRouter = require('express').Router()
 const Product = require('../models/product')
 const User = require('../models/user')
-const Image = require('../models/image')
 const {
-	getAllProducts,
-	getProduct,
-	createProduct,
-	deleteProduct,
-	updateProduct,
+	getAllImages,
+	getImage,
+	deleteImage,
 } = require("../controllers/crudController")
 
 //for Image
 /*
 const Image = require('../models/image')
+const fs = require('fs')
 const multer = require('multer')
 const Storage = multer.diskStorage({
 		destination:(req,file,cb)=>{
 			cb(null, 'uploads')
-	},
-	{
+		},
 		filename:(req,file,cb)=>{
 			cb(null, file.originalname)
 		}
-	}
 })
 
 const upload = multer({storage:Storage})
-*/
 //end
+*/
 
-
-productsRouter.get('/', getAllProducts)
-
+imagesRouter.get('/', getAllImages)
 /*
-productsRouter.get('/', async (request, response) => {
-  const products = await Product
-    .find({}).populate('user', { username: 1, name: 1 })
-
-  response.json(products)
+imagesRouter.get('/', async (request, response) => {
+  const allImages = await Image.find()
+  response.json(allImages)
 });
 */
 
-productsRouter.get('/:id', getProduct)
-
+imagesRouter.get('/:id', getImage)
 /*
-productsRouter.get('/:id', async (request, response) => {
-    const product = await Product.findById(request.params.id)
-    if (product) {
-      response.json(product)
+imagesRouter.get('/:id', async (request, response) => {
+    const img = await Image.findById(request.params.id)
+    if (img) {
+      response.json(img)
     } else {
       response.status(404).end()
     }
 })
 */
 
-productsRouter.post('/', createProduct)
+imagesRouter.post('/', upload.single('img'), async (request, response, next) => {
+	const prodId = request.body.pid
+	const product = await Product.findById(prodId)
+	
+	const saveImage = new Image({
+		img:{
+			data: fs.readFileSync('uploads/' + request.file.filename),
+			contentType:"image/png"
+		},
+		product: product._id
+	})
+	
+	const savedImage = await saveImage.save()
+	product.imgs = product.imgs.concat(savedImage._id)
+	await product.save()
+
+	response.json(savedImage)
+})
+
+imagesRouter.delete('/:id', deleteImage)
 /*
-productsRouter.post('/', async (request, response, next) => {
-  const {name,price,userId,img} = request.body
-//  const newImage = new Image
-
-  const user = await User.findById(userId)
-  const product = new Product({
-    name,
-    price,
-    date: new Date(),
-    rating: 0,
-    user: user._id
-	//image
-	//img: img
-	
-	//img:{
-	//	data:req.file.filename,
-	//	contentType:'image/jpg'
-	//}
-	
-  })
-
-  const savedProduct = await product.save()
-  user.products = user.products.concat(savedProduct._id)
-  await user.save()
-  
-  response.json(savedProduct)
+imagesRouter.delete('/:id', async (request, response, next) => {
+      await Image.findByIdAndRemove(request.params.id)
+      response.status(204).end()
 })
 */
 
+/*
 //with image
-//don't work
 productsRouter.post('/upload', async (req, res, next) => {
   //const {name,price,userId,img} = request.body
 //  upload(req, res, (err)=>{
@@ -95,12 +82,10 @@ productsRouter.post('/upload', async (req, res, next) => {
 //	  }
 //	  else{
 		
-		//var jreq = JSON.parse(req.data)
-		//const asdf = JSON.parse(req.data)
-		const userId = req.data.userId
-		console.log(userId)
-		//const user = await User.findById("6316c74597aba992db4021c7")
-		const user = await User.findById(userId)
+		//var jreq = JSON.parse(req.body)
+		userId = req.userId
+		const user = await User.findById("6316c74597aba992db4021c7")
+		//const user = await User.findById(userId)
 		const newImg = new Image({
 			img:{
 				data: req.img,
@@ -109,8 +94,8 @@ productsRouter.post('/upload', async (req, res, next) => {
 		})
 		
 		const product = new Product({
-			name: req.body.name,
-			price: req.body.price,
+			name: req.name,
+			price: req.price,
 			
 			date: new Date(),
 			rating: 0,
@@ -127,16 +112,11 @@ productsRouter.post('/upload', async (req, res, next) => {
 })
 //end
 
-productsRouter.delete('/:id', deleteProduct)
-/*
 productsRouter.delete('/:id', async (request, response, next) => {
       await Product.findByIdAndRemove(request.params.id)
       response.status(204).end()
   })
-*/
 
-productsRouter.put('/:id', updateProduct)
-/*
 productsRouter.put('/:id', async(request, response, next) => {
   const {name,price} = request.body
 
@@ -152,7 +132,6 @@ productsRouter.put('/:id', async(request, response, next) => {
     .catch(error => next(error))
 })
 */
-
 /*
 productsRouter.put('/upload/:id', upload.single("file"), (req, res) => {
 	if (req.file === undefined) return res.send("No file selected.");
@@ -161,4 +140,4 @@ productsRouter.put('/upload/:id', upload.single("file"), (req, res) => {
 })
 */
 
-module.exports = productsRouter
+module.exports = imagesRouter

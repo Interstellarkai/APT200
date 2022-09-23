@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Grow, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import Navbar from "../Components/Navbar";
 import colors from "../Components/colors";
@@ -22,13 +22,15 @@ const Home = () => {
         }}
       >
         <Box color="inherit" textAlign="center">
-          <Typography variant="h1">
-            Anything,{" "}
-            <Typography variant="inheirt" color={colors.mainBlue}>
-              everything
+          <Grow in={true} timeout={1500}>
+            <Typography variant="h1">
+              Anything,{" "}
+              <Typography variant="inheirt" color={colors.mainBlue}>
+                everything
+              </Typography>
+              , all at once.
             </Typography>
-            , all at once.
-          </Typography>
+          </Grow>
           <Box sx={{ my: "100px" }}>
             <Typography color={colors.mainGrey}>
               At MerchantDice, you’re sure to find what you’re looking for! The

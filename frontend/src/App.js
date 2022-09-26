@@ -32,7 +32,6 @@ let product = {
 	name: "Jacket",
 	price: 99,
 	history: "2 weeks ago",
-	description: "Jacket",
 	descriptions: ["Jacket", "Cheap", "Good", "Nice"],
 	location: "Pioneer MRT",
 	media: "https://raw.githubusercontent.com/Interstellarkai/APT200/8cbc4e8870f3b88666cb75ebc6ae12e8ef7066a0/frontend/src/Assets/Item/jacket.png",

@@ -11,10 +11,6 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import ProductDetailUser from "./ProductDetailUser";
 
-const ProductDetailEnumerate = ({ product, user }) => {
-	const listing = product.descriptions.map((description) => {
-		return <li>{description}</li>;
-	});
 const ProductDetail = ({ product, user }) => {
 	const listing = product.descriptions.map((description) => {
 		return <li>{description}</li>;
@@ -23,22 +19,30 @@ const ProductDetail = ({ product, user }) => {
 	return (
 		<div>
 			<div>
+				{/* Set grid's direction as row for webpage, set grid's direction as column for mobile */}
 				<Grid
+					// border="solid black 1px"
 					container
-					direction={{ xs: "column", sm: "row" }}
+					direction={{ sm: "column", md: "row" }}
 					alignItems="stretch"
 					padding={2}
 				>
-					<Grid item xs={12} sm={6} py={1}>
+					<Grid
+						item
+						// container
+						direction="column"
+						alignItems="center"
+						sx={{ width: {md: "40%", sm: "100%"} }}
+
+					>
 						<Card
 							display="flex"
-							alignItems="center"
-							flexDirection="column"
 							sx={{
 								backgroundColor: "#E6F0FB",
 								justify: "content",
 								height: "100%",
 								width: "100%",
+								flexDirection: "column",
 							}}
 						>
 							<Box
@@ -55,85 +59,115 @@ const ProductDetail = ({ product, user }) => {
 									image={product.media}
 									height="100%"
 									width="100%"
-									alt="product"
-									alignItems="center"
-									objectFit="contain"
-									sx={{ borderRadius: "5%" }}
+									sx={{
+										borderRadius: "5%",
+										objectFit: "contain",
+									}}
 								/>
 							</Box>
 						</Card>
 					</Grid>
-					<Grid item xs={12} sm={6}>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								fontWeight: "bold",
-								fontStyle: "Poppin",
-							}}
+					{/* Grid for Jacket, Joined date etc. */}
+					<Grid item container sx={{ width: {md: "60%", sm: "100%"} }}>
+						<Grid
+							item
+							xs
+							container
+							direction="column"
+							spacing={3}
+							padding={2}
 						>
-							<Box p={{ xs: 1, sm: 2, md: 3 }}>
+							<Grid
+								item
+								xs
+								sx={{
+									fontWeight: "bold",
+									fontStyle: "Poppin",
+								}}
+							>
+								<Stack
+									direction="row"
+									justifyContent="space-between"
+									alignItems="center"
+									spacing={2}
+								>
+									<Typography
+										variant="h3"
+										component="div"
+										gutterBottom
+										sx={{
+											fontSize: {
+												xs: "1.5rem",
+												sm: "2rem",
+												md: "2.5rem",
+												lg: "3rem",
+												xl: "3.5rem",
+											},
+										}}
+									>
+										{product.name}
+									</Typography>
+									<Box
+										bgcolor="#E6F0FB"
+										width="20%"
+										height="20%"
+										sx={{ borderRadius: "10%" }}
+									>
+										<Typography
+											variant="h5"
+											color="#0064d2"
+											align="center"
+										>
+											{product.history}
+										</Typography>
+									</Box>
+								</Stack>
 								<Typography
-									variant="h4"
-									component="div"
+									variant="body2"
+									color="text.secondary"
 									gutterBottom
 								>
-									{product.name}
+									Joined 7 years ago | Very Responsive |
+									Verified
 								</Typography>
-							</Box>
-							{/* Responsive component for product history such that the  */}
-
-							<Box
-								bgcolor="#E6F0FB"
-								p={{ xs: 1, sm: 2, md: 3 }}
-								sx={{ borderRadius: "10%" }}
-							>
-								<Typography
-									variant="h5"
-									component="div"
-									color="#0064d2"
-									align="center"
-								>
-									{product.history}
+								<ProductDetailUser user={user} />
+								<Typography variant="h3" gutterBottom>
+									${product.price}
 								</Typography>
-							</Box>
-						</Box>
-						<Box p={{ xs: 1, sm: 2, md: 3 }}>
-							<Typography
-								variant="h6"
-								component="div"
-								color="text.secondary"
-								gutterBottom
-							>
-								Joined 7 years ago | Very Responsive | Verified
-							</Typography>
-							<ProductDetailUser user={user} />
-							<Typography
-								variant="h4"
-								component="div"
-								gutterBottom
-							>
-								${product.price}
-							</Typography>
-							<Typography
-								variant="h6"
-								component="div"
-								gutterBottom
-							>
-								{product.location}
-							</Typography>
-							{/* an CheckCircleOutlineIcon icon followed by sentence brand new */}
-							
-							<Typography
-								variant="h6"
-								component="div"
-								gutterBottom
-							>
-								{product.category}
-							</Typography>
-							<Stack direction="row" spacing={2}>
+							</Grid>
+							<Grid item container direction="row" spacing={1}>
+								<Grid item>
+									<CheckCircleOutlineIcon />
+								</Grid>
+								<Grid item>
+									<Typography variant="body1">
+										Brand New
+									</Typography>
+								</Grid>
+							</Grid>
+							<Grid item container direction="row" spacing={1}>
+								<Grid item>
+									<CheckCircleOutlineIcon />
+								</Grid>
+								<Grid item>
+									<Typography variant="body1">
+										Meet up
+									</Typography>
+								</Grid>
+							</Grid>
+							<Grid item container direction="row" spacing={1}>
+								<Grid item>
+									<CheckCircleOutlineIcon />
+								</Grid>
+								<Grid item>
+									<Typography variant="body1">
+										{product.location}
+									</Typography>
+								</Grid>
+							</Grid>
+							<Grid item>
 								<Button
-									variant="outlined"
+									variant="contained"
 									sx={{
 										backgroundColor: "#0064d2",
 										color: "white",
@@ -143,25 +177,36 @@ const ProductDetail = ({ product, user }) => {
 								>
 									Chat
 								</Button>
-							</Stack>
-						</Box>
+							</Grid>
+						</Grid>
 					</Grid>
 				</Grid>
 			</div>
 			<div>
-				<Typography variant="h6" component="div" gutterBottom>
-					About
-				</Typography>
-				<Typography variant="body1" gutterBottom>
-					{product.description}
-				</Typography>
-				<ul>{listing}</ul>
-				<Typography variant="h6" component="div" gutterBottom>
-					You May Also Like
-				</Typography>
+				<Grid
+					container
+					direction="column"
+					alignItems="stretch"
+					padding={2}
+				>
+					<Grid item>
+						<Typography variant="h4" gutterBottom>
+							About
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Typography variant="h6" gutterBottom>
+							<ul>{listing}</ul>
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Typography variant="h4" gutterBottom>
+							You May Also Like
+						</Typography>
+					</Grid>
+				</Grid>
 			</div>
 		</div>
 	);
 };
-
 export default ProductDetail;

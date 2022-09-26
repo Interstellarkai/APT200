@@ -21,7 +21,6 @@ const ProductDetail = ({ product, user }) => {
 			<div>
 				{/* Set grid's direction as row for webpage, set grid's direction as column for mobile */}
 				<Grid
-					// border="solid black 1px"
 					container
 					direction={{ sm: "column", md: "row" }}
 					alignItems="stretch"
@@ -29,11 +28,10 @@ const ProductDetail = ({ product, user }) => {
 				>
 					<Grid
 						item
-						// container
+						container
 						direction="column"
 						alignItems="center"
-						sx={{ width: {md: "40%", sm: "100%"} }}
-
+						sx={{ width: { md: "40%", sm: "100%" } }}
 					>
 						<Card
 							display="flex"
@@ -68,7 +66,14 @@ const ProductDetail = ({ product, user }) => {
 						</Card>
 					</Grid>
 					{/* Grid for Jacket, Joined date etc. */}
-					<Grid item container sx={{ width: {md: "60%", sm: "100%"} }}>
+					<Grid
+						item
+						container
+						// Make grid center
+						justifyContent="flex-end"
+						alignItems="center"
+						sx={{ width: { md: "60%", sm: "100%" } }}
+					>
 						<Grid
 							item
 							xs
@@ -76,10 +81,11 @@ const ProductDetail = ({ product, user }) => {
 							direction="column"
 							spacing={3}
 							padding={2}
+							justifyContent="flex-end"
 						>
 							<Grid
 								item
-								xs
+								justify="flex-end"
 								sx={{
 									fontWeight: "bold",
 									fontStyle: "Poppin",
@@ -88,29 +94,15 @@ const ProductDetail = ({ product, user }) => {
 								<Stack
 									direction="row"
 									justifyContent="space-between"
-									alignItems="center"
-									spacing={2}
+									sx={{ py: 1 }}
 								>
-									<Typography
-										variant="h3"
-										component="div"
-										gutterBottom
-										sx={{
-											fontSize: {
-												xs: "1.5rem",
-												sm: "2rem",
-												md: "2.5rem",
-												lg: "3rem",
-												xl: "3.5rem",
-											},
-										}}
-									>
+									<Typography variant="h3" component="div">
 										{product.name}
 									</Typography>
 									<Box
 										bgcolor="#E6F0FB"
-										width="20%"
-										height="20%"
+										align=""
+										padding={1}
 										sx={{ borderRadius: "10%" }}
 									>
 										<Typography
@@ -131,7 +123,7 @@ const ProductDetail = ({ product, user }) => {
 									Verified
 								</Typography>
 								<ProductDetailUser user={user} />
-								<Typography variant="h3" gutterBottom>
+								<Typography variant="h3" sx={{ py: 2 }}>
 									${product.price}
 								</Typography>
 							</Grid>
@@ -165,7 +157,19 @@ const ProductDetail = ({ product, user }) => {
 									</Typography>
 								</Grid>
 							</Grid>
-							<Grid item>
+							<Grid
+								item
+								sx={{
+									width: "100%",
+									display: "flex",
+									justifyContent: {
+										sm: "center",
+										md: "left",
+									},
+									alignItems: "center",
+								}}
+							>
+								{/* Button is to fill the 80% width */}
 								<Button
 									variant="contained"
 									sx={{
@@ -187,7 +191,13 @@ const ProductDetail = ({ product, user }) => {
 					container
 					direction="column"
 					alignItems="stretch"
-					padding={2}
+					// Padding left based on sm and md
+					sx={{
+						paddingLeft: {
+							sm: "10%",
+							md: "5%",
+						},
+					}}
 				>
 					<Grid item>
 						<Typography variant="h4" gutterBottom>
@@ -195,7 +205,8 @@ const ProductDetail = ({ product, user }) => {
 						</Typography>
 					</Grid>
 					<Grid item>
-						<Typography variant="h6" gutterBottom>
+						{/* Set some spacing between each listing */}
+						<Typography variant="subtitle1" gutterBottom>
 							<ul>{listing}</ul>
 						</Typography>
 					</Grid>

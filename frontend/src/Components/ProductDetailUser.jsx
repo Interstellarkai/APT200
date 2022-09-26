@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 
 const ProductDetailUser = ({ user }) => {
 	return (
-		<Stack direction="row" spacing={2} padding={2}>
+		<Stack direction="row" spacing={2} padding={0}>
 			<Fab size="small" color="white" aria-label="profile_photo">
 				<Avatar
 					alt={user.username}
@@ -23,7 +23,12 @@ const ProductDetailUser = ({ user }) => {
 			<Typography variant="h5" fontWeight="bold">
 				4.2
 			</Typography>
-			<Typography variant="h5" color="text.secondary">
+			{/* Alter the text size based on md and sm */}
+			<Typography
+				variant="h5"
+				color="text.secondary"
+				sx={{ fontSize: { md: "1.5rem", sm: "1rem" } }}
+			>
 				from 349 Reviews
 			</Typography>
 		</Stack>

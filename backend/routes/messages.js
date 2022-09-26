@@ -2,10 +2,18 @@ const messagesRouter = require('express').Router()
 const Message = require('../models/message')
 const User = require('../models/user')
 
+const {
+	getAllMessages,
+	createMessage,
+} = require("../controllers/crudController")
+
+messagesRouter.get('/', getAllMessages)
+/*
 messagesRouter.get('/', async (request, response) => {
   const messages = await Message.find({}).populate("sendId").populate("recId")
   response.json(messages)
 });
+*/
 
 /*
 messagesRouter.get('/:id', async (request, response) => {
@@ -18,6 +26,8 @@ messagesRouter.get('/:id', async (request, response) => {
 })
 */
 
+messagesRouter.post('/', createMessage)
+/*
 messagesRouter.post('/', async (request, response, next) => {
 	const {sendId, recId, text} = request.body
 //  const newImage = new Image
@@ -46,6 +56,7 @@ messagesRouter.post('/', async (request, response, next) => {
 	response.send('sent')
 	
 });
+*/
 
 //shouldn't delete messages bah. Evidence.
 /*

@@ -9,20 +9,20 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 
 let customTheme = createTheme({
-	palette: {
-		primary: {
-			main: `${colors.mainBlue}`,
-		},
-		secondary: {
-			main: `${colors.mainGrey}`,
-		},
-	},
-	typography: {
-		allVariants: {
-			textTransform: "none",
-			fontFamily: `"Lexend Deca", sans-serif`,
-		},
-	},
+  palette: {
+    primary: {
+      main: `${colors.mainBlue}`,
+    },
+    secondary: {
+      main: `${colors.mainGrey}`,
+    },
+  },
+  typography: {
+    allVariants: {
+      textTransform: "none",
+      fontFamily: `"Lexend Deca", sans-serif`,
+    },
+  },
 });
 
 customTheme = responsiveFontSizes(customTheme);

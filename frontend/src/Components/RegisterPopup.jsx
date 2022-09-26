@@ -23,6 +23,12 @@ const RegisterPopup = (props) => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const { onClose, selectedValue, open, values } = props;
+  const [inputValues, setInputValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    "confirm password": "",
+  });
   const inputs = ["Username", "Email", "Password", "Confirm Password"];
 
   const handleClose = () => {
@@ -31,6 +37,14 @@ const RegisterPopup = (props) => {
 
   const handleListItemClick = (value) => {
     onClose(value);
+  };
+
+  const handleOnChange = (e) => {
+    let val = e.target.value;
+    setInputValues({
+      ...inputValues,
+      [e.target.name]: val,
+    });
   };
 
   const handleSubmitButtonClick = () => {
@@ -45,6 +59,8 @@ const RegisterPopup = (props) => {
     e.preventDefault();
     console.log("Submitted");
   };
+
+  console.log(inputValues);
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle textAlign="center">Register</DialogTitle>
@@ -68,6 +84,12 @@ const RegisterPopup = (props) => {
                 key={val}
                 required
                 label={val}
+                name={val.toLowerCase()}
+                onChange={handleOnChange}
+                type={
+                  (val === "Password" || val === "Confirm Password") &&
+                  "password"
+                }
                 sx={{ my: 1, mx: 5, fontSize: 2, width: "80%" }}
               />
             ))}

@@ -3,6 +3,7 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Advertisement from "./Components/Advertisement";
 import ProductDetail from "./Components/ProductDetail";
+import ManageProducts from "./Pages/ManageProducts";
 import colors from "./Components/colors";
 
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
@@ -47,8 +48,9 @@ const App = () => {
   return (
     <ThemeProvider theme={customTheme}>
       {/* <ProductDetail product={product} user={user}/> */}
-      <Home />
+      {/* <Home /> */}
       {/* <Login/> */}
+      <ManageProducts />
     </ThemeProvider>
   );
 };

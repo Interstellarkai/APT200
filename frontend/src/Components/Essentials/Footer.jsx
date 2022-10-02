@@ -4,7 +4,7 @@ import FooterItem from "./FooterItem.jsx";
 import Logo from "./MerchantDiceLogo.jsx";
 import { Instagram, Twitter, Facebook } from "@mui/icons-material";
 import { Icon, IconButton, SvgIcon, useTheme } from "@mui/material";
-import { ReactComponent as Meta } from "../Assets/meta-icon.svg";
+import { ReactComponent as Meta } from "../../Assets/meta-icon.png";
 
 const Footer = () => {
   const theme = useTheme();
@@ -46,13 +46,13 @@ const Footer = () => {
             <Box
               component="img"
               sx={{ height: "inherit", objectFit: "contain" }}
-              src={require("../Assets/meta-icon.png")}
+              src={require("../../Assets/meta-icon.png")}
             />,
             <Twitter sx={{ color: theme.palette.primary.main }} />,
             <Box
               component="img"
               sx={{ height: "inherit", objectFit: "contain" }}
-              src={require("../Assets/instagram-icon.png")}
+              src={require("../../Assets/instagram-icon.png")}
             />,
           ]}
           hasIcon={true}

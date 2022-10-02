@@ -11,8 +11,8 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import CarouselCard from "./CarouselCard";
 import { useState } from "react";
-import Items from "../Data/items";
-import Users from "../Data/users";
+import Items from "../../Data/items";
+import Users from "../../Data/users";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 

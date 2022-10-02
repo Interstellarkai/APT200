@@ -14,7 +14,7 @@ import {
 import { Stack, width } from "@mui/system";
 import React from "react";
 import { useState } from "react";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/Essentials/Navbar";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);

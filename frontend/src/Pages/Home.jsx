@@ -1,11 +1,11 @@
 import { Grow, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/Essentials/Navbar";
 import colors from "../Components/colors";
-import Divider from "../Components/Divider";
-import Searchbar from "../Components/Searchbar";
-import Carousel from "../Components/Carousel";
-import Footer from "../Components/Footer";
+import Divider from "../Components/Essentials/Divider";
+import Searchbar from "../Components/Essentials/Searchbar";
+import Carousel from "../Components/Carousel/Carousel";
+import Footer from "../Components/Essentials/Footer";
 
 const Home = () => {
   return (

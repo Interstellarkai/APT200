@@ -73,10 +73,11 @@ const Navbar = () => {
         bgcolor: "white",
         boxShadow: "none",
         fontSize: "17px",
-        // width: "100vw",
+        // border: "solid black 1px",
+        padding: { xs: "0", md: "0 10px" },
       }}
     >
-      <Container maxWidth="xl">
+      <Box>
         <Box
           sx={{
             display: "flex",
@@ -241,7 +242,7 @@ const Navbar = () => {
             </Box>
           )}
         </Box>
-      </Container>
+      </Box>
     </AppBar>
   );
 };

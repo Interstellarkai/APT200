@@ -10,7 +10,7 @@ const Footer = () => {
   const theme = useTheme();
   return (
     <Container
-      maxWidth="xl"
+      maxWidth={false}
       sx={{
         borderTop: "0.5px solid rgba(180, 179, 179, 0.8)",
         display: "flex",

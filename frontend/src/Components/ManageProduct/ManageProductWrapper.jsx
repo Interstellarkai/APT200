@@ -28,13 +28,24 @@ const ManageProductWrapper = () => {
   ];
   const [collapsed, setCollapsed] = useState(true);
   const [indexTab, setIndexTab] = useState(0);
+  const [broken, setBroken] = useState(null);
   const indexTabHandler = (index) => {
     setIndexTab(index);
   };
 
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+    <Layout style={{ maxHeight: "85%", overflow: "hidden" }}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{ height: "100vh", display: { xs: "none" } }}
+        breakpoint={"xs"}
+        onBreakpoint={(broken) => {
+          setBroken(broken);
+        }}
+        collapsedWidth={broken ? 0 : "80px"}
+      >
         <Sidebar
           items={items}
           indexHandler={indexTabHandler}
@@ -57,9 +68,10 @@ const ManageProductWrapper = () => {
           className="site-layout-background"
           style={{
             margin: "24px 16px",
-            padding: 24,
+            // padding: { xs: 0, md: 24 },
             minHeight: 280,
           }}
+          brea
         >
           <Body index={indexTab} />
         </Content>

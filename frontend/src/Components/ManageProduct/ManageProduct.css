@@ -19,3 +19,9 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
+
+@media (max-width: 600px) {
+  .site-layout {
+    /* background-color: black; */
+  }
+}

@@ -71,7 +71,6 @@ const Navbar = () => {
       position="static"
       sx={{
         bgcolor: "white",
-        boxShadow: "none",
         fontSize: "17px",
         // border: "solid black 1px",
         padding: { xs: "0", md: "0 10px" },

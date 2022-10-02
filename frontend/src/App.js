@@ -47,7 +47,7 @@ let user = {
 const App = () => {
   return (
     <ThemeProvider theme={customTheme}>
-      {/* <ProductDetail product={product} user={user}/> */}
+      {/* <ProductDetail product={product} user={user} /> */}
       {/* <Home /> */}
       {/* <Login/> */}
       <ManageProducts />

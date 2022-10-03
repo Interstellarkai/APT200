@@ -4,7 +4,8 @@ const User = require("../models/user")
 const mongoose = require("mongoose")
 
 //start of user
-
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 // get all users
 const getAllUsers = async (request, response) => {
 	const users = await User.find({}).populate("products");
@@ -72,8 +73,8 @@ const createUser = async (request, response) => {
 	
 }
 
-//
-const updateUser = async (request, response) => {
+// update - todo: add auth.
+const updateName = async (request, response) => {
 	const {id} = request.params
 	
 	if(!mongoose.Types.ObjectId.isValid(id)) {
@@ -86,24 +87,9 @@ const updateUser = async (request, response) => {
 	})
 	*/
 	
-	/*
-	IMPT: ONLY UPDATES EITHER NAME OR PASSWORD.
-	*/
-	const { name, password } = request.body;
+	const {name} = request.body;
 	if (name) {
 		User.findByIdAndUpdate(request.params.id, { name: name }, { new: true })
-			.then((updatedUser) => {
-				return response.json(updatedUser);
-			})
-			.catch((error) => next(error));
-	} else {
-		const saltRounds = 10;
-		const passwordHash = await bcrypt.hash(password, saltRounds);
-		User.findByIdAndUpdate(
-			request.params.id,
-			{ passwordHash: passwordHash },
-			{ new: true }
-		)
 			.then((updatedUser) => {
 				return response.json(updatedUser);
 			})
@@ -117,6 +103,89 @@ const updateUser = async (request, response) => {
 	}
 	*/
 }
+
+const updatePass = async (request, response) => {
+	const {id} = request.params
+	
+	if(!mongoose.Types.ObjectId.isValid(id)) {
+		return response.status(404).json({error: "No such Id"})
+	}
+	
+	const { password } = request.body;
+	if (password) {
+		const saltRounds = 10;
+		const passwordHash = await bcrypt.hash(password, saltRounds);
+		User.findByIdAndUpdate(
+			request.params.id,
+			{ passwordHash: passwordHash },
+			{ new: true }
+		)
+			.then((updatedUser) => {
+				return response.status(200).json(updatedUser);
+			})
+			.catch((error) => next(error));
+	}
+	/*
+	if (!user) {
+		return response.status(404).json({error: "Id not found"})
+	}else{
+		response.status(200).json(user)
+	}
+	*/
+}
+
+// login
+const login = async (req, res, next) =>{
+	/*
+	const username = req.body.username
+	const user = {name: username}
+	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+	res.json({accessToken: accessToken})
+	*/
+	const username = req.body.username
+	const password = req.body.password
+	console.log(req.body)
+	const user = await User.findOne({'username': username})
+	if (user==null){
+		return res.status(400).send("Username does not exist")		
+	}
+	try{
+		if(await bcrypt.compare(password, user.passwordHash)){
+			//res.send('Success')
+			console.log("Success");
+			const user = {name: username}
+			const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+			res.json({accessToken: accessToken})
+			//res.json(user);
+		} else {
+			res.send('Password does not match.')
+		}
+	} catch{
+		res.status(500).send()
+	}
+}
+
+
+
+function authenticateToken(req, res, next){
+	const authHeader = req.headers['authorisation']
+	//2nd param
+	const token = authHeader && authHeader.split(' ')[1]
+	if(token == null) return res.sendStatus(401)
+	//no token sent
+
+	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
+		if (err) return res.sendStatus(403)
+		//token not valid
+		
+		req.user = user
+		next()
+		
+	})
+	
+	
+}
+
 
 // end of user
 
@@ -151,9 +220,11 @@ const getProduct = async (request, response) => {
 //create new product
 const createProduct = async (request, response, next) => {
 	const {name, price, userId, img} = request.body
+	
 	if(!mongoose.Types.ObjectId.isValid(userId)) {
 		return response.status(404).json({error: "No such Id"})
 	}
+	
 	const user = await User.findById(userId)
 	if(!user){
 		return response.status(404).json({error: "Id not found"})
@@ -170,7 +241,7 @@ const createProduct = async (request, response, next) => {
 	user.products = user.products.concat(savedProduct._id)
 	await user.save()
 	
-	response.status(200).jason(savedProduct)
+	response.status(200).json(savedProduct)
 }
 
 //delete product by id
@@ -208,7 +279,7 @@ const updateProduct = async (request, response, next) => {
 
 
 //start of images
-const Image = require('../models/image')
+//const Image = require('../models/image')
 /*
 const fs = require('fs')
 const multer = require('multer')
@@ -306,7 +377,9 @@ module.exports = {
 	getUser,
 	createUser,
 	deleteUser,
-	updateUser,
+	updateName,
+	updatePass,
+	login,
 	
 	getAllProducts,
 	getProduct,

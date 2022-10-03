@@ -6,14 +6,17 @@ const {
 	getUser,
 	getAllUsers,
 	deleteUser,
-	updateUser,
+	updateName,
+	updatePass,
+	login,
 	
 } = require("../controllers/crudController")
 
 //for auth
+/*
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-
+*/
 usersRouter.get("/", getAllUsers)
 /*
 usersRouter.get("/", async (request, response) => {
@@ -70,7 +73,7 @@ usersRouter.delete("/:id", async (request, response, next) => {
 });
 */
 
-usersRouter.put("/:id", updateUser)
+usersRouter.put("/name/:id", updateName)
 /*
 usersRouter.put("/:id", async (request, response, next) => {
 	const { name, password } = request.body;
@@ -95,17 +98,21 @@ usersRouter.put("/:id", async (request, response, next) => {
 	}
 });
 */
+usersRouter.put("/pass/:id", updatePass)
 
 //for auth.
 //batmens12345
 //qwerty
+
+usersRouter.post("/login", login)
+/*
 usersRouter.post("/login", async (req, res, next) => {
-	/*
-	const username = req.body.username
-	const user = {name: username}
-	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-	res.json({accessToken: accessToken})
-	*/
+	
+	//const username = req.body.username
+	//const user = {name: username}
+	//const accessToken = jwt.sign(user, //process.env.ACCESS_TOKEN_SECRET)
+	//res.json({accessToken: accessToken})
+	
 	const username = req.body.username
 	const password = req.body.password
 	console.log(req.body)
@@ -128,11 +135,16 @@ usersRouter.post("/login", async (req, res, next) => {
 		res.status(500).send()
 	}
 });
+*/
 
+//userRouter.get("/getUserProds", getUserProds)
+
+/*
 usersRouter.get("/products", authenticateToken, (req,res) => {
 	
 })
-
+*/
+/*
 function authenticateToken(req, res, next){
 	const authHeader = req.headers['authorisation']
 	//2nd param
@@ -148,8 +160,6 @@ function authenticateToken(req, res, next){
 		next()
 		
 	})
-	
-	
 }
-
+*/
 module.exports = usersRouter;

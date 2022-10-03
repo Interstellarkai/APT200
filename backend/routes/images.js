@@ -8,7 +8,7 @@ const {
 } = require("../controllers/crudController")
 
 //for Image
-/*
+
 const Image = require('../models/image')
 const fs = require('fs')
 const multer = require('multer')
@@ -23,7 +23,7 @@ const Storage = multer.diskStorage({
 
 const upload = multer({storage:Storage})
 //end
-*/
+
 
 imagesRouter.get('/', getAllImages)
 /*

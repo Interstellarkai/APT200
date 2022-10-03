@@ -1,4 +1,3 @@
-// import "./App.css";
 import "antd/dist/antd.min.css";
 
 import Products from "./Components/Products";

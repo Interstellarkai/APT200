@@ -1,6 +1,3 @@
-import "antd/dist/antd.css";
-import "./ManageProduct.css";
-
 import { Menu } from "antd";
 
 const Sidebar = ({ items, indexHandler, selectedKey }) => {

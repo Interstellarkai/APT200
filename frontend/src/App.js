@@ -1,3 +1,6 @@
+// import "./App.css";
+import "antd/dist/antd.min.css";
+
 import Products from "./Components/Products";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";

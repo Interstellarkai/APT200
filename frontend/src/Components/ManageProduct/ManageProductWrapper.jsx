@@ -9,8 +9,10 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 
+import "./ManageProduct.css";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { createElement } from "react";
+import { Container } from "@mui/system";
 const { Header, Sider, Content } = Layout;
 
 const ManageProductWrapper = () => {
@@ -34,12 +36,14 @@ const ManageProductWrapper = () => {
   };
 
   return (
-    <Layout style={{ maxHeight: "85%", overflow: "hidden" }}>
+    <Layout
+      style={{ position: "relative", maxHeight: "85%", overflow: "hidden" }}
+    >
       <Sider
+        className="sidebar"
         trigger={null}
         collapsible
         collapsed={collapsed}
-        style={{ height: "100vh", display: { xs: "none" } }}
         breakpoint={"xs"}
         onBreakpoint={(broken) => {
           setBroken(broken);
@@ -52,7 +56,12 @@ const ManageProductWrapper = () => {
           selectedKey={indexTab}
         />
       </Sider>
-      <Layout className="site-layout">
+      <Layout
+        className="site-layout"
+        onClick={() => {
+          if (collapsed === false) setCollapsed(true);
+        }}
+      >
         <Header
           className="site-layout-background"
           style={{
@@ -68,10 +77,9 @@ const ManageProductWrapper = () => {
           className="site-layout-background"
           style={{
             margin: "24px 16px",
-            // padding: { xs: 0, md: 24 },
+            padding: 24,
             minHeight: 280,
           }}
-          brea
         >
           <Body index={indexTab} />
         </Content>

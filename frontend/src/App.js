@@ -10,7 +10,9 @@ import colors from "./Components/colors";
 
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
-import LocationGetter from "./Components/ManageProduct/Input/LocationGetter";
+import LocationGetter from "./Components/ManageProduct/MapComponents/LocationGetter";
+import GoogleMap from "./Components/ManageProduct/MapComponents/GoogleMap";
+import MapWrapper from "./Components/ManageProduct/MapComponents/MapWrapper";
 
 let customTheme = createTheme({
   palette: {
@@ -53,8 +55,9 @@ const App = () => {
       {/* <ProductDetail product={product} user={user} /> */}
       {/* <Home /> */}
       {/* <Login/> */}
-      {/* <ManageProducts /> */}
-      <LocationGetter />
+      <ManageProducts />
+      {/* <MapWrapper /> */}
+      {/* <GoogleMap /> */}
     </ThemeProvider>
   );
 };

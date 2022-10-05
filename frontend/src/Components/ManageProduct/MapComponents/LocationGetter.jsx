@@ -1,6 +1,7 @@
 // Get current user location
 import { Button } from "antd";
 import React from "react";
+import { GOOGLE_API_URL } from "../../../base";
 
 const LocationGetter = ({ passbackFunc }) => {
   // If browser supports navigator.geolocation, generate Lat/Long else let user know there is an error
@@ -42,7 +43,7 @@ const LocationGetter = ({ passbackFunc }) => {
   // Converting lat/long from browser geolocation into city, state, and zip code using Google Geocoding API
   const getAddress = (lat, long) => {
     fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${GOOGLE_API_URL}`
     )
       .then((res) => res.json())
       .then((address) => {

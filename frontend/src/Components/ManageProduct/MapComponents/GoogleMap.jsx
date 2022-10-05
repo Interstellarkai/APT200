@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "./Map.css";
+import { GOOGLE_API_URL } from "../../../base";
 
 const GoogleMap = ({ location }) => {
   const MyCustomMarker = () => (
@@ -26,7 +27,7 @@ const GoogleMap = ({ location }) => {
       //   style={{ height: "200px", width: "400px" }}
     >
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "" }} // My Google API is stored in the .env file in front-end
+        bootstrapURLKeys={{ key: GOOGLE_API_URL }} // My Google API is stored in the .env file in front-end
         // defaultCenter={defaultCenter}
         center={loc}
         defaultZoom={17}

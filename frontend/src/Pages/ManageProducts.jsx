@@ -15,7 +15,7 @@ const ManageProducts = () => {
       border="solid black 1px"
       sx={{
         height: "100vh",
-        overflow: { xs: "auto", md: "hidden" },
+        overflow: { xs: "auto", md: "auto" },
       }}
     >
       <Navbar />

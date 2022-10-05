@@ -36,9 +36,7 @@ const ManageProductWrapper = () => {
   };
 
   return (
-    <Layout
-      style={{ position: "relative", maxHeight: "85%", overflow: "hidden" }}
-    >
+    <Layout style={{ position: "relative", overflow: "auto" }}>
       <Sider
         className="sidebar"
         trigger={null}

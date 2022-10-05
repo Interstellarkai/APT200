@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
 const User = require("../models/user");
+const {auth} = require("../utils/requireAuth")
+
 const {
 	createUser,
 	getUser,
@@ -17,7 +19,7 @@ const {
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 */
-usersRouter.get("/", getAllUsers)
+usersRouter.get("/", auth, getAllUsers)
 /*
 usersRouter.get("/", async (request, response) => {
 	const users = await User.find({}).populate("products");
@@ -25,9 +27,9 @@ usersRouter.get("/", async (request, response) => {
 });
 */
 
-usersRouter.get("/:id", getUser)
-/*
-usersRouter.get("/:id", async (request, response) => {
+usersRouter.get("/:id", auth, getUser)
+
+/* usersRouter.get("/:id", auth, async (request, response) => {
 	const user = await User.findById(request.params.id);
 	if (user) {
 		response.json(user);
@@ -35,7 +37,7 @@ usersRouter.get("/:id", async (request, response) => {
 		response.status(404).end();
 	}
 });
-*/
+ */
 
 usersRouter.post("/", createUser)
 /*
@@ -65,7 +67,7 @@ usersRouter.post("/", async (request, response) => {
 });
 */
 
-usersRouter.delete("/:id", deleteUser)
+usersRouter.delete("/:id", auth, deleteUser)
 /*
 usersRouter.delete("/:id", async (request, response, next) => {
 	await User.findByIdAndRemove(request.params.id);
@@ -73,7 +75,7 @@ usersRouter.delete("/:id", async (request, response, next) => {
 });
 */
 
-usersRouter.put("/name/:id", updateName)
+usersRouter.put("/name/:id", auth, updateName)
 /*
 usersRouter.put("/:id", async (request, response, next) => {
 	const { name, password } = request.body;
@@ -98,7 +100,7 @@ usersRouter.put("/:id", async (request, response, next) => {
 	}
 });
 */
-usersRouter.put("/pass/:id", updatePass)
+usersRouter.put("/pass/:id", auth, updatePass)
 
 //for auth.
 //batmens12345

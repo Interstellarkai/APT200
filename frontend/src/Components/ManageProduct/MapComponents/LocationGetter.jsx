@@ -42,7 +42,7 @@ const LocationGetter = ({ passbackFunc }) => {
   // Converting lat/long from browser geolocation into city, state, and zip code using Google Geocoding API
   const getAddress = (lat, long) => {
     fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyCepP_6QsfqpF4SLCAeXXCQ93wq2YN-Dzc`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=`
     )
       .then((res) => res.json())
       .then((address) => {

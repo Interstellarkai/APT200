@@ -26,7 +26,7 @@ const GoogleMap = ({ location }) => {
       //   style={{ height: "200px", width: "400px" }}
     >
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyCepP_6QsfqpF4SLCAeXXCQ93wq2YN-Dzc" }} // My Google API is stored in the .env file in front-end
+        bootstrapURLKeys={{ key: "" }} // My Google API is stored in the .env file in front-end
         // defaultCenter={defaultCenter}
         center={loc}
         defaultZoom={17}

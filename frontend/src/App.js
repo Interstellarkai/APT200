@@ -10,6 +10,7 @@ import colors from "./Components/colors";
 
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
+import LocationGetter from "./Components/ManageProduct/Input/LocationGetter";
 
 let customTheme = createTheme({
   palette: {
@@ -52,7 +53,8 @@ const App = () => {
       {/* <ProductDetail product={product} user={user} /> */}
       {/* <Home /> */}
       {/* <Login/> */}
-      <ManageProducts />
+      {/* <ManageProducts /> */}
+      <LocationGetter />
     </ThemeProvider>
   );
 };

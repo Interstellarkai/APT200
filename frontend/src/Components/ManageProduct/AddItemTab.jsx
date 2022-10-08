@@ -112,9 +112,13 @@ const AddItemTab = () => {
         </Row>
         <Row>
           <Col xs={24} lg={spans.colSpan}>
-            <Form.Item label="Price" name="price" rules={ruleSet.price}>
+            <Form.Item
+              label="Price"
+              name="price"
+              rules={ruleSet.price}
+              initialValue={10}
+            >
               <InputNumber
-                defaultValue={10}
                 status={null}
                 prefix="$   "
                 min={0}

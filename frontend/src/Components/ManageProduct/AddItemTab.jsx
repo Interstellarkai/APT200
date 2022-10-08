@@ -114,7 +114,9 @@ const AddItemTab = () => {
             flexDirection: "column",
           }}
         >
-          <MapWrapper location={location} />
+          <Form.Item label="Location of sale">
+            <MapWrapper location={location} />
+          </Form.Item>
         </Row>
         <Row
           style={{
@@ -126,7 +128,7 @@ const AddItemTab = () => {
           <LocationGetter passbackFunc={getLocation} />
         </Row>
         <Form.Item label="Description">
-          <TextArea showCount allowClear maxLength={100}></TextArea>
+          <TextArea showCount allowClear maxLength={250}></TextArea>
         </Form.Item>
         <Form.Item label="Add Images">
           <ImageUpload />

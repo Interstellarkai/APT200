@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Modal, Upload } from "antd";
+import { message, Modal, Upload } from "antd";
 import React, { useState } from "react";
 
 const getBase64 = (file) =>
@@ -11,6 +11,22 @@ const getBase64 = (file) =>
 
     reader.onerror = (error) => reject(error);
   });
+
+const beforeUpload = (file) => {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  console.log(isJpgOrPng);
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+
+  const isLt2M = file.size / 1024 / 1024 < 2;
+
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+
+  return isJpgOrPng && isLt2M;
+};
 
 const ImageUpload = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -25,18 +41,6 @@ const ImageUpload = () => {
     },
     {
       uid: "-2",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-3",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-4",
       name: "image.png",
       status: "done",
       url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
@@ -69,7 +73,13 @@ const ImageUpload = () => {
     );
   };
 
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+  const handleChange = ({ file: file, fileList: newFileList }) => {
+    console.log(file.status);
+    if (file.status !== undefined) {
+      console.log("here");
+      setFileList(newFileList);
+    }
+  };
 
   const uploadButton = (
     <div>
@@ -91,8 +101,9 @@ const ImageUpload = () => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        beforeUpload={beforeUpload}
       >
-        {fileList.length >= 8 ? null : uploadButton}
+        {fileList.length >= 5 ? null : uploadButton}
       </Upload>
       <Modal
         open={previewOpen}

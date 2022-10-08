@@ -29,6 +29,9 @@
 }
 
 @media (max-width: 600px) {
+  .ant-form-item-label label {
+    font-size: 14px;
+  }
   .sidebar {
     /* position: absolute; */
   }

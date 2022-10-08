@@ -14,13 +14,11 @@ const GoogleMap = ({ location }) => {
   const [loc, setLoc] = useState([1.3483, 103.6831]);
 
   useEffect(() => {
-    console.log("In USEEFFECT");
     if (location !== null) {
       setLoc([location.lat, location.lng]);
     }
-    console.log(loc);
+    // console.log(loc);
   }, [location]);
-  console.log(loc);
   return (
     <div
       className="user-map custom-map"

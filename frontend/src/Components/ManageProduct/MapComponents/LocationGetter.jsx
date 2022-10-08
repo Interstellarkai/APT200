@@ -57,9 +57,9 @@ const LocationGetter = ({ passbackFunc }) => {
     // no state for sg
     // let state = address.results[5].address_components[4];
     let postal = address.results[0].address_components[6].long_name;
-    console.log("CITY: ", city);
-    console.log("postal: ", postal);
-    console.log("addr: ", address);
+    // console.log("CITY: ", city);
+    // console.log("postal: ", postal);
+    // console.log("addr: ", address);
     passbackFunc({ city: city, postal: postal, lat: lat, lng: long });
   };
   const handleClick = () => {

@@ -82,7 +82,7 @@ const AddItemTab = () => {
   };
 
   useEffect(() => {
-    console.log(location);
+    console.log("In AddItemTab, location updated: ", location);
   }, [location]);
 
   return (

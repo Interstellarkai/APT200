@@ -169,11 +169,13 @@ const AddItemTab = () => {
         <Form.Item label="Add Images">
           <ImageUpload />
         </Form.Item>
-        <Form.Item label=" " colon={false}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
+        <Row style={{ display: "flex", justifyContent: "right" }}>
+          <Form.Item label=" " colon={false}>
+            <Button type="primary" htmlType="submit">
+              Add item
+            </Button>
+          </Form.Item>
+        </Row>
       </Form>
     </div>
   );

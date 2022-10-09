@@ -6,6 +6,7 @@ import Login from "./Pages/Login";
 import Advertisement from "./Components/Advertisement";
 import ProductDetail from "./Components/ProductDetail";
 import ManageProducts from "./Pages/ManageProducts";
+import Catalogue from "./Pages/Catalogue";
 import colors from "./Components/colors";
 
 import PAGES from "./pageRoute";
@@ -72,6 +73,7 @@ const App = () => {
             path={PAGES.manageProductsPage}
             element={<ManageProducts />}
           ></Route>
+          <Route exact path={PAGES.catalouge} element={<Catalogue />}></Route>
           {/* <MapWrapper /> */}
           {/* <GoogleMap /> */}
         </Routes>

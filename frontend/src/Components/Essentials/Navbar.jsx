@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -20,6 +21,7 @@ import MerchantDiceLogoName from "../../Assets/logo-with-name.svg";
 import RegisterPopup from "../RegisterPopup";
 import { useDispatch } from "react-redux";
 import { toggleLoggedIn } from "../../Redux/userSlice";
+import PAGES from "../../pageRoute";
 
 const pages = ["Women", "Men", "Shirts", "Pants", "Shoes"];
 const mobilePages = [
@@ -50,6 +52,7 @@ const Navbar = () => {
   // Redux
   const curUser = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -77,6 +80,15 @@ const Navbar = () => {
   const handleRegisterClose = (value) => {
     setRegisterOpen(false);
     setSelectedValue(value);
+  };
+
+  // route upon click
+  const handleGoHome = () => {
+    navigate(PAGES.homePage);
+  };
+
+  const handleGoLogin = () => {
+    navigate(PAGES.loginPage);
   };
 
   return (
@@ -109,6 +121,7 @@ const Navbar = () => {
               // bgcolor: "red",
             }}
             alt="Logo"
+            onClick={handleGoHome}
           />
           <Box
             sx={{
@@ -248,6 +261,7 @@ const Navbar = () => {
               <Button
                 className="MuiButton-root"
                 sx={{ color: "inherit", fontSize: "inherit" }}
+                onClick={handleGoLogin}
               >
                 Sign in
               </Button>

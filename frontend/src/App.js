@@ -63,17 +63,6 @@ const App = () => {
   return (
     <ThemeProvider theme={customTheme}>
       <Router>
-        <ul className="App-header">
-          <li>
-            <Link to={PAGES.homePage}>Home</Link>
-          </li>
-          <li>
-            <Link to={PAGES.loginPage}>Login</Link>
-          </li>
-          <li>
-            <Link to={PAGES.manageProductsPage}>Manage Product</Link>
-          </li>
-        </ul>
         <Routes>
           {/* <ProductDetail product={product} user={user} /> */}
           <Route exact path={PAGES.homePage} element={<Home />}></Route>

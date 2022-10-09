@@ -11,6 +11,10 @@ import GoogleMap from "./MapComponents/GoogleMap";
 
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { saveAddedItem } from "../../Redux/userSlice";
+
 const catOptions = [
   {
     value: "shirt",
@@ -67,24 +71,37 @@ const ruleSet = {
 };
 
 const AddItemTab = () => {
-  let spans = {
+  const spans = {
     colSpan: 10,
   };
 
-  const [location, setLocation] = useState(null);
+  // Redux
+  const curUser = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+
+  const [location, setLocation] = useState(curUser.savedItem.location);
+  const [save, setSave] = useState(false);
   const getLocation = (obj) => {
     setLocation(obj);
   };
 
   const onFinish = (values) => {
     values.location = location;
-    console.log("Values of form: ", values);
+    // console.log("Values of form: ", values);
+    if (save) {
+      console.log("saving config...");
+      console.log("Values: ", values);
+      dispatch(saveAddedItem(values));
+      setSave(false);
+    } else {
+      console.log("Adding new item...");
+    }
   };
 
   useEffect(() => {
     console.log("In AddItemTab, location updated: ", location);
   }, [location]);
-
+  console.log("Current user: ", curUser);
   return (
     <div>
       <Header title="Add Item" level={2} />
@@ -95,6 +112,7 @@ const AddItemTab = () => {
               label="Product Name"
               name="productName"
               rules={ruleSet.productName}
+              initialValue={curUser.savedItem.productName}
             >
               <Input maxLength={30} showCount allowClear />
             </Form.Item>
@@ -105,6 +123,7 @@ const AddItemTab = () => {
               label="Category"
               name="category"
               rules={ruleSet.category}
+              initialValue={curUser.savedItem.category}
             >
               <Cascader options={catOptions} placement="bottomRight" multiple />
             </Form.Item>
@@ -116,7 +135,9 @@ const AddItemTab = () => {
               label="Price"
               name="price"
               rules={ruleSet.price}
-              initialValue={10}
+              initialValue={
+                !curUser.savedItem.price ? 10 : curUser.savedItem.price
+              }
             >
               <InputNumber
                 status={null}
@@ -130,7 +151,12 @@ const AddItemTab = () => {
           </Col>
           <Col span={24 - spans.colSpan * 2} />
           <Col xs={24} lg={spans.colSpan}>
-            <Form.Item label="Status" name="status" rules={ruleSet.status}>
+            <Form.Item
+              label="Status"
+              name="status"
+              rules={ruleSet.status}
+              initialValue={curUser.savedItem.status}
+            >
               <Cascader options={statusOptions} placement="bottomRight" />
             </Form.Item>
           </Col>
@@ -151,7 +177,7 @@ const AddItemTab = () => {
               disabled
               value={location === null ? "Not specified" : location.city}
             />
-            <MapWrapper location={location} />
+            <MapWrapper location={curUser.savedItem.location || location} />
           </Form.Item>
         </Row>
         <Row
@@ -167,6 +193,7 @@ const AddItemTab = () => {
           label="Description"
           name="description"
           rules={ruleSet.description}
+          initialValue={curUser.savedItem.description}
         >
           <TextArea showCount allowClear maxLength={250}></TextArea>
         </Form.Item>
@@ -175,7 +202,18 @@ const AddItemTab = () => {
         </Form.Item>
         <Row style={{ display: "flex", justifyContent: "right" }}>
           <Form.Item label=" " colon={false}>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="ghost"
+              htmlType="submit"
+              onClick={() => setSave(true)}
+            >
+              Save item
+            </Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ marginLeft: "10px" }}
+            >
               Add item
             </Button>
           </Form.Item>

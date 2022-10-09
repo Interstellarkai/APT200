@@ -44,12 +44,17 @@ const Footer = () => {
           title="Socials"
           value={[
             <Box
+              name="meta"
               component="img"
               sx={{ height: "inherit", objectFit: "contain" }}
               src={require("../../Assets/meta-icon.png")}
             />,
-            <Twitter sx={{ color: theme.palette.primary.main }} />,
+            <Twitter
+              name="twitter"
+              sx={{ color: theme.palette.primary.main }}
+            />,
             <Box
+              name="instagram"
               component="img"
               sx={{ height: "inherit", objectFit: "contain" }}
               src={require("../../Assets/instagram-icon.png")}

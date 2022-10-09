@@ -25,7 +25,7 @@ export const userSlice = createSlice({
     },
 
     saveAddedItem: (state, data) => {
-      console.log("Printing payload: ", data.payload);
+      // console.log("Printing payload: ", data.payload);
       state.value.savedItem = data.payload;
     },
   },

@@ -90,9 +90,10 @@ const AddItemTab = () => {
     // console.log("Values of form: ", values);
     if (save) {
       console.log("saving config...");
-      console.log("Values: ", values);
+      // console.log("Values: ", values);
       dispatch(saveAddedItem(values));
       setSave(false);
+      return;
     } else {
       console.log("Adding new item...");
     }
@@ -101,7 +102,7 @@ const AddItemTab = () => {
   useEffect(() => {
     console.log("In AddItemTab, location updated: ", location);
   }, [location]);
-  console.log("Current user: ", curUser);
+  // console.log("Current user: ", curUser);
   return (
     <div>
       <Header title="Add Item" level={2} />

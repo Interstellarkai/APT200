@@ -29,6 +29,7 @@ const productSchema = new mongoose.Schema({
   ]
 })
 
+
 productSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()

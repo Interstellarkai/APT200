@@ -16,7 +16,6 @@ const createToken = (_id) =>{
 //end of auth
 
 
-
 //start of user
 
 // get all users

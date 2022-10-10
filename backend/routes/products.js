@@ -43,6 +43,7 @@ productsRouter.get('/', async (request, response) => {
 */
 
 productsRouter.get('/filtered', getProductFiltered)
+// min/max price must be set to 0 and max val, condition and category can be null.
 
 productsRouter.get('/:id', getProduct)
 

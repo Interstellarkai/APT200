@@ -58,7 +58,7 @@ const App = () => {
       {/* <Home /> */}
       {/* {<Login />} */}
       <ManageProducts />
-      <Products products={tmpProducts.products} />
+      {/* <Products products={tmpProducts.products} /> */}
     </ThemeProvider>
   );
 };

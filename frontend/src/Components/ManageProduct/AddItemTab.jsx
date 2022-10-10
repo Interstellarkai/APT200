@@ -78,9 +78,9 @@ const AddItemTab = () => {
 
   // Redux
   const curUser = useSelector((state) => state.user.value);
-  const tmpProductList = useSelector((state) => state.tmpProducts.value);
   const dispatch = useDispatch();
 
+  const [loadings, setLoadings] = useState([]);
   const [location, setLocation] = useState(curUser.savedItem.location);
   const [save, setSave] = useState(false);
   const getLocation = (obj) => {
@@ -90,22 +90,53 @@ const AddItemTab = () => {
   const onFinish = (values) => {
     values.location = location;
     // console.log("Values of form: ", values);
+    let index = 0;
+
     if (save) {
       console.log("saving config...");
-      // console.log("Values: ", values);
       dispatch(saveAddedItem(values));
       setSave(false);
-      return;
     } else {
+      index = 1;
       console.log("Adding new item...");
       dispatch(addProduct({ ...values, username: curUser.username }));
     }
+
+    // Temporary logic. Should be used with API response.
+
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+    setTimeout(() => {
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[index] = false;
+        return newLoadings;
+      });
+    }, 3000);
+  };
+
+  const enterLoading = (index) => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+    setTimeout(() => {
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[index] = false;
+        return newLoadings;
+      });
+    }, 6000);
   };
 
   useEffect(() => {
     console.log("In AddItemTab, location updated: ", location);
   }, [location]);
-  // console.log("Current user: ", curUser);
+
   return (
     <div>
       <Header title="Add Item" level={2} />
@@ -210,6 +241,7 @@ const AddItemTab = () => {
               type="ghost"
               htmlType="submit"
               onClick={() => setSave(true)}
+              loading={loadings[0]}
             >
               Save item
             </Button>
@@ -217,6 +249,7 @@ const AddItemTab = () => {
               type="primary"
               htmlType="submit"
               style={{ marginLeft: "10px" }}
+              loading={loadings[1]}
             >
               Add item
             </Button>

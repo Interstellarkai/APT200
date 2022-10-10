@@ -309,7 +309,7 @@ const upload = multer({storage:Storage})
 
 //get all images
 const getAllImages = async (request, response) => {
-	const allImages = await Image.Find()
+	const allImages = await Image.find()
 	response.status(200).json(allImages)
 }
 

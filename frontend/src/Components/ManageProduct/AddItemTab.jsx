@@ -11,9 +11,11 @@ import GoogleMap from "./MapComponents/GoogleMap";
 
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { saveAddedItem } from "../../Redux/userSlice";
+
+// Redux
+// import { useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { addToItems, saveAddedItem } from "../../Redux/userSlice";
 import { addProduct } from "../../Redux/tmpProductSlice";
 
 const catOptions = [
@@ -71,17 +73,15 @@ const ruleSet = {
   description: [{ required: true, message: "Please input a description" }],
 };
 
-const AddItemTab = () => {
+const AddItemTab = ({ dispatch, curUser }) => {
   const spans = {
     colSpan: 10,
   };
 
-  // Redux
-  const curUser = useSelector((state) => state.user.value);
-  const dispatch = useDispatch();
+  const user = curUser.user;
 
   const [loadings, setLoadings] = useState([]);
-  const [location, setLocation] = useState(curUser.savedItem.location);
+  const [location, setLocation] = useState(user.savedItem.location);
   const [save, setSave] = useState(false);
   const getLocation = (obj) => {
     setLocation(obj);
@@ -94,12 +94,14 @@ const AddItemTab = () => {
 
     if (save) {
       console.log("saving config...");
-      dispatch(saveAddedItem(values));
+      dispatch(curUser.methods.saveAddedItem(values));
       setSave(false);
     } else {
       index = 1;
       console.log("Adding new item...");
-      dispatch(addProduct({ ...values, username: curUser.username }));
+      let newItem = { ...values, username: user.username };
+      dispatch(curUser.methods.addToItems(newItem));
+      dispatch(addProduct(newItem));
     }
 
     // Temporary logic. Should be used with API response.
@@ -118,21 +120,6 @@ const AddItemTab = () => {
     }, 3000);
   };
 
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        return newLoadings;
-      });
-    }, 6000);
-  };
-
   useEffect(() => {
     console.log("In AddItemTab, location updated: ", location);
   }, [location]);
@@ -147,7 +134,7 @@ const AddItemTab = () => {
               label="Product Name"
               name="productName"
               rules={ruleSet.productName}
-              initialValue={curUser.savedItem.productName}
+              initialValue={user.savedItem.productName}
             >
               <Input maxLength={30} showCount allowClear />
             </Form.Item>
@@ -158,7 +145,7 @@ const AddItemTab = () => {
               label="Category"
               name="category"
               rules={ruleSet.category}
-              initialValue={curUser.savedItem.category}
+              initialValue={user.savedItem.category}
             >
               <Cascader options={catOptions} placement="bottomRight" multiple />
             </Form.Item>
@@ -170,9 +157,7 @@ const AddItemTab = () => {
               label="Price"
               name="price"
               rules={ruleSet.price}
-              initialValue={
-                !curUser.savedItem.price ? 10 : curUser.savedItem.price
-              }
+              initialValue={!user.savedItem.price ? 10 : user.savedItem.price}
             >
               <InputNumber
                 status={null}
@@ -190,7 +175,7 @@ const AddItemTab = () => {
               label="Status"
               name="status"
               rules={ruleSet.status}
-              initialValue={curUser.savedItem.status}
+              initialValue={user.savedItem.status}
             >
               <Cascader options={statusOptions} placement="bottomRight" />
             </Form.Item>
@@ -212,7 +197,7 @@ const AddItemTab = () => {
               disabled
               value={location === null ? "Not specified" : location.city}
             />
-            <MapWrapper location={curUser.savedItem.location || location} />
+            <MapWrapper location={user.savedItem.location || location} />
           </Form.Item>
         </Row>
         <Row
@@ -228,7 +213,7 @@ const AddItemTab = () => {
           label="Description"
           name="description"
           rules={ruleSet.description}
-          initialValue={curUser.savedItem.description}
+          initialValue={user.savedItem.description}
         >
           <TextArea showCount allowClear maxLength={250}></TextArea>
         </Form.Item>

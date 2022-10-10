@@ -5,6 +5,7 @@ const initialState = {
     username: "test",
     email: "test@gmail.com",
     isLoggedIn: true,
+    products: [],
     savedItem: {
       productName: "Test Product",
       category: [],
@@ -28,10 +29,13 @@ export const userSlice = createSlice({
       // console.log("Printing payload: ", data.payload);
       state.value.savedItem = data.payload;
     },
+    addToItems: (state, data) => {
+      state.value.products.push(data.payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleLoggedIn, saveAddedItem } = userSlice.actions;
+export const { toggleLoggedIn, saveAddedItem, addToItems } = userSlice.actions;
 
 export default userSlice.reducer;

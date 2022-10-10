@@ -2,11 +2,11 @@ import React from "react";
 import ProductTable from "./EditProductsComponents/ProductTable";
 import Header from "./Header";
 
-const EditItemTab = () => {
+const EditItemTab = ({ dispatch, curUser }) => {
   return (
     <div>
       <Header title="Edit Items" level={2} />
-      <ProductTable />
+      <ProductTable disptach={dispatch} curUser={curUser} />
     </div>
   );
 };

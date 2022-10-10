@@ -1,4 +1,4 @@
-import { Button, Cascader, Col, Form, InputNumber, Row } from "antd";
+import { Button, Cascader, Col, Form, InputNumber, Row, Space } from "antd";
 import React from "react";
 import Header from "./Header";
 import { FileImageOutlined } from "@ant-design/icons";
@@ -222,22 +222,19 @@ const AddItemTab = ({ dispatch, curUser }) => {
         </Form.Item>
         <Row style={{ display: "flex", justifyContent: "right" }}>
           <Form.Item label=" " colon={false}>
-            <Button
-              type="ghost"
-              htmlType="submit"
-              onClick={() => setSave(true)}
-              loading={loadings[0]}
-            >
-              Save item
-            </Button>
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{ marginLeft: "10px" }}
-              loading={loadings[1]}
-            >
-              Add item
-            </Button>
+            <Space>
+              <Button
+                type="ghost"
+                htmlType="submit"
+                onClick={() => setSave(true)}
+                loading={loadings[0]}
+              >
+                Save item
+              </Button>
+              <Button type="primary" htmlType="submit" loading={loadings[1]}>
+                Add item
+              </Button>
+            </Space>
           </Form.Item>
         </Row>
       </Form>

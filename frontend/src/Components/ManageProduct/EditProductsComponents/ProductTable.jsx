@@ -27,8 +27,7 @@ const ProductTable = ({ dispatch, curUser }) => {
               wearable: "gold",
             };
             return (
-              <Tag color={mapping[cat[0]]}>
-                {" "}
+              <Tag color={mapping[cat[0]]} key={cat[0]}>
                 {cat[0].charAt(0).toUpperCase() + cat[0].substr(1)}
               </Tag>
             );
@@ -62,7 +61,11 @@ const ProductTable = ({ dispatch, curUser }) => {
           // statusText = 'Brand New'
         }
 
-        return <Tag color={color}>{statusText}</Tag>;
+        return (
+          <Tag color={color} key={statusText}>
+            {statusText}
+          </Tag>
+        );
       },
     },
     {
@@ -106,7 +109,13 @@ const ProductTable = ({ dispatch, curUser }) => {
     },
   ];
 
-  console.log(curUser.user);
+  const handleEditClick = () => {
+    console.log("Edit...");
+  };
+
+  const handleDeleteClick = () => {
+    console.log("Delete...");
+  };
   return (
     <div>
       <Table columns={columns} dataSource={curUser.user.products} />

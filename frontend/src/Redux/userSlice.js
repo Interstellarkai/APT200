@@ -5,7 +5,27 @@ const initialState = {
     username: "test",
     email: "test@gmail.com",
     isLoggedIn: true,
-    products: [],
+    products: [
+      {
+        productName: "Adidas Shoes",
+        location: null,
+        price: 35,
+        status: ["brandNew"],
+        category: ["shoes"],
+        description:
+          "Recently bought pair of Adidas shoes from Malaysia, not used at all",
+        username: "test",
+      },
+      {
+        productName: "Unisex Uniqlo unique Shirt",
+        location: null,
+        price: 35,
+        status: ["averageCondition"],
+        category: ["men", "women"],
+        description: "Around 5 years old",
+        username: "test",
+      },
+    ],
     savedItem: {
       productName: "Test Product",
       category: [],

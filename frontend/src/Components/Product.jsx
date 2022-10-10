@@ -19,7 +19,11 @@ const Product = ({ product }) => {
           component="img"
           paddingTop="56.25%" // 16:9
           title={product.productName}
-          image={product.img}
+          image={
+            product.img
+              ? product.img
+              : require("../Assets/Item/placeholder.png")
+          }
           height="140"
           width="100%"
           objectFit="contain"

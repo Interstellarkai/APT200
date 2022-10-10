@@ -12,6 +12,7 @@ items.map((item) => {
 
 let messy_user_products = [
   {
+    key: "0",
     productName: "Adidas Shoes",
     location: null,
     price: 35,
@@ -22,6 +23,7 @@ let messy_user_products = [
     username: "test",
   },
   {
+    key: "1",
     productName: "Unisex Uniqlo unique Shirt",
     location: null,
     price: 35,
@@ -47,21 +49,30 @@ export const tmpProductSlice = createSlice({
     addProduct: (state, data) => {
       let newProduct = data.payload;
       state.value.products.push(newProduct);
-      console.log(state.value.products);
+      // console.log("tmpProductSlice: ", state.value.products);
     },
 
     deleteProduct: (state, data) => {
       let deleteProduct = data.payload;
       state.value.products = state.value.products.filter(
-        (product) =>
-          deleteProduct.productName !== product.productName ||
-          deleteProduct.username !== product.username
+        (product) => deleteProduct.key !== product.key
       );
+    },
+    editOneProduct: (state, data) => {
+      let tmpProducts = [...state.value.products];
+      let index = tmpProducts.findIndex((p) => p.key === data.payload.key);
+      tmpProducts.splice(index, 1, data.payload);
+      state.value.products = tmpProducts;
+    },
+
+    setValue: (state, data) => {
+      state.value = data.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addProduct, deleteProduct } = tmpProductSlice.actions;
+export const { addProduct, deleteProduct, editOneProduct, setValue } =
+  tmpProductSlice.actions;
 
 export default tmpProductSlice.reducer;

@@ -52,8 +52,18 @@ export const userSlice = createSlice({
       state.value.savedItem = data.payload;
     },
     addToItems: (state, data) => {
-      let size = state.value.products.length;
-      state.value.products.push({ ...data.payload, key: { size } });
+      state.value.products.push({
+        ...data.payload,
+        key: data.payload.productName,
+      });
+    },
+
+    editOneItem: (state, data) => {
+      let curItems = [...state.value.products];
+      let values = data.payload;
+      let index = curItems.findIndex((d) => values.key === d.key);
+      curItems.splice(index, 1, values);
+      state.value.products = curItems;
     },
 
     setValue: (state, data) => {
@@ -64,7 +74,12 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleLoggedIn, saveAddedItem, addToItems, setValue } =
-  userSlice.actions;
+export const {
+  toggleLoggedIn,
+  saveAddedItem,
+  addToItems,
+  setValue,
+  editOneItem,
+} = userSlice.actions;
 
 export default userSlice.reducer;

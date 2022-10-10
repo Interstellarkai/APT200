@@ -1,5 +1,5 @@
-import { Done, Google } from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
+import { Done, Google } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 import {
   Box,
   Button,
@@ -10,39 +10,49 @@ import {
   Paper,
   TextField,
   Typography,
-} from "@mui/material";
-import { Stack, width } from "@mui/system";
-import React from "react";
-import { useState } from "react";
-import Navbar from "../Components/Essentials/Navbar";
+} from '@mui/material';
+import { Stack, width } from '@mui/system';
+import React from 'react';
+import { useState } from 'react';
+import Navbar from '../Components/Essentials/Navbar';
+import loginService from '../Services/login';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [check, setCheck] = useState(false);
+  const [user, setUser] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
+    console.log('submit');
   };
 
-  const handleSubmitButtonClick = () => {
-    setLoading(true);
-    setTimeout(function () {
-      setLoading(false);
-      setSubmitted(true);
-    }, 3000);
+  const handleSubmitButtonClick = async (event) => {
+    event.preventDefault();
+    try {
+      const user = await loginService.login({
+        inputs,
+      });
+      setUser(user);
+      setInputs({
+        email: '',
+        password: '',
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleOnChange = (e) => {
     let val = e.target.value;
     let re =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if ((e.target.name === "email" && re.test(val)) || val === "") {
+    if ((e.target.name === 'email' && re.test(val)) || val === '') {
       setIsValidEmail(true);
     } else {
       setIsValidEmail(false);
@@ -65,8 +75,8 @@ const Login = () => {
       <Box
         position="absolute"
         component="img"
-        src={require("../Assets/login-background-image.png")}
-        sx={{ objectFit: "cover", width: "100vw" }}
+        src={require('../Assets/login-background-image.png')}
+        sx={{ objectFit: 'cover', width: '100vw' }}
         // border="1px solid"
         height="inherit"
       />
@@ -81,7 +91,7 @@ const Login = () => {
         >
           <Paper
             elevation={3}
-            sx={{ opacity: "0.95", padding: { xs: 2, md: 5 } }}
+            sx={{ opacity: '0.95', padding: { xs: 2, md: 5 } }}
           >
             <form onSubmit={handleSubmit}>
               <Stack justifyContent="center" alignItems="center">
@@ -100,18 +110,18 @@ const Login = () => {
                     label="Email"
                     name="email"
                     type="email"
-                    sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
+                    sx={{ my: 1, mx: 5, width: '100%', fontSize: '1em' }}
                     onChange={handleOnChange}
                     value={inputs.email}
                     error={!isValidEmail}
-                    helperText={!isValidEmail ? "Invalid Email" : ""}
+                    helperText={!isValidEmail ? 'Invalid Email' : ''}
                   />
 
                   <TextField
                     label="Password"
                     name="password"
                     type="password"
-                    sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
+                    sx={{ my: 1, mx: 5, width: '100%', fontSize: '1em' }}
                     onChange={handleOnChange}
                     value={inputs.password}
                   />
@@ -133,10 +143,10 @@ const Login = () => {
                     />
                     <Link
                       sx={{
-                        textDecoration: "none",
-                        cursor: "pointer",
-                        "&:hover": {
-                          textDecoration: "underline",
+                        textDecoration: 'none',
+                        cursor: 'pointer',
+                        '&:hover': {
+                          textDecoration: 'underline',
                         },
                       }}
                     >
@@ -152,9 +162,9 @@ const Login = () => {
                     loadingIndicator="Logging in..."
                     sx={{
                       // bgcolor: "white",
-                      boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.3)",
-                      width: "100%",
-                      color: "black",
+                      boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.3)',
+                      width: '100%',
+                      color: 'black',
                       my: 1,
                     }}
                   >
@@ -163,7 +173,7 @@ const Login = () => {
                   <Typography py={1}>OR</Typography>
                   <Button
                     variant="contained"
-                    sx={{ width: "100%" }}
+                    sx={{ width: '100%' }}
                     startIcon={<Google />}
                   >
                     {/* <img src={require("../Assets/google-icon.png")} /> */}
@@ -172,9 +182,14 @@ const Login = () => {
                   <Typography variant="subtitle2" sx={{ my: 3 }}>
                     Don't have an account? Create one now!
                   </Typography>
-                  <Button variant="contained" sx={{ width: "100%" }}>
+                  <Button variant="contained" sx={{ width: '100%' }}>
                     Create Account
                   </Button>
+                  {user === false ? (
+                    'Not Logged In'
+                  ) : (
+                    <div>Logged In, Welcome {user.name}</div>
+                  )}
                 </Box>
               </Stack>
             </form>

@@ -1,6 +1,8 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Modal, Upload } from "antd";
+import colors from "../../colors";
+import { FileImageTwoTone, setTwoToneColor } from "@ant-design/icons";
+import { message, Modal, Upload } from "antd";
 import React, { useState } from "react";
+import { useTheme } from "@mui/material/styles";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -12,48 +14,22 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
+const beforeUpload = (file) => {
+  const isLt2M = file.size / 1024 / 1024 < 2;
+
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+
+  return isLt2M;
+};
+
 const ImageUpload = () => {
+  setTwoToneColor(colors.mainBlue);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-2",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-3",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-4",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-xxx",
-      percent: 50,
-      name: "image.png",
-      status: "uploading",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-5",
-      name: "image.png",
-      status: "error",
-    },
-  ]);
+  const [fileList, setFileList] = useState([]);
 
   const handleCancel = () => setPreviewOpen(false);
 
@@ -69,31 +45,47 @@ const ImageUpload = () => {
     );
   };
 
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+  const handleChange = ({ file: file }) => {
+    // setFileList(newFileList);
+
+    if (file.status === "done") {
+      message.success(`${file.name} uploaded successfully!`);
+    } else if (file.status === "error") {
+      message.error(`${file.name} was not uploaded!`);
+    }
+  };
 
   const uploadButton = (
-    <div>
-      <PlusOutlined />
+    <div className="upload-drag-icon-container">
+      <FileImageTwoTone
+        className="upload-drag-icon"
+        style={{ fontSize: "20px" }}
+      />
       <div
         style={{
           marginTop: 8,
         }}
       >
-        Upload
+        Drag or click to upload image (max 5)
       </div>
     </div>
   );
   return (
     <>
-      <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      <Upload.Dragger
+        action="https://localhost:3000"
+        multiple
+        maxCount={5}
         listType="picture-card"
-        fileList={fileList}
+        accept=".png, .jpeg"
+        // fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        beforeUpload={beforeUpload}
       >
-        {fileList.length >= 8 ? null : uploadButton}
-      </Upload>
+        {uploadButton}
+      </Upload.Dragger>
+
       <Modal
         open={previewOpen}
         title={previewTitle}

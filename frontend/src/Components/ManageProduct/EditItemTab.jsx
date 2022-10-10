@@ -1,10 +1,12 @@
 import React from "react";
+import ProductTable from "./EditProductsComponents/ProductTable";
+import Header from "./Header";
 
-const EditItemTab = () => {
+const EditItemTab = ({ dispatch, curUser }) => {
   return (
     <div>
-      <div>EditItemTab</div>
-      <div></div>
+      <Header title="Edit Items" level={2} />
+      <ProductTable dispatch={dispatch} curUser={curUser} />
     </div>
   );
 };

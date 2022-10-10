@@ -1,0 +1,21 @@
+.map-wrapper {
+  margin: 20px 0;
+  width: inherit;
+  height: 400px;
+  /* background-color: red; */
+}
+
+.custom-map {
+  height: inherit;
+  width: inherit;
+  /* margin: 20px; */
+  /* min-height: 200px;
+  min-width: 400px; */
+}
+
+/* @media (max-width: 600px) {
+  .custom-map {
+    width: 300px;
+    height: 200px;
+  }
+} */

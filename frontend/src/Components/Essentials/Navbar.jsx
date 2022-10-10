@@ -1,45 +1,53 @@
 import * as React from "react";
+
+import { useSelector } from "react-redux";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
 import { useState } from "react";
-
 import colors from "../colors";
 
-import MerchantDiceLogo from "../../Assets/logo.svg";
 import MerchantDiceLogoName from "../../Assets/logo-with-name.svg";
-import { Divider } from "@mui/material";
-import users from "../../Data/users";
 import RegisterPopup from "../RegisterPopup";
+import { useDispatch } from "react-redux";
+import { toggleLoggedIn } from "../../Redux/userSlice";
 
 const pages = ["Women", "Men", "Shirts", "Pants", "Shoes"];
 const mobilePages = [
+  "Sign in",
+  "Register",
   "Women",
   "Men",
   "Shirts",
   "Pants",
   "Shoes",
-  "Sign in",
-  "Register",
 ];
+
+const [a, b, ...mobilePages2] = mobilePages;
+
 const settings = ["Profile", "Dashboard", "Logout"];
 const emails = ["username@gmail.com", "user02@gmail.com"];
+
 const Navbar = () => {
+  // useStates
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(emails[1]);
+
+  // Redux
+  const curUser = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -52,7 +60,10 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (setting) => {
+    if (setting === "Logout") {
+      dispatch(toggleLoggedIn());
+    }
     setAnchorElUser(null);
   };
 
@@ -74,6 +85,7 @@ const Navbar = () => {
         fontSize: "17px",
         // border: "solid black 1px",
         padding: { xs: "0", md: "0 10px" },
+        boxShadow: "none",
       }}
     >
       <Box>
@@ -131,18 +143,31 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {mobilePages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={
-                    page === "Register"
-                      ? handleRegisterClick
-                      : handleCloseNavMenu
-                  }
-                >
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {curUser.isLoggedIn
+                ? mobilePages2.map((page) => (
+                    <MenuItem
+                      key={page}
+                      onClick={
+                        page === "Register"
+                          ? handleRegisterClick
+                          : handleCloseNavMenu
+                      }
+                    >
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  ))
+                : mobilePages.map((page) => (
+                    <MenuItem
+                      key={page}
+                      onClick={
+                        page === "Register"
+                          ? handleRegisterClick
+                          : handleCloseNavMenu
+                      }
+                    >
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  ))}
             </Menu>
           </Box>
 
@@ -172,11 +197,14 @@ const Navbar = () => {
             ))}
           </Box>
 
-          {loggedIn ? (
-            <Box sx={{ flexGrow: 1 }}>
+          {curUser.isLoggedIn ? (
+            <Box sx={{ display: "flex", alignItems: "center" }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar
+                    alt={curUser.username}
+                    src="/static/images/avatar/2.jpg"
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -196,7 +224,10 @@ const Navbar = () => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={() => handleCloseUserMenu(setting)}
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}

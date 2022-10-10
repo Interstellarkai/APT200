@@ -10,6 +10,10 @@ import colors from "./Components/colors";
 
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
+import LocationGetter from "./Components/ManageProduct/MapComponents/LocationGetter";
+import GoogleMap from "./Components/ManageProduct/MapComponents/GoogleMap";
+import MapWrapper from "./Components/ManageProduct/MapComponents/MapWrapper";
+import { useSelector } from "react-redux";
 
 let customTheme = createTheme({
   palette: {
@@ -47,12 +51,14 @@ let user = {
 };
 
 const App = () => {
+  const tmpProducts = useSelector((state) => state.tmpProducts.value);
   return (
     <ThemeProvider theme={customTheme}>
       {/* <ProductDetail product={product} user={user} /> */}
       {/* <Home /> */}
-      {/* <Login/> */}
+      {/* {<Login />} */}
       <ManageProducts />
+      {/* <Products products={tmpProducts.products} /> */}
     </ThemeProvider>
   );
 };

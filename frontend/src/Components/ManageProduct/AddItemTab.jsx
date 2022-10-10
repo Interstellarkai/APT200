@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { saveAddedItem } from "../../Redux/userSlice";
+import { addProduct } from "../../Redux/tmpProductSlice";
 
 const catOptions = [
   {
@@ -77,6 +78,7 @@ const AddItemTab = () => {
 
   // Redux
   const curUser = useSelector((state) => state.user.value);
+  const tmpProductList = useSelector((state) => state.tmpProducts.value);
   const dispatch = useDispatch();
 
   const [location, setLocation] = useState(curUser.savedItem.location);
@@ -96,6 +98,7 @@ const AddItemTab = () => {
       return;
     } else {
       console.log("Adding new item...");
+      dispatch(addProduct({ ...values, username: curUser.username }));
     }
   };
 

@@ -34,8 +34,6 @@ const mobilePages = [
 
 const [a, b, ...mobilePages2] = mobilePages;
 
-console.log(mobilePages2);
-
 const settings = ["Profile", "Dashboard", "Logout"];
 const emails = ["username@gmail.com", "user02@gmail.com"];
 

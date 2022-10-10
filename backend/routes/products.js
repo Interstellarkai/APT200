@@ -4,6 +4,7 @@ const User = require('../models/user')
 const Image = require('../models/image')
 const {
 	getAllProducts,
+	getProductFiltered,
 	getProduct,
 	createProduct,
 	deleteProduct,
@@ -41,6 +42,8 @@ productsRouter.get('/', async (request, response) => {
 });
 */
 
+productsRouter.get('/filtered', getProductFiltered)
+
 productsRouter.get('/:id', getProduct)
 
 /*
@@ -53,6 +56,7 @@ productsRouter.get('/:id', async (request, response) => {
     }
 })
 */
+
 
 productsRouter.post('/', createProduct)
 /*

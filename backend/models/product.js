@@ -15,6 +15,8 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  category:String,
+  condition:String,
   comments:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comments'

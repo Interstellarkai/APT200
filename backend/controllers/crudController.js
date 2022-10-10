@@ -3,9 +3,22 @@ const User = require("../models/user")
 //ensure id type
 const mongoose = require("mongoose")
 
-//start of user
+//auth token
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+
+const createToken = (_id) =>{
+	return jwt.sign({_id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "4h"})
+}
+
+//const {auth} = require("../utils/requireAuth")
+
+//end of auth
+
+
+
+//start of user
+
 // get all users
 const getAllUsers = async (request, response) => {
 	const users = await User.find({}).populate("products");
@@ -13,7 +26,7 @@ const getAllUsers = async (request, response) => {
 }
 
 // get single user by id
-const getUser = async (request, response) => {
+ const getUser = async (request, response) => {
 	const {id} = request.params
 	
 	if(!mongoose.Types.ObjectId.isValid(id)) {
@@ -68,9 +81,9 @@ const createUser = async (request, response) => {
 	});
 
 	const savedUser = await user.save();
-
-	response.status(201).json(savedUser);
+	const token = createToken(savedUser._id);
 	
+	response.status(201).json({savedUser, token});
 }
 
 // update - todo: add auth.
@@ -153,9 +166,12 @@ const login = async (req, res, next) =>{
 		if(await bcrypt.compare(password, user.passwordHash)){
 			//res.send('Success')
 			console.log("Success");
-			const user = {name: username}
-			const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-			res.json({accessToken: accessToken})
+			const token = createToken(user._id);
+			const name = user.name;
+			res.status(200).json({name, token});
+			// const user = {name: username}
+			// const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "4h"})
+			// res.json({accessToken: accessToken})
 			//res.json(user);
 		} else {
 			res.send('Password does not match.')
@@ -165,26 +181,6 @@ const login = async (req, res, next) =>{
 	}
 }
 
-
-
-function authenticateToken(req, res, next){
-	const authHeader = req.headers['authorisation']
-	//2nd param
-	const token = authHeader && authHeader.split(' ')[1]
-	if(token == null) return res.sendStatus(401)
-	//no token sent
-
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
-		if (err) return res.sendStatus(403)
-		//token not valid
-		
-		req.user = user
-		next()
-		
-	})
-	
-	
-}
 
 
 // end of user
@@ -217,9 +213,25 @@ const getProduct = async (request, response) => {
 	}
 }
 
+const getProductFiltered = async(request, response) => {
+	const {condition, category, priceMin, priceMax} = request.body
+	if (condition && category){
+		const filteredProds = await Product.find({condition: condition, category: category, price: {$gte: priceMin, $lte: priceMax}})
+		return response.status(200).json(filteredProds)
+	}
+	if (condition){
+		const filteredProds = await Product.find({condition: condition, price: {$gte: priceMin, $lte: priceMax}})
+		return response.status(200).json(filteredProds)
+	}
+	if (category){
+		const filteredProds = await Product.find({category: category, price: {$gte: priceMin, $lte: priceMax}})
+		return response.status(200).json(filteredProds)
+	}
+}
+
 //create new product
 const createProduct = async (request, response, next) => {
-	const {name, price, userId, img} = request.body
+	const {name, price, userId, category, condition, img} = request.body
 	
 	if(!mongoose.Types.ObjectId.isValid(userId)) {
 		return response.status(404).json({error: "No such Id"})
@@ -232,6 +244,8 @@ const createProduct = async (request, response, next) => {
 	const product = new Product({
 		name,
 		price,
+		category,
+		condition,
 		date: new Date(),
 		rating: 0,
 		user: user._id
@@ -382,6 +396,7 @@ module.exports = {
 	login,
 	
 	getAllProducts,
+	getProductFiltered,
 	getProduct,
 	createProduct,
 	deleteProduct,

@@ -6,7 +6,7 @@ const EditItemTab = ({ dispatch, curUser }) => {
   return (
     <div>
       <Header title="Edit Items" level={2} />
-      <ProductTable disptach={dispatch} curUser={curUser} />
+      <ProductTable dispatch={dispatch} curUser={curUser} />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import { createElement } from "react";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { addToItems, saveAddedItem } from "../../Redux/userSlice";
+import { addToItems, saveAddedItem, setValue } from "../../Redux/userSlice";
 const { Header, Sider, Content } = Layout;
 
 const ManageProductWrapper = () => {
@@ -86,7 +86,10 @@ const ManageProductWrapper = () => {
           <Body
             index={indexTab}
             dispatch={dispatch}
-            curUser={{ user: curUser, methods: { addToItems, saveAddedItem } }}
+            curUser={{
+              user: curUser,
+              methods: { addToItems, saveAddedItem, setValue },
+            }}
           />
         </Content>
       </Layout>

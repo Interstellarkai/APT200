@@ -51,7 +51,7 @@ let user = {
 };
 
 const App = () => {
-  // const tmpProducts = useSelector((state) => state.tmpProducts.value);
+  const tmpProducts = useSelector((state) => state.tmpProducts.value);
   return (
     <ThemeProvider theme={customTheme}>
       {/* <ProductDetail product={product} user={user} /> */}

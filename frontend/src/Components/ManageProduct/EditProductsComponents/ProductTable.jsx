@@ -1,6 +1,9 @@
-import { Button, Space, Table, Tag } from "antd";
+import { Button, Modal, Space, Table, Tag } from "antd";
 import React from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
+
+// Redux
+import { deleteProduct } from "../../../Redux/tmpProductSlice";
 
 const ProductTable = ({ dispatch, curUser }) => {
   const columns = [
@@ -77,8 +80,8 @@ const ProductTable = ({ dispatch, curUser }) => {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      render: (e) => {
-        console.log(e);
+      render: (_, record) => {
+        // console.log("In render actions: ", record);
         return (
           <Space size="middle">
             <Button
@@ -100,6 +103,7 @@ const ProductTable = ({ dispatch, curUser }) => {
                 display: "flex",
                 alignItems: "center",
               }}
+              onClick={() => handleDeleteClick(record)}
             >
               <DeleteFilled />
             </Button>
@@ -113,12 +117,32 @@ const ProductTable = ({ dispatch, curUser }) => {
     console.log("Edit...");
   };
 
-  const handleDeleteClick = () => {
-    console.log("Delete...");
+  const handleDeleteClick = (record) => {
+    console.log("Deleting...", record);
+    let updatedProducts = curUser.user.products.filter(
+      (product) => product.productName != record.productName
+    );
+    console.log("Updated Products: ", updatedProducts);
+    Modal.confirm({
+      title: `Are you sure you want to delete ${record.productName}?`,
+      onOk: () => {
+        dispatch(
+          curUser.methods.setValue({
+            ...curUser.user,
+            products: updatedProducts,
+          })
+        );
+        // To close modal
+        dispatch(deleteProduct(record));
+        return false;
+      },
+    });
   };
+
+  const data = curUser.user.products;
   return (
     <div>
-      <Table columns={columns} dataSource={curUser.user.products} />
+      <Table columns={columns} dataSource={data} />
     </div>
   );
 };

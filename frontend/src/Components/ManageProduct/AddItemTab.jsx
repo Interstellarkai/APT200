@@ -121,7 +121,7 @@ const AddItemTab = ({ dispatch, curUser }) => {
   };
 
   useEffect(() => {
-    console.log("In AddItemTab, location updated: ", location);
+    // console.log("In AddItemTab, location updated: ", location);
   }, [location]);
 
   return (

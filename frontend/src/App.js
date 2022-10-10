@@ -51,15 +51,14 @@ let user = {
 };
 
 const App = () => {
-  const tmpProducts = useSelector((state) => state.tmpProducts.value);
-  console.log("In app: ", tmpProducts);
+  // const tmpProducts = useSelector((state) => state.tmpProducts.value);
   return (
     <ThemeProvider theme={customTheme}>
       {/* <ProductDetail product={product} user={user} /> */}
       {/* <Home /> */}
       {/* {<Login />} */}
       <ManageProducts />
-      <Products products={tmpProducts.products} />
+      {/* <Products products={tmpProducts.products} /> */}
     </ThemeProvider>
   );
 };

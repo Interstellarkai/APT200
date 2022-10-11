@@ -97,7 +97,12 @@ const AddItemTab = ({ dispatch, curUser }) => {
     } else {
       index = 1;
       console.log("Adding new item...");
-      let newItem = { ...values, username: user.username };
+      let key = user.username.concat(values.productName);
+      let newItem = {
+        ...values,
+        username: user.username,
+        key: key,
+      };
       dispatch(curUser.methods.addToItems(newItem));
       dispatch(addProduct(newItem));
     }

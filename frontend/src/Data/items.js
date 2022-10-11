@@ -1,6 +1,7 @@
 const items = [
   {
     key: "0000000",
+    username: "Bob",
     productName: "Nike Shirt",
     price: 20,
     img: require("../Assets/Item/shirt.png"),
@@ -9,6 +10,7 @@ const items = [
   },
   {
     key: "0000001",
+    username: "Jun Rong",
     productName: "Nike Shoe",
     price: 20,
     img: require("../Assets/Item/shoe.png"),
@@ -17,6 +19,7 @@ const items = [
   },
   {
     key: "0000002",
+    username: "Alexander",
     productName: "XL Pants",
     price: 20,
     img: require("../Assets/Item/male-pants.png"),
@@ -25,6 +28,7 @@ const items = [
   },
   {
     key: "0000003",
+    username: "SussyBaka",
     productName: "Assorted Shirts",
     price: 20,
     img: require("../Assets/Item/shirts.png"),
@@ -33,6 +37,7 @@ const items = [
   },
   {
     key: "0000004",
+    username: "PP123456",
     productName: "Pink Pants",
     price: 20,
     img: require("../Assets/Item/women-pants.png"),
@@ -41,6 +46,7 @@ const items = [
   },
   {
     key: "0000005",
+    username: "ODJAPOISDJAP",
     productName: "Jacket",
     price: 20,
     img: require("../Assets/Item/jacket.png"),

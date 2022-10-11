@@ -7,7 +7,13 @@ import Searchbar from "../Components/Essentials/Searchbar";
 import Carousel from "../Components/Carousel/Carousel";
 import Footer from "../Components/Essentials/Footer";
 
+import Items from "../Data/items";
+
 const Home = () => {
+  let mid = Math.floor(Items.length / 2);
+
+  let itemList1 = Items.slice(0, mid);
+  let itemList2 = Items.slice(mid);
   return (
     <Container maxWidth="xl">
       <Navbar />
@@ -50,8 +56,8 @@ const Home = () => {
             flexDirection: { xs: "column", md: "row" },
           }}
         >
-          <Carousel />
-          <Carousel />
+          <Carousel items={itemList1} />
+          <Carousel items={itemList2} />
         </Container>
       </Container>
       <Footer />

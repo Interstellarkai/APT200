@@ -1,14 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import items from "../Data/items";
-import users from "../Data/users";
 
 // Messy code - Just for prototype purposes
-let products = [];
-let index = 0;
-items.map((item) => {
-  products.push({ ...item, username: users[index].username });
-  index++;
-});
+let products = [...items];
 
 let messy_user_products = [
   {

@@ -29,7 +29,7 @@ const ProductTable = ({ dispatch, curUser }) => {
   const [editingRow, setEditingRow] = useState(null);
   const [form] = Form.useForm();
   useEffect(() => {
-    console.log("Use effect, curUser");
+    // console.log("Use effect, curUser");
   }, [curUser.user.products]);
 
   const columns = [
@@ -209,7 +209,7 @@ const ProductTable = ({ dispatch, curUser }) => {
 
   const handleEditClick = (record) => {
     console.log("Edit...");
-    console.log(record);
+    // console.log(record);
     setEditingRow(record.key);
   };
 
@@ -218,7 +218,7 @@ const ProductTable = ({ dispatch, curUser }) => {
     let updatedProducts = curUser.user.products.filter(
       (product) => product.productName != record.productName
     );
-    console.log("Updated Products: ", updatedProducts);
+    // console.log("Updated Products: ", updatedProducts);
     Modal.confirm({
       title: `Are you sure you want to delete ${record.productName}?`,
       onOk: () => {

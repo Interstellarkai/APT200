@@ -56,7 +56,7 @@ const App = () => {
     <ThemeProvider theme={customTheme}>
       {/* <ProductDetail product={product} user={user} /> */}
       {/* <Home /> */}
-      {/* {<Login />} */}
+      {/*<Login />*/ }
       <ManageProducts />
       {/* <Products products={tmpProducts.products} /> */}
     </ThemeProvider>

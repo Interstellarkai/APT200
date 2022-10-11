@@ -62,11 +62,11 @@ const deleteUser = async (request, response) => {
 
 // create new user
 const createUser = async (request, response) => {
-	const { username, name, password } = request.body;
+	const { username, name, password } = request.body.inputValues;
 
 	const existingUser = await User.findOne({ username });
 	if (existingUser) {
-		return response.status(400).json({
+		return response.status(400).send({
 			error: "username must be unique",
 		});
 	}
@@ -154,17 +154,14 @@ const login = async (req, res, next) =>{
 	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
 	res.json({accessToken: accessToken})
 	*/
-	const username = req.body.username
-	const password = req.body.password
-	console.log(req.body)
+	const username = req.body.inputs.email
+	const password = req.body.inputs.password
 	const user = await User.findOne({'username': username})
 	if (user==null){
 		return res.status(400).send("Username does not exist")		
 	}
 	try{
 		if(await bcrypt.compare(password, user.passwordHash)){
-			//res.send('Success')
-			console.log("Success");
 			const token = createToken(user._id);
 			const name = user.name;
 			res.status(200).json({name, token});

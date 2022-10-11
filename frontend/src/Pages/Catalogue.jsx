@@ -12,6 +12,8 @@ const typographyStyling_1 = {
   fontSize: 24,
   fontWeight: "bold",
   paddingLeft: 2,
+  display: { xs: "flex", md: "flex" },
+  textAlign: { xs: "center", md: "none" },
   //   maxWidth: 500,
 };
 
@@ -19,15 +21,20 @@ const typographyStyling_2 = {
   //   borderRadius: 2,
   //   border: "5px solid",
   //   borderColor: "secondary.main",
-  fontSize: 24,
+  fontSize: 20,
   fontWeight: "bold",
   paddingLeft: 2,
+  display: { xs: "flex", md: "flex" },
+  textAlign: { xs: "center", md: "none" },
   //   maxWidth: 500,
 };
 
 const BoxStyling = {
   marginTop: 4,
-  marginLeft: 8,
+  marginLeft: { xs: "none", md: 8 },
+  display: { xs: "flex", md: "flex" },
+  flexDirection: { xs: "column", md: "column" },
+  justifyContent: { xs: "center", md: "center" },
   //   border: "solid black 1px",
 };
 

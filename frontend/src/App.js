@@ -73,7 +73,7 @@ const App = () => {
             path={PAGES.manageProductsPage}
             element={<ManageProducts />}
           ></Route>
-          <Route exact path={PAGES.catalouge} element={<Catalogue />}></Route>
+          <Route exact path={PAGES.catalogue} element={<Catalogue />}></Route>
           {/* <MapWrapper /> */}
           {/* <GoogleMap /> */}
         </Routes>

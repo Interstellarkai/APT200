@@ -2,7 +2,7 @@ const PAGES = {
   homePage: "/",
   loginPage: "/login",
   manageProductsPage: "/products",
-  catalouge: "/catalouge",
+  catalogue: "/catalogue",
 };
 
 export default PAGES;

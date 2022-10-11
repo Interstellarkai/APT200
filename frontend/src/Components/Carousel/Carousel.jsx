@@ -2,8 +2,6 @@ import React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
@@ -11,16 +9,15 @@ import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import CarouselCard from "./CarouselCard";
 import { useState } from "react";
-import Items from "../../Data/items";
-import Users from "../../Data/users";
+// import Users from "../../Data/users";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const Carousel = () => {
+const Carousel = ({ items }) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [mouseEnter, setMouseEnter] = useState(false);
-  const maxSteps = Items.length;
+  const maxSteps = items.length;
 
   // console.log(Items[0].name);
   const handleNext = () => {
@@ -54,10 +51,10 @@ const Carousel = () => {
           onChangeIndex={handleStepChange}
           enableMouseEvents
         >
-          {Items.map((item, index) => (
+          {items.map((item, index) => (
             <div key={item.name}>
               {Math.abs(activeStep - index) <= 2 ? (
-                <CarouselCard user={Users[index]} item={item} />
+                <CarouselCard user={{ username: item.username }} item={item} />
               ) : null}
             </div>
           ))}

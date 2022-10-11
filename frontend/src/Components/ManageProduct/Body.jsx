@@ -1,8 +1,11 @@
 import AddItemTab from "./AddItemTab";
 import EditItemTab from "./EditItemTab";
 
-const tabs = [<AddItemTab />, <EditItemTab />];
-const Body = ({ index }) => {
+const Body = ({ index, dispatch, curUser }) => {
+  const tabs = [
+    <AddItemTab dispatch={dispatch} curUser={curUser} key="addItemTab" />,
+    <EditItemTab dispatch={dispatch} curUser={curUser} key="editItemTab" />,
+  ];
   return <div>{tabs[index]}</div>;
 };
 

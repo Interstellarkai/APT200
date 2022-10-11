@@ -3,16 +3,20 @@ import Sidebar from "./Siderbar";
 import Body from "./Body";
 import { Layout } from "antd";
 import { useState } from "react";
-import {
-  UploadOutlined,
-  PlusSquareOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
+import { PlusSquareOutlined, EditOutlined } from "@ant-design/icons";
 
 import "./ManageProduct.css";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { createElement } from "react";
-import { Container } from "@mui/system";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToItems,
+  saveAddedItem,
+  setValue,
+  editOneItem,
+} from "../../Redux/userSlice";
 const { Header, Sider, Content } = Layout;
 
 const ManageProductWrapper = () => {
@@ -28,6 +32,11 @@ const ManageProductWrapper = () => {
       label: "Edit Item",
     },
   ];
+
+  // Redux
+  const curUser = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+
   const [collapsed, setCollapsed] = useState(true);
   const [indexTab, setIndexTab] = useState(0);
   const [broken, setBroken] = useState(null);
@@ -79,7 +88,14 @@ const ManageProductWrapper = () => {
             minHeight: 280,
           }}
         >
-          <Body index={indexTab} />
+          <Body
+            index={indexTab}
+            dispatch={dispatch}
+            curUser={{
+              user: curUser,
+              methods: { addToItems, saveAddedItem, setValue, editOneItem },
+            }}
+          />
         </Content>
       </Layout>
     </Layout>

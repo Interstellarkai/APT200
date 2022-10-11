@@ -43,6 +43,16 @@ This is a documentation of the various API calls to make or available from the *
     	
     Update name by id    
 		Request : "localhost:3001/api/users/name/633a384ea59c44dbbc5daae3"
+		"auth" : {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzIxZGNlMmI5MDY1YTkxZmI0NzEyNmIiLCJpYXQiOjE2NjQ5MjQyNzMsImV4cCI6MTY2NDkzODY3M30.8YevgqkKRU_JhE4iaDKCJoK3nUqmxbTI7namvRXbAjk",
+							"type": "string"
+						}
+					]
+				}
 		Method : PUT
 		Header :
 		Body :
@@ -60,6 +70,16 @@ This is a documentation of the various API calls to make or available from the *
 		
 	Update password by id    
 		Request : "localhost:3001/api/users/name/633a384ea59c44dbbc5daae3"
+		"auth" : {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzIxZGNlMmI5MDY1YTkxZmI0NzEyNmIiLCJpYXQiOjE2NjQ5MjQyNzMsImV4cCI6MTY2NDkzODY3M30.8YevgqkKRU_JhE4iaDKCJoK3nUqmxbTI7namvRXbAjk",
+							"type": "string"
+						}
+					]
+				}
 		Method : PUT
 		Header :
 		Body :
@@ -98,11 +118,31 @@ This is a documentation of the various API calls to make or available from the *
 	
 	All Users
 		Request : "localhost:3001/api/users/"
+		"auth" : {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzIxZGNlMmI5MDY1YTkxZmI0NzEyNmIiLCJpYXQiOjE2NjQ5MjQyNzMsImV4cCI6MTY2NDkzODY3M30.8YevgqkKRU_JhE4iaDKCJoK3nUqmxbTI7namvRXbAjk",
+							"type": "string"
+						}
+					]
+				}
 		Method : GET
 		Header :
 
 	Delete User
 		Request : "localhost:3001/api/users/633a383aa59c44dbbc5daadf"
+		"auth" : {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzIxZGNlMmI5MDY1YTkxZmI0NzEyNmIiLCJpYXQiOjE2NjQ5MjQyNzMsImV4cCI6MTY2NDkzODY3M30.8YevgqkKRU_JhE4iaDKCJoK3nUqmxbTI7namvRXbAjk",
+							"type": "string"
+						}
+					]
+				}
 		Method : DELETE
 		Header :
 
@@ -140,6 +180,40 @@ This is a documentation of the various API calls to make or available from the *
 		Method : GET
 		Header :
 		Body :
+		
+	Get Filtered Products
+		Request : "localhost:3001/api/products/filtered"
+		Method : GET
+		Header :
+		Body : {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "category",
+							"value": "bottoms",
+							"type": "text"
+						},
+						{
+							"key": "condition",
+							"value": "heavily used",
+							"type": "text"
+						},
+						{
+							"key": "priceMin",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "priceMax",
+							"value": "999",
+							"type": "text"
+						}
+					]
+				}
+	NOTE: Category and condition may be left as null, but default values of priceMin and Max must be set to 0 and max
+		
+
+		
 	
 	Get Single Product by id
 		Request : "localhost:3001/api/products/6316cb4497aba992db4021d0"

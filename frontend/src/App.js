@@ -6,6 +6,7 @@ import Login from "./Pages/Login";
 import Advertisement from "./Components/Advertisement";
 import ProductDetail from "./Components/ProductDetail";
 import ManageProducts from "./Pages/ManageProducts";
+<<<<<<< HEAD
 import Catalogue from "./Pages/Catalogue";
 import colors from "./Components/colors";
 
@@ -18,12 +19,20 @@ import {
   Navigate,
 } from "react-router-dom";
 
+=======
+import colors from "./Components/colors";
+
+>>>>>>> main
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 import LocationGetter from "./Components/ManageProduct/MapComponents/LocationGetter";
 import GoogleMap from "./Components/ManageProduct/MapComponents/GoogleMap";
 import MapWrapper from "./Components/ManageProduct/MapComponents/MapWrapper";
+<<<<<<< HEAD
 import { Pages } from "@mui/icons-material";
+=======
+import { useSelector } from "react-redux";
+>>>>>>> main
 
 let customTheme = createTheme({
   palette: {
@@ -61,8 +70,10 @@ let user = {
 };
 
 const App = () => {
+  const tmpProducts = useSelector((state) => state.tmpProducts.value);
   return (
     <ThemeProvider theme={customTheme}>
+<<<<<<< HEAD
       <Router>
         <Routes>
           {/* <ProductDetail product={product} user={user} /> */}
@@ -78,6 +89,13 @@ const App = () => {
           {/* <GoogleMap /> */}
         </Routes>
       </Router>
+=======
+      {/* <ProductDetail product={product} user={user} /> */}
+      {/* <Home /> */}
+      {/*<Login />*/ }
+      <ManageProducts />
+      {/* <Products products={tmpProducts.products} /> */}
+>>>>>>> main
     </ThemeProvider>
   );
 };

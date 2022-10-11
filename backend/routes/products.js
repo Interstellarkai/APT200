@@ -4,6 +4,7 @@ const User = require('../models/user')
 const Image = require('../models/image')
 const {
 	getAllProducts,
+	getProductFiltered,
 	getProduct,
 	createProduct,
 	deleteProduct,
@@ -41,6 +42,9 @@ productsRouter.get('/', async (request, response) => {
 });
 */
 
+productsRouter.get('/filtered', getProductFiltered)
+// min/max price must be set to 0 and max val, condition and category can be null.
+
 productsRouter.get('/:id', getProduct)
 
 /*
@@ -53,6 +57,7 @@ productsRouter.get('/:id', async (request, response) => {
     }
 })
 */
+
 
 productsRouter.post('/', createProduct)
 /*

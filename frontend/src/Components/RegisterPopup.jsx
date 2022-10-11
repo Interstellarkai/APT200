@@ -18,6 +18,8 @@ import { blue } from "@mui/material/colors";
 import { Stack } from "@mui/system";
 import React from "react";
 import { useState } from "react";
+import userService from "../Services/user"
+
 
 const RegisterPopup = (props) => {
   const [loading, setLoading] = useState(false);
@@ -25,11 +27,11 @@ const RegisterPopup = (props) => {
   const { onClose, selectedValue, open, values } = props;
   const [inputValues, setInputValues] = useState({
     username: "",
-    email: "",
+    name: "",
     password: "",
     "confirm password": "",
   });
-  const inputs = ["Username", "Email", "Password", "Confirm Password"];
+  const inputs = ["Username", "Name", "Password", "Confirm Password"];
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -47,12 +49,21 @@ const RegisterPopup = (props) => {
     });
   };
 
-  const handleSubmitButtonClick = () => {
-    setLoading(true);
-    setTimeout(function () {
-      setLoading(false);
-      setSubmitted(true);
-    }, 3000);
+  const handleSubmitButtonClick = async(event) => {
+    event.preventDefault();
+    try{
+      const newUser = await userService.createUser({
+        inputValues,
+      })
+      setInputValues({
+        username: "",
+        name: "",
+        password: "",
+        "confirm password": "",
+      })
+    }catch(e){
+      console.log('Lmao')
+    }
   };
 
   const handleSubmit = (e) => {
@@ -60,7 +71,6 @@ const RegisterPopup = (props) => {
     console.log("Submitted");
   };
 
-  console.log(inputValues);
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle textAlign="center">Register</DialogTitle>

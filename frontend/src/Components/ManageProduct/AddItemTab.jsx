@@ -1,13 +1,11 @@
 import { Button, Cascader, Col, Form, InputNumber, Row, Space } from "antd";
 import React from "react";
 import Header from "./Header";
-import { FileImageOutlined } from "@ant-design/icons";
 import ImageUpload from "./Input/ImageUpload";
 import { Input } from "antd/lib";
 import TextArea from "antd/lib/input/TextArea";
 import LocationGetter from "./MapComponents/LocationGetter";
 import MapWrapper from "./MapComponents/MapWrapper";
-import GoogleMap from "./MapComponents/GoogleMap";
 
 import { useEffect } from "react";
 import { useState } from "react";

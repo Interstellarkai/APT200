@@ -55,10 +55,10 @@ const App = () => {
   return (
     <ThemeProvider theme={customTheme}>
       {/* <ProductDetail product={product} user={user} /> */}
-      {/* <Home /> */}
+      <Home />
       {/* {<Login />} */}
       {/* <ManageProducts /> */}
-      <Products products={tmpProducts.products} />
+      {/* <Products products={tmpProducts.products} /> */}
     </ThemeProvider>
   );
 };

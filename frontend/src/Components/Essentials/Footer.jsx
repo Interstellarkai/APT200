@@ -2,9 +2,8 @@ import { Box, Container } from "@mui/system";
 import React from "react";
 import FooterItem from "./FooterItem.jsx";
 import Logo from "./MerchantDiceLogo.jsx";
-import { Instagram, Twitter, Facebook } from "@mui/icons-material";
-import { Icon, IconButton, SvgIcon, useTheme } from "@mui/material";
-import { ReactComponent as Meta } from "../../Assets/meta-icon.png";
+import { Twitter } from "@mui/icons-material";
+import { IconButton, useTheme } from "@mui/material";
 
 const Footer = () => {
   const theme = useTheme();

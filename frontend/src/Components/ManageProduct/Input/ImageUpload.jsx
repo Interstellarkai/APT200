@@ -2,7 +2,6 @@ import colors from "../../colors";
 import { FileImageTwoTone, setTwoToneColor } from "@ant-design/icons";
 import { message, Modal, Upload } from "antd";
 import React, { useState } from "react";
-import { useTheme } from "@mui/material/styles";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {

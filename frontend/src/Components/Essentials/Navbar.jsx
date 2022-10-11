@@ -32,10 +32,10 @@ const mobilePages = [
   "Shoes",
 ];
 
-const [a, b, ...mobilePages2] = mobilePages;
-
 const settings = ["Profile", "Dashboard", "Logout"];
 const emails = ["username@gmail.com", "user02@gmail.com"];
+let [a, b, ...mobilePages2] = mobilePages;
+mobilePages2 = settings.concat(mobilePages2);
 
 const Navbar = () => {
   // useStates
@@ -198,7 +198,9 @@ const Navbar = () => {
           </Box>
 
           {curUser.isLoggedIn ? (
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
+            >
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar

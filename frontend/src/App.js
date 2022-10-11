@@ -57,8 +57,8 @@ const App = () => {
       {/* <ProductDetail product={product} user={user} /> */}
       {/* <Home /> */}
       {/* {<Login />} */}
-      <ManageProducts />
-      {/* <Products products={tmpProducts.products} /> */}
+      {/* <ManageProducts /> */}
+      <Products products={tmpProducts.products} />
     </ThemeProvider>
   );
 };

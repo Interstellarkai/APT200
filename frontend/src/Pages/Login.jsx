@@ -44,7 +44,8 @@ const Login = () => {
   const [check, setCheck] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
+    console.log("submit...");
+    handleSubmitButtonClick(e);
   };
 
   const handleSubmitButtonClick = async (event) => {
@@ -89,8 +90,6 @@ const Login = () => {
     setCheck(!check);
   };
 
-  console.log(isValidEmail);
-
   return (
     <Box position="relative" height="100vh" overflow="hidden">
       <Box
@@ -130,28 +129,29 @@ const Login = () => {
             elevation={3}
             sx={{ opacity: "0.95", padding: { xs: 2, md: 5 } }}
           >
-            <form onSubmit={handleSubmit}>
-              <Stack justifyContent="center" alignItems="center">
-                <Typography variant="h3" my={2}>
-                  Sign in
-                </Typography>
-                <Box
-                  component="form"
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  // bgcolor="yellow"
-                  width="inherit"
-                >
-                  <TextField
-                    label="Username"
-                    name="email"
-                    sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
-                    onChange={handleOnChange}
-                    value={inputs.email}
-                    required
-                  />
-                  {/* <TextField
+            {/* <form onSubmit={handleSubmit}> */}
+            <Stack justifyContent="center" alignItems="center">
+              <Typography variant="h3" my={2}>
+                Sign in
+              </Typography>
+              <Box
+                component="form"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                // bgcolor="yellow"
+                width="inherit"
+                onSubmit={handleSubmit}
+              >
+                <TextField
+                  label="Username"
+                  name="email"
+                  sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
+                  onChange={handleOnChange}
+                  value={inputs.email}
+                  required
+                />
+                {/* <TextField
                     label="Email"
                     name="email"
                     type="email"
@@ -162,89 +162,85 @@ const Login = () => {
                     helperText={!isValidEmail ? "Invalid Email" : ""}
                   /> */}
 
-                  <TextField
-                    label="Password"
-                    name="password"
-                    type="password"
-                    sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
-                    onChange={handleOnChange}
-                    value={inputs.password}
+                <TextField
+                  label="Password"
+                  name="password"
+                  type="password"
+                  sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
+                  onChange={handleOnChange}
+                  value={inputs.password}
+                  required
+                />
+
+                <Box
+                  width="inherit"
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <FormControlLabel
+                    label="Remember me"
+                    control={
+                      <Checkbox checked={check} onChange={handleCheckChange} />
+                    }
                   />
-
-                  <Box
-                    width="inherit"
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <FormControlLabel
-                      label="Remember me"
-                      control={
-                        <Checkbox
-                          checked={check}
-                          onChange={handleCheckChange}
-                        />
-                      }
-                    />
-                    <Link
-                      sx={{
-                        textDecoration: "none",
-                        cursor: "pointer",
-                        "&:hover": {
-                          textDecoration: "underline",
-                        },
-                      }}
-                    >
-                      Forgot password
-                    </Link>
-                  </Box>
-                  {!validCredentials && (
-                    <Box minWidth={"100%"}>
-                      <ErrorMessage
-                        errorMessage={"Invalid login credentials"}
-                      />{" "}
-                    </Box>
-                  )}
-
-                  <LoadingButton
-                    type="submit"
-                    variant="text"
-                    onClick={handleSubmitButtonClick}
-                    loading={loading}
-                    loadingIndicator="Logging in..."
+                  <Link
                     sx={{
-                      // bgcolor: "white",
-                      boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.3)",
-                      width: "100%",
-                      color: "black",
-                      my: 1,
+                      textDecoration: "none",
+                      cursor: "pointer",
+                      "&:hover": {
+                        textDecoration: "underline",
+                      },
                     }}
                   >
-                    Login
-                  </LoadingButton>
-                  <Typography py={1}>OR</Typography>
-                  <Button
-                    variant="contained"
-                    sx={{ width: "100%" }}
-                    startIcon={<Google />}
-                  >
-                    {/* <img src={require("../Assets/google-icon.png")} /> */}
-                    Continue with Google
-                  </Button>
-                  <Typography variant="subtitle2" sx={{ my: 3 }}>
-                    Don't have an account? Create one now!
-                  </Typography>
-                  <Button variant="contained" sx={{ width: "100%" }}>
-                    Create Account
-                  </Button>
-                  {/* {user === false ? (
+                    Forgot password
+                  </Link>
+                </Box>
+                {!validCredentials && (
+                  <Box minWidth={"100%"}>
+                    <ErrorMessage errorMessage={"Invalid login credentials"} />{" "}
+                  </Box>
+                )}
+
+                <LoadingButton
+                  type="submit"
+                  variant="text"
+                  // onClick={handleSubmitButtonClick}
+                  loading={loading}
+                  loadingIndicator="Logging in..."
+                  sx={{
+                    // bgcolor: "white",
+                    boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.3)",
+                    width: "100%",
+                    color: "black",
+                    my: 1,
+                  }}
+                >
+                  Login
+                </LoadingButton>
+                <Typography py={1}>OR</Typography>
+                <Button
+                  variant="contained"
+                  sx={{ width: "100%" }}
+                  startIcon={<Google />}
+                >
+                  {/* <img src={require("../Assets/google-icon.png")} /> */}
+                  Continue with Google
+                </Button>
+                <Typography variant="subtitle2" sx={{ my: 3 }}>
+                  Don't have an account? Create one now!
+                </Typography>
+                <Button variant="contained" sx={{ width: "100%" }}>
+                  Create Account
+                </Button>
+                {/* {user === false ? (
                     'Not Logged In'
                   ) : (
                     <div>Logged In, Welcome {user.name}</div>
                   )} */}
-                </Box>
-              </Stack>
-            </form>
+              </Box>
+            </Stack>
+            {/* </form> */}
           </Paper>
         </Box>
       </Box>

@@ -23,6 +23,7 @@ const Advertisement = ({ product }) => {
     return (
       <Grid
         container
+        display={"flex"}
         direction="row"
         justifyContent="center"
         spacing="10"
@@ -81,7 +82,13 @@ const Advertisement = ({ product }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: "300px", backgroundColor: "#16192c" }}>
+    <Card
+      sx={{
+        borderRadius: "20px",
+        minWidth: { xs: "150px", lg: "500px" },
+        backgroundColor: "#252e69",
+      }}
+    >
       <CardActionArea>
         <CardContent
           sx={{
@@ -90,10 +97,10 @@ const Advertisement = ({ product }) => {
             color: "#FFFFFF",
           }}
         >
-          <Typography gutterBottom variant="h5" align="center">
+          <Typography gutterBottom variant="h5" align="center" color="#FFFFFF">
             {product.productName}
           </Typography>
-          <Typography gutterBottom variant="h4" align="center">
+          <Typography gutterBottom variant="h4" align="center" color="#FFFFFF">
             Best Offer
           </Typography>
         </CardContent>
@@ -122,17 +129,17 @@ const Advertisement = ({ product }) => {
             <CountdownTimer />
           </div>
           <Box
+            display={"flex"}
             backgroundColor="#4c6fff"
-            width="50%"
-            margin="auto"
-            sx={{ borderRadius: "5%" }}
+            justifyContent={"center"}
+            sx={{ borderRadius: "10px", marginTop: { xs: "20px", lg: "20px" } }}
           >
             <Typography
               gutterBottom
               variant="h6"
               align="center"
               color="#FFFFFF"
-              sx={{ fontWeight: "light", margin: 3 }}
+              sx={{ fontWeight: "light" }}
             >
               Only ${product.price}
             </Typography>

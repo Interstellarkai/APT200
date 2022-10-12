@@ -91,6 +91,10 @@ const Navbar = () => {
     navigate(PAGES.loginPage);
   };
 
+  const handleGoCatalogue = () => {
+    navigate(PAGES.catalogue);
+  };
+
   return (
     <AppBar
       position="static"
@@ -173,7 +177,10 @@ const Navbar = () => {
                       onClick={
                         page === "Register"
                           ? handleRegisterClick
-                          : handleCloseNavMenu
+                          : () => {
+                              handleCloseNavMenu();
+                              handleGoCatalogue();
+                            }
                       }
                     >
                       <Typography textAlign="center">{page}</Typography>
@@ -195,7 +202,10 @@ const Navbar = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  handleGoCatalogue();
+                }}
                 sx={{
                   my: 2,
                   color: `${colors.mainGrey}`,

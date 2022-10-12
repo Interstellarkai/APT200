@@ -66,6 +66,8 @@ const Navbar = () => {
   const handleCloseUserMenu = (setting) => {
     if (setting === "Logout") {
       dispatch(toggleLoggedIn());
+    } else if (setting === "Dashboard") {
+      navigate(PAGES.manageProductsPage);
     }
     setAnchorElUser(null);
   };
@@ -160,11 +162,7 @@ const Navbar = () => {
                 ? mobilePages2.map((page) => (
                     <MenuItem
                       key={page}
-                      onClick={
-                        page === "Register"
-                          ? handleRegisterClick
-                          : handleCloseNavMenu
-                      }
+                      onClick={() => handleCloseUserMenu(page)}
                     >
                       <Typography textAlign="center">{page}</Typography>
                     </MenuItem>

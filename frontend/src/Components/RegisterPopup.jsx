@@ -1,6 +1,6 @@
 import { Add, Done, Google } from "@mui/icons-material";
 import SaveIcon from "@mui/icons-material/Save";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import ErrorMessage from "./ErrorMessage";
 import { LoadingButton } from "@mui/lab";
 import {
   Avatar,
@@ -152,15 +152,9 @@ const RegisterPopup = (props) => {
             ))}
           </Box>
           {errorMessage !== null && (
-            <Typography
-              // margin={"0 5px"}
-              width="100%"
-              padding={"5px"}
-              textAlign="center"
-              sx={{ bgcolor: "pink", color: "red", fontSize: "14px" }}
-            >
-              <ErrorOutlineIcon /> {errorMessage}
-            </Typography>
+            <Box width="100%">
+              <ErrorMessage errorMessage={errorMessage} />
+            </Box>
           )}
           {!submitted ? (
             <LoadingButton

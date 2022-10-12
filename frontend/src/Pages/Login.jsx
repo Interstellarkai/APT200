@@ -19,6 +19,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ErrorMessage from "../Components/ErrorMessage";
 import Navbar from "../Components/Essentials/Navbar";
 import PAGES from "../pageRoute";
 import { setDefaultUser } from "../Redux/userSlice";
@@ -198,9 +199,11 @@ const Login = () => {
                     </Link>
                   </Box>
                   {!validCredentials && (
-                    <Typography sx={{ color: "#d90000" }}>
-                      Invalid login details!
-                    </Typography>
+                    <Box minWidth={"100%"}>
+                      <ErrorMessage
+                        errorMessage={"Invalid login credentials"}
+                      />{" "}
+                    </Box>
                   )}
 
                   <LoadingButton

@@ -12,9 +12,17 @@ const Products = ({ products }) => {
       padding="theme.spacing(3)"
     >
       {/* <div theme.mixins.toolbar />{" "} */}
-      <Grid container justify="center" spacing={4}>
+      <Grid
+        container
+        display={"flex"}
+        justifyContent={"center"}
+        spacing={4}
+        xs={12}
+        lg={11}
+        sx={{}}
+      >
         {products.map((product) => (
-          <Grid key={product.key} item xs={12} sm={6} md={4} lg={3}>
+          <Grid key={product.key} item xs={12} sm={10} md={8} lg={6} sx={{}}>
             <Product product={product} />
           </Grid>
         ))}

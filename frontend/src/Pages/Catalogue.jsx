@@ -4,6 +4,18 @@ import { Container, Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import Navbar2 from "../Components/Catalogue/Navbar2";
 import Footer from "../Components/Essentials/Footer";
+import Grid from "@mui/system/Unstable_Grid/Grid";
+import Advertisement from "../Components/Advertisement";
+import Products from "../Components/Products";
+import items from "../Data/items";
+import users from "../Data/users";
+import { FormControl, InputLabel, Select } from "@mui/material";
+import Selectbuttons from "../Components/Catalogue/Selectbuttons";
+
+const options = {
+  title: "Category",
+  options: ["Option1", "Option2"],
+};
 
 const typographyStyling_1 = {
   //   borderRadius: 2,
@@ -73,6 +85,51 @@ const Catalogue = () => {
             Singapore? Browse great deals on MerchantDice and find your new
             computer!
           </Typography>
+        </Box>
+        <Grid container marginTop={{ xs: "10px", lg: "10px" }}>
+          <Grid
+            item
+            spacing={3}
+            xs={12}
+            lg={6}
+            display={"flex"}
+            flexDirection={{ xs: "None", lg: "row" }}
+            justifyContent={"space-between"}
+            paddingLeft={{ xs: "25px", lg: "150px" }}
+            paddingRight={{ xs: "25px", lg: "0px" }}
+            sx={{}}
+          >
+            <Box>
+              <Selectbuttons filters={options} />
+            </Box>
+            <Box>
+              <Selectbuttons filters={options} />
+            </Box>
+            <Box>
+              <Selectbuttons filters={options} />
+            </Box>
+            <Box>
+              <Selectbuttons filters={options} />
+            </Box>
+          </Grid>
+        </Grid>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={4} sx={{ m: 2 }}>
+            <Grid
+              item
+              xs={5}
+              sx={{
+                display: { xs: "flex", md: "flex" },
+                flexDirection: { xs: "column", md: "column" },
+                alignItems: { xs: "center", md: "center" },
+              }}
+            >
+              <Advertisement product={items[0]} />
+            </Grid>
+            <Grid item spacing={4} xs={7} sx={{}}>
+              <Products products={items}></Products>
+            </Grid>
+          </Grid>
         </Box>
       </main>
       <Footer />

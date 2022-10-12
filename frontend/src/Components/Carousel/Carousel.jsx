@@ -54,7 +54,11 @@ const Carousel = ({ items }) => {
           {items.map((item, index) => (
             <div key={item.name}>
               {Math.abs(activeStep - index) <= 2 ? (
-                <CarouselCard user={{ username: item.username }} item={item} />
+                <CarouselCard
+                  user={{ username: item.username }}
+                  item={item}
+                  key={item.name}
+                />
               ) : null}
             </div>
           ))}

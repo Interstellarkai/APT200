@@ -1,4 +1,5 @@
 import { Done, Google } from "@mui/icons-material";
+import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 import { LoadingButton } from "@mui/lab";
 import {
   Box,
@@ -6,9 +7,11 @@ import {
   Checkbox,
   Container,
   FormControlLabel,
+  IconButton,
   Link,
   Paper,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { Stack, width } from "@mui/system";
@@ -20,8 +23,6 @@ import Navbar from "../Components/Essentials/Navbar";
 import PAGES from "../pageRoute";
 import { setDefaultUser } from "../Redux/userSlice";
 import loginService from "../Services/login";
-
-// Redux
 
 const Login = () => {
   // Redux
@@ -53,13 +54,13 @@ const Login = () => {
       });
       // console.log("In login, user is : ", res.token);
       if (res.token) {
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
         // setUser(user);
         dispatch(setDefaultUser());
         navigate(PAGES.homePage);
-        setInputs({
-          email: "",
-          password: "",
-        });
       }
     } catch (e) {
       setValidCredentials(false);
@@ -90,7 +91,7 @@ const Login = () => {
   console.log(isValidEmail);
 
   return (
-    <Box position="relative" bgcolor="red" height="100vh" overflow="hidden">
+    <Box position="relative" height="100vh" overflow="hidden">
       <Box
         position="absolute"
         component="img"
@@ -99,7 +100,23 @@ const Login = () => {
         // border="1px solid"
         height="inherit"
       />
+
       <Box height="inherit" maxWidth="xl" margin="auto">
+        <Box
+          zIndex={2000}
+          position="absolute"
+          // bgcolor="red"
+          padding={"10px"}
+          onClick={() => {
+            navigate(PAGES.homePage);
+          }}
+        >
+          <Tooltip title={"Go back to Home"}>
+            <IconButton>
+              <ArrowBackIosRoundedIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
         <Box
           position="relative"
           // border="1px solid"
@@ -131,6 +148,7 @@ const Login = () => {
                     sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
                     onChange={handleOnChange}
                     value={inputs.email}
+                    required
                   />
                   {/* <TextField
                     label="Email"

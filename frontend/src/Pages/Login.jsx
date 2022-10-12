@@ -53,13 +53,13 @@ const Login = () => {
       });
       // console.log("In login, user is : ", res.token);
       if (res.token) {
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
         // setUser(user);
         dispatch(setDefaultUser());
         navigate(PAGES.homePage);
-        setInputs({
-          email: "",
-          password: "",
-        });
       }
     } catch (e) {
       setValidCredentials(false);
@@ -90,7 +90,7 @@ const Login = () => {
   console.log(isValidEmail);
 
   return (
-    <Box position="relative" bgcolor="red" height="100vh" overflow="hidden">
+    <Box position="relative" height="100vh" overflow="hidden">
       <Box
         position="absolute"
         component="img"
@@ -131,6 +131,7 @@ const Login = () => {
                     sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
                     onChange={handleOnChange}
                     value={inputs.email}
+                    required
                   />
                   {/* <TextField
                     label="Email"

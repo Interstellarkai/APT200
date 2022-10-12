@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+const defaultUser = {
   value: {
-    username: "test",
-    email: "test@gmail.com",
+    username: "APT20000",
+    email: "APT20000@gmail.com",
     isLoggedIn: true,
     products: [
       {
@@ -39,6 +39,16 @@ const initialState = {
   },
 };
 
+const initialState = {
+  value: {
+    username: null,
+    email: null,
+    isLoggedIn: false,
+    products: null,
+    savedItem: null,
+  },
+};
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -70,6 +80,9 @@ export const userSlice = createSlice({
       console.log(data.payload);
       state.value = data.payload;
     },
+    setDefaultUser: (state) => {
+      state.value = defaultUser.value;
+    },
   },
 });
 
@@ -80,6 +93,7 @@ export const {
   addToItems,
   setValue,
   editOneItem,
+  setDefaultUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -69,7 +69,7 @@ const CarouselCard = ({ user, item }) => {
         </Typography>
       </CardContent>
       <CardContent sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography>{item.name}</Typography>
+        <Typography>{item.productName}</Typography>
         <Typography>${item.price}</Typography>
       </CardContent>
     </Card>

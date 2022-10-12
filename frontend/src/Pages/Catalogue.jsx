@@ -13,8 +13,8 @@ import { FormControl, InputLabel, Select } from "@mui/material";
 import Selectbuttons from "../Components/Catalogue/Selectbuttons";
 
 const options = {
-  title: "NiMaMa",
-  options: ["WoMaMa", "TaMaMa"],
+  title: "Category",
+  options: ["Option1", "Option2"],
 };
 
 const typographyStyling_1 = {

@@ -13,7 +13,7 @@ const Selectbuttons = ({ filters }) => {
   };
 
   return (
-    <FormControl>
+    <FormControl style={{ minWidth: { lg: 120 } }}>
       <InputLabel>{filters.title}</InputLabel>
       <Select value="" label={filters.title} onChange={handleFilterChange}>
         {filters.options.map((filter) => (

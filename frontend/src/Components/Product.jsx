@@ -26,9 +26,16 @@ const Product = ({ product }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: "100%", minHeight: "300px" }}>
+    <Card
+      sx={{
+        maxWidth: "100%",
+        minHeight: "300px",
+        boxShadow: "0px 5px 5px #aaaaaa",
+        borderRadius: "20px",
+      }}
+    >
       <CardActionArea sx={{}}>
-        <Box sx={{ m: "10px" }}>
+        <Box sx={{ m: "10px", mt: "20px" }}>
           <Box
             sx={{
               position: "absolute",

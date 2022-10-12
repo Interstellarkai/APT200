@@ -2,6 +2,7 @@ import React from "react";
 
 import { Container, Box } from "@mui/system";
 import { Typography } from "@mui/material";
+import Navbar from "../Components/Essentials/Navbar";
 import Navbar2 from "../Components/Catalogue/Navbar2";
 import Footer from "../Components/Essentials/Footer";
 import Grid from "@mui/system/Unstable_Grid/Grid";
@@ -12,8 +13,23 @@ import users from "../Data/users";
 import { FormControl, InputLabel, Select } from "@mui/material";
 import Selectbuttons from "../Components/Catalogue/Selectbuttons";
 
-const options = {
-  title: "Category",
+const option1 = {
+  title: "Computers & Tech",
+  options: ["Option1", "Option2"],
+};
+
+const option2 = {
+  title: "Sort: Best Match",
+  options: ["Option1", "Option2"],
+};
+
+const option3 = {
+  title: "Condition",
+  options: ["Option1", "Option2"],
+};
+
+const option4 = {
+  title: "Price",
   options: ["Option1", "Option2"],
 };
 
@@ -62,7 +78,8 @@ const Catalogue = () => {
         overflow: { xs: "auto", md: "auto" },
       }}
     >
-      <Navbar2 />
+      <Navbar></Navbar>
+      {/* <Navbar2 /> */}
       <main>
         <Box maxWidth="false" sx={{ ...BoxStyling }}>
           <Typography
@@ -86,7 +103,11 @@ const Catalogue = () => {
             computer!
           </Typography>
         </Box>
-        <Grid container marginTop={{ xs: "10px", lg: "10px" }}>
+        <Grid
+          container
+          marginTop={{ xs: "10px", lg: "30px" }}
+          marginBottom={{ xs: "10px", lg: "40px" }}
+        >
           <Grid
             item
             spacing={3}
@@ -100,16 +121,16 @@ const Catalogue = () => {
             sx={{}}
           >
             <Box>
-              <Selectbuttons filters={options} />
+              <Selectbuttons filters={option1} />
             </Box>
             <Box>
-              <Selectbuttons filters={options} />
+              <Selectbuttons filters={option2} />
             </Box>
             <Box>
-              <Selectbuttons filters={options} />
+              <Selectbuttons filters={option3} />
             </Box>
             <Box>
-              <Selectbuttons filters={options} />
+              <Selectbuttons filters={option4} />
             </Box>
           </Grid>
         </Grid>
@@ -125,8 +146,12 @@ const Catalogue = () => {
               }}
             >
               <Advertisement product={items[0]} />
+              {/* temp solution */}
+              <br />
+              <br />
+              <Advertisement product={items[1]} />
             </Grid>
-            <Grid item spacing={4} xs={7} sx={{}}>
+            <Grid item spacing={4} xs={7} sx={{ marginTop: "20px" }}>
               <Products products={items}></Products>
             </Grid>
           </Grid>

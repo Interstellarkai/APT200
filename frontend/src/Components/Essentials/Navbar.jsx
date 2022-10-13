@@ -59,7 +59,16 @@ const Navbar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (setting) => {
+    if (setting === "Logout") {
+      dispatch(toggleLoggedIn());
+    } else if (setting === "Dashboard") {
+      navigate(PAGES.manageProductsPage);
+    } else if (setting === "Sign in") {
+      navigate(PAGES.loginPage);
+    } else {
+      handleGoCatalogue();
+    }
     setAnchorElNav(null);
   };
 
@@ -180,8 +189,7 @@ const Navbar = () => {
                         page === "Register"
                           ? handleRegisterClick
                           : () => {
-                              handleCloseNavMenu();
-                              handleGoCatalogue();
+                              handleCloseNavMenu(page);
                             }
                       }
                     >

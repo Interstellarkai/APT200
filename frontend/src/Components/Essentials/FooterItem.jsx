@@ -2,6 +2,7 @@ import { Box, IconButton, Typography } from "@mui/material";
 import React from "react";
 
 const FooterItem = ({ title, value, hasIcon }) => {
+  // console.log("Value: ", value);
   return (
     <Box sx={{ my: 1 }}>
       <Typography variant="subtitle2">{title}</Typography>
@@ -14,7 +15,7 @@ const FooterItem = ({ title, value, hasIcon }) => {
           }}
         >
           {value.map((icon) => (
-            <IconButton sx>{icon}</IconButton>
+            <IconButton key={icon.props.name}>{icon}</IconButton>
           ))}{" "}
         </Box>
       ) : (

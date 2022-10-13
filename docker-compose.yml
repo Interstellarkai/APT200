@@ -1,0 +1,20 @@
+# start with command
+#•docker-compose • up
+version: '3'
+services:
+  redis:
+    image: redis:alpine
+    container name: redis
+    restart: always
+    ports:
+    - '6379:6379'
+
+  mongo:
+  image: mongo
+  restart: always
+  container_name: mongo
+  ports:
+  - '27017:27017'
+  environment:
+    MONGO_INITDB ROOT USERNAME: root
+    MONGO_INITDB_ ROOT_PASSWORD: rootPass1234

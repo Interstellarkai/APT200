@@ -2,15 +2,14 @@ import { Box, Container } from "@mui/system";
 import React from "react";
 import FooterItem from "./FooterItem.jsx";
 import Logo from "./MerchantDiceLogo.jsx";
-import { Instagram, Twitter, Facebook } from "@mui/icons-material";
-import { Icon, IconButton, SvgIcon, useTheme } from "@mui/material";
-import { ReactComponent as Meta } from "../Assets/meta-icon.svg";
+import { Twitter } from "@mui/icons-material";
+import { IconButton, useTheme } from "@mui/material";
 
 const Footer = () => {
   const theme = useTheme();
   return (
     <Container
-      maxWidth="xl"
+      maxWidth={false}
       sx={{
         borderTop: "0.5px solid rgba(180, 179, 179, 0.8)",
         display: "flex",
@@ -44,15 +43,20 @@ const Footer = () => {
           title="Socials"
           value={[
             <Box
+              name="meta"
               component="img"
               sx={{ height: "inherit", objectFit: "contain" }}
-              src={require("../Assets/meta-icon.png")}
+              src={require("../../Assets/meta-icon.png")}
             />,
-            <Twitter sx={{ color: theme.palette.primary.main }} />,
+            <Twitter
+              name="twitter"
+              sx={{ color: theme.palette.primary.main }}
+            />,
             <Box
+              name="instagram"
               component="img"
               sx={{ height: "inherit", objectFit: "contain" }}
-              src={require("../Assets/instagram-icon.png")}
+              src={require("../../Assets/instagram-icon.png")}
             />,
           ]}
           hasIcon={true}

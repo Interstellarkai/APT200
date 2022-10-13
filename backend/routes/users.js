@@ -1,20 +1,25 @@
 const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
 const User = require("../models/user");
+const {auth} = require("../utils/requireAuth")
+
 const {
 	createUser,
 	getUser,
 	getAllUsers,
 	deleteUser,
-	updateUser,
+	updateName,
+	updatePass,
+	login,
 	
 } = require("../controllers/crudController")
 
 //for auth
+/*
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-
-usersRouter.get("/", getAllUsers)
+*/
+usersRouter.get("/", auth, getAllUsers)
 /*
 usersRouter.get("/", async (request, response) => {
 	const users = await User.find({}).populate("products");
@@ -22,9 +27,9 @@ usersRouter.get("/", async (request, response) => {
 });
 */
 
-usersRouter.get("/:id", getUser)
-/*
-usersRouter.get("/:id", async (request, response) => {
+usersRouter.get("/:id", auth, getUser)
+
+/* usersRouter.get("/:id", auth, async (request, response) => {
 	const user = await User.findById(request.params.id);
 	if (user) {
 		response.json(user);
@@ -32,7 +37,7 @@ usersRouter.get("/:id", async (request, response) => {
 		response.status(404).end();
 	}
 });
-*/
+ */
 
 usersRouter.post("/", createUser)
 /*
@@ -62,7 +67,7 @@ usersRouter.post("/", async (request, response) => {
 });
 */
 
-usersRouter.delete("/:id", deleteUser)
+usersRouter.delete("/:id", auth, deleteUser)
 /*
 usersRouter.delete("/:id", async (request, response, next) => {
 	await User.findByIdAndRemove(request.params.id);
@@ -70,7 +75,7 @@ usersRouter.delete("/:id", async (request, response, next) => {
 });
 */
 
-usersRouter.put("/:id", updateUser)
+usersRouter.put("/name/:id", auth, updateName)
 /*
 usersRouter.put("/:id", async (request, response, next) => {
 	const { name, password } = request.body;
@@ -95,17 +100,21 @@ usersRouter.put("/:id", async (request, response, next) => {
 	}
 });
 */
+usersRouter.put("/pass/:id", auth, updatePass)
 
 //for auth.
 //batmens12345
 //qwerty
+
+usersRouter.post("/login", login)
+/*
 usersRouter.post("/login", async (req, res, next) => {
-	/*
-	const username = req.body.username
-	const user = {name: username}
-	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
-	res.json({accessToken: accessToken})
-	*/
+	
+	//const username = req.body.username
+	//const user = {name: username}
+	//const accessToken = jwt.sign(user, //process.env.ACCESS_TOKEN_SECRET)
+	//res.json({accessToken: accessToken})
+	
 	const username = req.body.username
 	const password = req.body.password
 	console.log(req.body)
@@ -128,11 +137,16 @@ usersRouter.post("/login", async (req, res, next) => {
 		res.status(500).send()
 	}
 });
+*/
 
+//userRouter.get("/getUserProds", getUserProds)
+
+/*
 usersRouter.get("/products", authenticateToken, (req,res) => {
 	
 })
-
+*/
+/*
 function authenticateToken(req, res, next){
 	const authHeader = req.headers['authorisation']
 	//2nd param
@@ -148,8 +162,6 @@ function authenticateToken(req, res, next){
 		next()
 		
 	})
-	
-	
 }
-
+*/
 module.exports = usersRouter;

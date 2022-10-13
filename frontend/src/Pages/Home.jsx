@@ -1,13 +1,19 @@
-import { Typography } from "@mui/material";
+import { Grow, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/Essentials/Navbar";
 import colors from "../Components/colors";
-import Divider from "../Components/Divider";
-import Searchbar from "../Components/Searchbar";
-import Carousel from "../Components/Carousel";
-import Footer from "../Components/Footer";
+import Divider from "../Components/Essentials/Divider";
+import Searchbar from "../Components/Essentials/Searchbar";
+import Carousel from "../Components/Carousel/Carousel";
+import Footer from "../Components/Essentials/Footer";
+
+import Items from "../Data/items";
 
 const Home = () => {
+  let mid = Math.floor(Items.length / 2);
+
+  let itemList1 = Items.slice(0, mid);
+  let itemList2 = Items.slice(mid);
   return (
     <Container maxWidth="xl">
       <Navbar />
@@ -22,13 +28,15 @@ const Home = () => {
         }}
       >
         <Box color="inherit" textAlign="center">
-          <Typography variant="h1">
-            Anything,{" "}
-            <Typography variant="inheirt" color={colors.mainBlue}>
-              everything
+          <Grow in={true} timeout={1500}>
+            <Typography variant="h1">
+              Anything,{" "}
+              <Typography variant="inheirt" color={colors.mainBlue}>
+                everything
+              </Typography>
+              , all at once.
             </Typography>
-            , all at once.
-          </Typography>
+          </Grow>
           <Box sx={{ my: "100px" }}>
             <Typography color={colors.mainGrey}>
               At MerchantDice, you’re sure to find what you’re looking for! The
@@ -48,8 +56,8 @@ const Home = () => {
             flexDirection: { xs: "column", md: "row" },
           }}
         >
-          <Carousel />
-          <Carousel />
+          <Carousel items={itemList1} />
+          <Carousel items={itemList2} />
         </Container>
       </Container>
       <Footer />

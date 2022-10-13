@@ -11,7 +11,7 @@ const GoogleMap = ({ location }) => {
     </div>
   );
 
-  const [loc, setLoc] = useState([1.3483, 103.6831]);
+  const [loc, setLoc] = useState([1.3644, 103.9915]);
 
   useEffect(() => {
     if (location !== null) {

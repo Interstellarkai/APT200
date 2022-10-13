@@ -95,6 +95,8 @@ const Navbar = () => {
     navigate(PAGES.catalogue);
   };
 
+  console.log("Cur user: ", curUser);
+
   return (
     <AppBar
       position="static"

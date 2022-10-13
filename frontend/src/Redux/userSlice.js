@@ -80,8 +80,9 @@ export const userSlice = createSlice({
       console.log(data.payload);
       state.value = data.payload;
     },
-    setDefaultUser: (state) => {
-      state.value = defaultUser.value;
+    setDefaultUser: (state, data) => {
+      // console.log(data.payload.username);
+      state.value = { ...defaultUser.value, username: data.payload.username };
     },
   },
 });

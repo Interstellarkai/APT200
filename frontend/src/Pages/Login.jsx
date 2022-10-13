@@ -61,7 +61,7 @@ const Login = () => {
           setLoading(false);
         }, 3000);
         // setUser(user);
-        dispatch(setDefaultUser());
+        dispatch(setDefaultUser({ username: inputs.email }));
         navigate(PAGES.homePage);
       }
     } catch (e) {

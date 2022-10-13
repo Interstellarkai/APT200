@@ -8,10 +8,11 @@ import Footer from "../Components/Essentials/Footer";
 import Grid from "@mui/system/Unstable_Grid/Grid";
 import Advertisement from "../Components/Advertisement";
 import Products from "../Components/Products";
-import items from "../Data/items";
+// import items from "../Data/items";
 import users from "../Data/users";
 import { FormControl, InputLabel, Select } from "@mui/material";
 import Selectbuttons from "../Components/Catalogue/Selectbuttons";
+import { useSelector } from "react-redux";
 
 const option1 = {
   title: "Computers & Tech",
@@ -67,6 +68,10 @@ const BoxStyling = {
 };
 
 const Catalogue = () => {
+  // Redux
+  const itemsSlice = useSelector((state) => state.tmpProducts.value);
+  const items = [...itemsSlice.products];
+
   return (
     <Container
       height="100vh"

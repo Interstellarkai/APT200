@@ -2,7 +2,15 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Product from "./Product";
 
+// // Redux
+// import { useDispatch, useSelector } from "react-redux";
+// import { addProduct } from "../Redux/tmpProductSlice";
+
 const Products = ({ products }) => {
+  // Redux
+  // const curProducts = useSelector((state) => state.tmpProducts.value);
+  // const dispatch = useDispatch();
+
   if (!products.length) return <p>Loading...</p>;
 
   return (

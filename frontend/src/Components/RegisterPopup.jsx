@@ -114,7 +114,7 @@ const RegisterPopup = (props) => {
   // Use effects
   useEffect(() => {
     let val = isFormValid();
-    console.log("Val: ", val);
+    // console.log("Val: ", val);
     setValidForm(val);
   }, [inputValues]);
 
@@ -144,8 +144,9 @@ const RegisterPopup = (props) => {
                 name={val.toLowerCase()}
                 onChange={handleOnChange}
                 type={
-                  (val === "Password" || val === "Confirm Password") &&
-                  "password"
+                  val === "Password" || val === "Confirm Password"
+                    ? "password"
+                    : "text"
                 }
                 sx={{ my: 1, mx: 5, fontSize: 2, width: "80%" }}
               />

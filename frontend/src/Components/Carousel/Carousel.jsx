@@ -52,7 +52,7 @@ const Carousel = ({ items }) => {
           enableMouseEvents
         >
           {items.map((item, index) => (
-            <div key={item.productName}>
+            <div key={item.key}>
               {Math.abs(activeStep - index) <= 2 ? (
                 <CarouselCard
                   user={{ username: item.username }}

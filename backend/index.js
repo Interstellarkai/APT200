@@ -1,9 +1,49 @@
-const app = require('./app') // the actual Express application
-const http = require('http')
-const config = require('./utils/config')
-const logger = require('./utils/logger')
-const server = http.createServer(app)
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 
-server.listen(config.PORT, () => { //runs the server at localhoal:3001
-  logger.info(`Server running on port ${config.PORT}`)
-}) 
+
+// routes
+import AuthRoute from './routes/AuthRoute.js'
+import UserRoute from './routes/UserRoute.js'
+import PostRoute from './routes/PostRoute.js'
+import UploadRoute from './routes/UploadRoute.js'
+import ChatRoute from './routes/ChatRoute.js'
+import MessageRoute from './routes/MessageRoute.js'
+
+// documentation
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './swagger_output.json' assert {type: "json"};
+
+const app = express();
+
+
+// middleware
+app.use(bodyParser.json({limit: "30mb", extended: true}));
+app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
+app.use(cors());
+// to serve images inside public folder
+app.use(express.static('public'));
+app.use('/images', express.static('images'));
+// documentation
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+
+dotenv.config();
+const PORT = process.env.PORT;
+
+const CONNECTION = process.env.MONGODB_CONNECTION;
+mongoose
+    .connect(CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => app.listen(PORT, () => console.log(`Listening at Port ${PORT}`)))
+    .catch((error) => console.log(`${error} did not connect`));
+
+
+app.use('/auth', AuthRoute);
+app.use('/user', UserRoute)
+app.use('/posts', PostRoute)
+app.use('/upload', UploadRoute)
+app.use('/chat', ChatRoute)
+app.use('/message', MessageRoute)

@@ -11,6 +11,7 @@ import UserModel from "../models/userModel.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 // Get a User
 export const getUser = async (req, res) => {
     const id = req.params.id;
@@ -20,7 +21,7 @@ export const getUser = async (req, res) => {
         if (user) {
             const {password, ...otherDetails} = user._doc;
 
-            res.status(200).json(otherDetails);
+            res.status(200).json(otherDetails)
         } else {
             res.status(404).json("No such User");
         }
@@ -37,14 +38,13 @@ export const getAllUsers = async (req, res) => {
             const {password, ...otherDetails} = user._doc;
             return otherDetails;
         });
-        res.status(200).json(users);
+        res.status(200).json(users)
     } catch (error) {
         res.status(500).json(error);
     }
 };
 
-// udpate a user
-
+// update a user
 export const updateUser = async (req, res) => {
     const id = req.params.id;
     // console.log("Data Received", req.body)
@@ -61,21 +61,15 @@ export const updateUser = async (req, res) => {
             const user = await UserModel.findByIdAndUpdate(id, req.body, {
                 new: true,
             });
-            const token = jwt.sign(
-                {username: user.username, id: user._id},
-                process.env.JWTKEY,
-                {expiresIn: "1h"}
-            );
+            const token = jwt.sign({username: user.username, id: user._id}, process.env.JWTKEY, {expiresIn: "1h"});
             console.log({user, token});
-            res.status(200).json({user, token});
+            res.status(200).json({user, token})
         } catch (error) {
-            console.log("Error agya hy");
+            console.log("Error");
             res.status(500).json(error);
         }
     } else {
-        res.status(403).json(
-            "Access Denied! You can update only your own Account."
-        );
+        res.status(403).json("Access Denied! You can update only your own Account.");
     }
 };
 
@@ -85,7 +79,7 @@ export const deleteUser = async (req, res) => {
 
     const {currentUserId, currentUserAdmin} = req.body;
 
-    if (currentUserId == id || currentUserAdmin) {
+    if (currentUserId === id || currentUserAdmin) {
         try {
             await UserModel.findByIdAndDelete(id);
             res.status(200).json("User Deleted Successfully!");

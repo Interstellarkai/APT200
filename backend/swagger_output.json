@@ -5,7 +5,7 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "localhost:3000",
+  "host": "localhost:3001",
   "basePath": "/",
   "schemes": [
     "http"
@@ -21,10 +21,16 @@
             "schema": {
               "type": "object",
               "properties": {
+                "username": {
+                  "example": "any"
+                },
                 "password": {
                   "example": "any"
                 },
-                "username": {
+                "firstname": {
+                  "example": "any"
+                },
+                "lastname": {
                   "example": "any"
                 }
               }

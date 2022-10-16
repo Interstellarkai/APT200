@@ -78,8 +78,10 @@ const AddItemTab = ({ dispatch, curUser }) => {
 
   const user = curUser.user;
 
+  const [form] = Form.useForm();
   const [loadings, setLoadings] = useState([]);
   const [location, setLocation] = useState(user.savedItem.location);
+  const [imgId, setImgId] = useState(null);
   const [save, setSave] = useState(false);
   const getLocation = (obj) => {
     setLocation(obj);
@@ -123,6 +125,13 @@ const AddItemTab = ({ dispatch, curUser }) => {
     }, 3000);
   };
 
+  const handleUpload = (img_id) => {
+    // console.log("In addItemTab, imgID: ", img_id);
+    form.setFieldValue("img_id", img_id);
+    setImgId(img_id);
+    // console.log("Form: ", form.getFieldsValue(true));
+  };
+
   useEffect(() => {
     // console.log("In AddItemTab, location updated: ", location);
   }, [location]);
@@ -130,7 +139,7 @@ const AddItemTab = ({ dispatch, curUser }) => {
   return (
     <div>
       <Header title="Add Item" level={2} />
-      <Form layout="vertical" onFinish={onFinish}>
+      <Form layout="vertical" onFinish={onFinish} form={form}>
         <Row>
           <Col xs={24} lg={spans.colSpan}>
             <Form.Item
@@ -220,8 +229,11 @@ const AddItemTab = ({ dispatch, curUser }) => {
         >
           <TextArea showCount allowClear maxLength={250}></TextArea>
         </Form.Item>
-        <Form.Item label="Add Images">
-          <ImageUpload />
+        <Form.Item label="Add Images" name="img_id">
+          <ImageUpload
+            cb={handleUpload}
+            productName={form.getFieldValue("productName")}
+          />
         </Form.Item>
         <Row style={{ display: "flex", justifyContent: "right" }}>
           <Form.Item label=" " colon={false}>

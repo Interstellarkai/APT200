@@ -29,8 +29,8 @@ import ChatRoute from "./routes/ChatRoute.js";
 import MessageRoute from "./routes/MessageRoute.js";
 
 // documentation
-import swaggerUi from "swagger-ui-express";
-import swaggerFile from "./swagger_output.json" assert { type: "json" };
+// import swaggerUi from "swagger-ui-express";
+// import swaggerFile from "./swagger_output.json" assert { type: "json" };
 
 const app = express();
 
@@ -42,18 +42,16 @@ app.use(cors());
 app.use(express.static("public"));
 app.use("/images", express.static("images"));
 // documentation
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 dotenv.config();
 const PORT = process.env.PORT;
 
 const CONNECTION = process.env.MONGODB_CONNECTION;
 mongoose
-	.connect(CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
-	.then(() =>
-		app.listen(PORT, () => console.log(`Listening at Port ${PORT}`))
-	)
-	.catch((error) => console.log(`${error} did not connect`));
+  .connect(CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => app.listen(PORT, () => console.log(`Listening at Port ${PORT}`)))
+  .catch((error) => console.log(`${error} did not connect`));
 
 app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);

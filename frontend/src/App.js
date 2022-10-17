@@ -8,6 +8,7 @@ import ProductDetail from "./Components/ProductDetail";
 import ManageProducts from "./Pages/ManageProducts";
 
 import Catalogue from "./Pages/Catalogue";
+import Chat from "./Pages/Chat";
 import colors from "./Components/colors";
 
 import PAGES from "./pageRoute";
@@ -79,6 +80,8 @@ const App = () => {
             element={<ManageProducts />}
           ></Route>
           <Route exact path={PAGES.catalogue} element={<Catalogue />}></Route>
+          <Route exact path={PAGES.chat} element={<Chat />}></Route>
+
           {/* <MapWrapper /> */}
           {/* <GoogleMap /> */}
         </Routes>

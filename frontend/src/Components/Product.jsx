@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Chat Icon
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
@@ -17,13 +17,36 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled, useTheme } from "@mui/material/styles";
-
+import ImageService from "../Services/image";
 const Product = ({ product }) => {
   const [fav, setFav] = useState(false);
+  const [base64String, setBase64String] = useState(null);
   const theme = useTheme();
   const handleFavClick = () => {
     setFav(!fav);
   };
+
+  useEffect(() => {
+    const getBase64 = (buffer) => {
+      const to_return = btoa(
+        new Uint8Array(buffer).reduce(function (data, byte) {
+          return data + String.fromCharCode(byte);
+        }, "")
+      );
+      return to_return;
+    };
+    if (product.img_id) {
+      ImageService.getImageByID(product.img_id)
+        .then((res) => {
+          // Convert to base64
+          setBase64String(getBase64(res.img.data.data));
+        })
+        .catch((e) => {
+          console.log("Error geting image by id.");
+          setBase64String(null);
+        });
+    }
+  });
 
   return (
     <Card
@@ -55,8 +78,10 @@ const Product = ({ product }) => {
             component="img"
             paddingTop="56.25%" // 16:9
             title={product.productName}
-            image={
-              product.img
+            src={
+              base64String !== null
+                ? `data:image/png;base64,${base64String}`
+                : product.img
                 ? product.img
                 : require("../Assets/Item/placeholder.png")
             }

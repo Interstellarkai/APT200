@@ -22,8 +22,8 @@ import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../Components/ErrorMessage";
 import Navbar from "../Components/Essentials/Navbar";
 import PAGES from "../pageRoute";
-import { setDefaultUser } from "../Redux/userSlice";
-import loginService from "../Services/login";
+import { setDefaultUser, setUser } from "../Redux/userSlice";
+import UserService from "../Services/user";
 
 const Login = () => {
   // Redux
@@ -38,31 +38,30 @@ const Login = () => {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [inputs, setInputs] = useState({
     username: "",
-    email: "",
     password: "",
   });
   const [check, setCheck] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit...");
+
     handleSubmitButtonClick(e);
   };
 
   const handleSubmitButtonClick = async (event) => {
     event.preventDefault();
     try {
-      const res = await loginService.login({
-        inputs,
-      });
+      const res = await UserService.login(inputs);
+      console.log("Printing response: ", res);
       // console.log("In login, user is : ", res.token);
-      if (res.token) {
+      if (res.user.username) {
+        console.log("In here");
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
-        }, 3000);
-        // setUser(user);
-        dispatch(setDefaultUser({ username: inputs.email }));
-        navigate(PAGES.homePage);
+          dispatch(setUser(res.user));
+          navigate(PAGES.homePage);
+        }, 1500);
       }
     } catch (e) {
       setValidCredentials(false);
@@ -145,10 +144,10 @@ const Login = () => {
               >
                 <TextField
                   label="Username"
-                  name="email"
+                  name="username"
                   sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
                   onChange={handleOnChange}
-                  value={inputs.email}
+                  value={inputs.username}
                   required
                 />
                 {/* <TextField

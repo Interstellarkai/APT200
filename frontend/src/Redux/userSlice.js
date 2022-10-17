@@ -84,6 +84,11 @@ export const userSlice = createSlice({
       // console.log(data.payload.username);
       state.value = { ...defaultUser.value, username: data.payload.username };
     },
+
+    setUser: (state, data) => {
+      let { username, firstname, lastname, _id } = data.payload;
+      state.value = { username, firstname, lastname, _id, isLoggedIn: true };
+    },
   },
 });
 
@@ -95,6 +100,7 @@ export const {
   setValue,
   editOneItem,
   setDefaultUser,
+  setUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

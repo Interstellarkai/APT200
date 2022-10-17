@@ -51,7 +51,7 @@ const initialState = {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: defaultUser,
   reducers: {
     toggleLoggedIn: (state) => {
       state.value.isLoggedIn = !state.value.isLoggedIn;

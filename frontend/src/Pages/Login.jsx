@@ -1,6 +1,6 @@
-import { Done, Google } from "@mui/icons-material";
-import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
-import { LoadingButton } from "@mui/lab";
+import { Done, Google } from '@mui/icons-material';
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
+import { LoadingButton } from '@mui/lab';
 import {
   Box,
   Button,
@@ -13,17 +13,19 @@ import {
   TextField,
   Tooltip,
   Typography,
-} from "@mui/material";
-import { Stack, width } from "@mui/system";
-import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import ErrorMessage from "../Components/ErrorMessage";
-import Navbar from "../Components/Essentials/Navbar";
-import PAGES from "../pageRoute";
-import { setDefaultUser } from "../Redux/userSlice";
-import loginService from "../Services/login";
+} from '@mui/material';
+import { Stack, width } from '@mui/system';
+import React from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import ErrorMessage from '../Components/ErrorMessage';
+import Navbar from '../Components/Essentials/Navbar';
+import PAGES from '../pageRoute';
+import { setDefaultUser } from '../Redux/userSlice';
+import loginService from '../Services/login';
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
 
 const Login = () => {
   // Redux
@@ -37,14 +39,14 @@ const Login = () => {
   const [validCredentials, setValidCredentials] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [inputs, setInputs] = useState({
-    username: "",
-    email: "",
-    password: "",
+    username: '',
+    email: '',
+    password: '',
   });
   const [check, setCheck] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit...");
+    console.log('submit...');
     handleSubmitButtonClick(e);
   };
 
@@ -95,8 +97,8 @@ const Login = () => {
       <Box
         position="absolute"
         component="img"
-        src={require("../Assets/login-background-image.png")}
-        sx={{ objectFit: "cover", width: "100vw" }}
+        src={require('../Assets/login-background-image.png')}
+        sx={{ objectFit: 'cover', width: '100vw' }}
         // border="1px solid"
         height="inherit"
       />
@@ -106,12 +108,12 @@ const Login = () => {
           zIndex={2000}
           position="absolute"
           // bgcolor="red"
-          padding={"10px"}
+          padding={'10px'}
           onClick={() => {
             navigate(PAGES.homePage);
           }}
         >
-          <Tooltip title={"Go back to Home"}>
+          <Tooltip title={'Go back to Home'}>
             <IconButton>
               <ArrowBackIosRoundedIcon />
             </IconButton>
@@ -127,7 +129,7 @@ const Login = () => {
         >
           <Paper
             elevation={3}
-            sx={{ opacity: "0.95", padding: { xs: 2, md: 5 } }}
+            sx={{ opacity: '0.95', padding: { xs: 2, md: 5 } }}
           >
             {/* <form onSubmit={handleSubmit}> */}
             <Stack justifyContent="center" alignItems="center">
@@ -146,7 +148,7 @@ const Login = () => {
                 <TextField
                   label="Username"
                   name="email"
-                  sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
+                  sx={{ my: 1, mx: 5, width: '100%', fontSize: '1em' }}
                   onChange={handleOnChange}
                   value={inputs.email}
                   required
@@ -161,17 +163,15 @@ const Login = () => {
                     error={!isValidEmail}
                     helperText={!isValidEmail ? "Invalid Email" : ""}
                   /> */}
-
                 <TextField
                   label="Password"
                   name="password"
                   type="password"
-                  sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
+                  sx={{ my: 1, mx: 5, width: '100%', fontSize: '1em' }}
                   onChange={handleOnChange}
                   value={inputs.password}
                   required
                 />
-
                 <Box
                   width="inherit"
                   display="flex"
@@ -186,10 +186,10 @@ const Login = () => {
                   />
                   <Link
                     sx={{
-                      textDecoration: "none",
-                      cursor: "pointer",
-                      "&:hover": {
-                        textDecoration: "underline",
+                      textDecoration: 'none',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        textDecoration: 'underline',
                       },
                     }}
                   >
@@ -197,11 +197,10 @@ const Login = () => {
                   </Link>
                 </Box>
                 {!validCredentials && (
-                  <Box minWidth={"100%"}>
-                    <ErrorMessage errorMessage={"Invalid login credentials"} />{" "}
+                  <Box minWidth={'100%'}>
+                    <ErrorMessage errorMessage={'Invalid login credentials'} />{' '}
                   </Box>
                 )}
-
                 <LoadingButton
                   type="submit"
                   variant="text"
@@ -210,27 +209,29 @@ const Login = () => {
                   loadingIndicator="Logging in..."
                   sx={{
                     // bgcolor: "white",
-                    boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.3)",
-                    width: "100%",
-                    color: "black",
+                    boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.3)',
+                    width: '100%',
+                    color: 'black',
                     my: 1,
                   }}
                 >
                   Login
                 </LoadingButton>
                 <Typography py={1}>OR</Typography>
-                <Button
-                  variant="contained"
-                  sx={{ width: "100%" }}
-                  startIcon={<Google />}
-                >
-                  {/* <img src={require("../Assets/google-icon.png")} /> */}
-                  Continue with Google
-                </Button>
+                <GoogleLogin
+                  onSuccess={(res) => {
+                    console.log('Succcessful Login');
+                    console.log(jwt_decode(res.credential));
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                />
+
                 <Typography variant="subtitle2" sx={{ my: 3 }}>
                   Don't have an account? Create one now!
                 </Typography>
-                <Button variant="contained" sx={{ width: "100%" }}>
+                <Button variant="contained" sx={{ width: '100%' }}>
                   Create Account
                 </Button>
                 {/* {user === false ? (

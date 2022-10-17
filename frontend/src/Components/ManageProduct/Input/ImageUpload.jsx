@@ -46,6 +46,7 @@ const ImageUpload = ({ productName, cb }) => {
         // Get id of image and save to product img src
         let img_id = res.id;
         file.img_id = img_id;
+
         // Pass back to parent
         cb(img_id);
       });
@@ -127,6 +128,7 @@ const ImageUpload = ({ productName, cb }) => {
         beforeUpload={beforeUpload}
         onRemove={(file) => {
           console.log("Removing file...");
+          console.log(file);
           ImageService.deleteImageById(file.img_id);
         }}
       >

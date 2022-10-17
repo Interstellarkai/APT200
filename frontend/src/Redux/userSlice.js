@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const defaultUser = {
   value: {
     username: "APT20000",
-    email: "APT20000@gmail.com",
+    firstname: "APT",
+    lastname: "20000",
+    _id: "634ba63ed7fec6a4c25959a0",
     isLoggedIn: true,
     products: [
       {
@@ -53,7 +55,7 @@ const initialState = {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: defaultUser,
   reducers: {
     toggleLoggedIn: (state) => {
       state.value.isLoggedIn = !state.value.isLoggedIn;

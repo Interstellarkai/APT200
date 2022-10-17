@@ -67,7 +67,9 @@ let user = {
 };
 
 const App = () => {
-  // const tmpProducts = useSelector((state) => state.tmpProducts.value);
+  const tmpProducts = useSelector((state) => state.tmpProducts.value);
+  const curUser = useSelector((state) => state.user.value);
+
   return (
     <ThemeProvider theme={customTheme}>
       <Router>
@@ -80,7 +82,11 @@ const App = () => {
             element={<ManageProducts />}
           ></Route>
           <Route exact path={PAGES.catalogue} element={<Catalogue />}></Route>
-          <Route exact path={PAGES.chat} element={<Chat />}></Route>
+          <Route
+            exact
+            path={PAGES.chat}
+            element={<Chat curUser={curUser} />}
+          ></Route>
         </Routes>
       </Router>
     </ThemeProvider>

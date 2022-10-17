@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.10.4",
     "@material-ui/styles": "^4.11.5",
     "@mui/icons-material": "^5.10.6",
-    "@mui/lab": "^5.0.0-alpha.99",
+    "@mui/lab": "^5.0.0-alpha.101",
     "@mui/material": "^5.10.7",
     "@mui/system": "^5.10.5",
     "@reduxjs/toolkit": "^1.8.5",
@@ -27,7 +27,7 @@
     "react-spinners": "^0.13.4",
     "react-swipeable-views": "^0.14.0",
     "redux-persist": "^6.0.0",
-    "styled-components": "^5.3.5",
+    "styled-components": "^5.3.6",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

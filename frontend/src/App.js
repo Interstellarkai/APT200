@@ -28,6 +28,7 @@ import MapWrapper from "./Components/ManageProduct/MapComponents/MapWrapper";
 import { Pages } from "@mui/icons-material";
 
 import { useSelector } from "react-redux";
+import ImageRender from "./Components/ManageProduct/Input/ImageRender";
 
 let customTheme = createTheme({
   palette: {
@@ -70,7 +71,6 @@ const App = () => {
     <ThemeProvider theme={customTheme}>
       <Router>
         <Routes>
-          {/* <ProductDetail product={product} user={user} /> */}
           <Route exact path={PAGES.homePage} element={<Home />}></Route>
           <Route exact path={PAGES.loginPage} element={<Login />}></Route>
           <Route
@@ -79,8 +79,6 @@ const App = () => {
             element={<ManageProducts />}
           ></Route>
           <Route exact path={PAGES.catalogue} element={<Catalogue />}></Route>
-          {/* <MapWrapper /> */}
-          {/* <GoogleMap /> */}
         </Routes>
       </Router>
     </ThemeProvider>

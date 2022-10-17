@@ -27,6 +27,7 @@ import PostRoute from "./routes/PostRoute.js";
 import UploadRoute from "./routes/UploadRoute.js";
 import ChatRoute from "./routes/ChatRoute.js";
 import MessageRoute from "./routes/MessageRoute.js";
+import ImageRouter from "./routes/images.js";
 
 // documentation
 // import swaggerUi from "swagger-ui-express";
@@ -59,3 +60,4 @@ app.use("/posts", PostRoute);
 app.use("/upload", UploadRoute);
 app.use("/chat", ChatRoute);
 app.use("/message", MessageRoute);
+app.use("/image", ImageRouter);

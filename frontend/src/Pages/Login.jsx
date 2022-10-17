@@ -1,6 +1,6 @@
-import { Done, Google } from '@mui/icons-material';
-import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
-import { LoadingButton } from '@mui/lab';
+import { Done, Google } from "@mui/icons-material";
+import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
+import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Button,
@@ -13,19 +13,19 @@ import {
   TextField,
   Tooltip,
   Typography,
-} from '@mui/material';
-import { Stack, width } from '@mui/system';
-import React from 'react';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import ErrorMessage from '../Components/ErrorMessage';
-import Navbar from '../Components/Essentials/Navbar';
-import PAGES from '../pageRoute';
-import { setDefaultUser } from '../Redux/userSlice';
-import loginService from '../Services/login';
-import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode';
+} from "@mui/material";
+import { Stack, width } from "@mui/system";
+import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import ErrorMessage from "../Components/ErrorMessage";
+import Navbar from "../Components/Essentials/Navbar";
+import PAGES from "../pageRoute";
+import { setDefaultUser, setUser } from "../Redux/userSlice";
+import UserService from "../Services/user";
+import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   // Redux
@@ -39,32 +39,31 @@ const Login = () => {
   const [validCredentials, setValidCredentials] = useState(true);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [inputs, setInputs] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    password: "",
   });
   const [check, setCheck] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submit...');
+    console.log("submit...");
+
     handleSubmitButtonClick(e);
   };
 
   const handleSubmitButtonClick = async (event) => {
     event.preventDefault();
     try {
-      const res = await loginService.login({
-        inputs,
-      });
+      const res = await UserService.login(inputs);
+      console.log("Printing response: ", res);
       // console.log("In login, user is : ", res.token);
-      if (res.token) {
+      if (res.user.username) {
+        console.log("In here");
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
-        }, 3000);
-        // setUser(user);
-        dispatch(setDefaultUser({ username: inputs.email }));
-        navigate(PAGES.homePage);
+          dispatch(setUser(res.user));
+          navigate(PAGES.homePage);
+        }, 1500);
       }
     } catch (e) {
       setValidCredentials(false);
@@ -97,8 +96,8 @@ const Login = () => {
       <Box
         position="absolute"
         component="img"
-        src={require('../Assets/login-background-image.png')}
-        sx={{ objectFit: 'cover', width: '100vw' }}
+        src={require("../Assets/login-background-image.png")}
+        sx={{ objectFit: "cover", width: "100vw" }}
         // border="1px solid"
         height="inherit"
       />
@@ -108,12 +107,12 @@ const Login = () => {
           zIndex={2000}
           position="absolute"
           // bgcolor="red"
-          padding={'10px'}
+          padding={"10px"}
           onClick={() => {
             navigate(PAGES.homePage);
           }}
         >
-          <Tooltip title={'Go back to Home'}>
+          <Tooltip title={"Go back to Home"}>
             <IconButton>
               <ArrowBackIosRoundedIcon />
             </IconButton>
@@ -129,7 +128,7 @@ const Login = () => {
         >
           <Paper
             elevation={3}
-            sx={{ opacity: '0.95', padding: { xs: 2, md: 5 } }}
+            sx={{ opacity: "0.95", padding: { xs: 2, md: 5 } }}
           >
             {/* <form onSubmit={handleSubmit}> */}
             <Stack justifyContent="center" alignItems="center">
@@ -147,10 +146,10 @@ const Login = () => {
               >
                 <TextField
                   label="Username"
-                  name="email"
-                  sx={{ my: 1, mx: 5, width: '100%', fontSize: '1em' }}
+                  name="username"
+                  sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
                   onChange={handleOnChange}
-                  value={inputs.email}
+                  value={inputs.username}
                   required
                 />
                 {/* <TextField
@@ -167,7 +166,7 @@ const Login = () => {
                   label="Password"
                   name="password"
                   type="password"
-                  sx={{ my: 1, mx: 5, width: '100%', fontSize: '1em' }}
+                  sx={{ my: 1, mx: 5, width: "100%", fontSize: "1em" }}
                   onChange={handleOnChange}
                   value={inputs.password}
                   required
@@ -186,10 +185,10 @@ const Login = () => {
                   />
                   <Link
                     sx={{
-                      textDecoration: 'none',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        textDecoration: 'underline',
+                      textDecoration: "none",
+                      cursor: "pointer",
+                      "&:hover": {
+                        textDecoration: "underline",
                       },
                     }}
                   >
@@ -197,8 +196,8 @@ const Login = () => {
                   </Link>
                 </Box>
                 {!validCredentials && (
-                  <Box minWidth={'100%'}>
-                    <ErrorMessage errorMessage={'Invalid login credentials'} />{' '}
+                  <Box minWidth={"100%"}>
+                    <ErrorMessage errorMessage={"Invalid login credentials"} />{" "}
                   </Box>
                 )}
                 <LoadingButton
@@ -209,9 +208,9 @@ const Login = () => {
                   loadingIndicator="Logging in..."
                   sx={{
                     // bgcolor: "white",
-                    boxShadow: ' 0px 4px 4px rgba(0, 0, 0, 0.3)',
-                    width: '100%',
-                    color: 'black',
+                    boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.3)",
+                    width: "100%",
+                    color: "black",
                     my: 1,
                   }}
                 >
@@ -220,18 +219,18 @@ const Login = () => {
                 <Typography py={1}>OR</Typography>
                 <GoogleLogin
                   onSuccess={(res) => {
-                    console.log('Succcessful Login');
+                    console.log("Succcessful Login");
                     console.log(jwt_decode(res.credential));
                   }}
                   onError={() => {
-                    console.log('Login Failed');
+                    console.log("Login Failed");
                   }}
                 />
 
                 <Typography variant="subtitle2" sx={{ my: 3 }}>
                   Don't have an account? Create one now!
                 </Typography>
-                <Button variant="contained" sx={{ width: '100%' }}>
+                <Button variant="contained" sx={{ width: "100%" }}>
                   Create Account
                 </Button>
                 {/* {user === false ? (

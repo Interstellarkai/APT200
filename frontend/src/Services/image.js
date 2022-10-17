@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/api/images/";
+const baseUrl = "http://localhost:3001/image/";
 
 /*
 form data, with {img: file, name: 'product_name+username'}

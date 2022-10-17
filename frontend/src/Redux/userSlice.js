@@ -41,17 +41,19 @@ const defaultUser = {
 
 const initialState = {
   value: {
+    _id: null,
     username: null,
-    email: null,
+    firstname: null,
+    lastname: null,
     isLoggedIn: false,
-    products: null,
-    savedItem: null,
+    products: [],
+    savedItem: { location: null },
   },
 };
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: defaultUser,
+  initialState,
   reducers: {
     toggleLoggedIn: (state) => {
       state.value.isLoggedIn = !state.value.isLoggedIn;
@@ -84,6 +86,18 @@ export const userSlice = createSlice({
       // console.log(data.payload.username);
       state.value = { ...defaultUser.value, username: data.payload.username };
     },
+
+    setUser: (state, data) => {
+      let { username, firstname, lastname, _id } = data.payload;
+      state.value = {
+        ...state.value,
+        username,
+        firstname,
+        lastname,
+        _id,
+        isLoggedIn: true,
+      };
+    },
   },
 });
 
@@ -95,6 +109,7 @@ export const {
   setValue,
   editOneItem,
   setDefaultUser,
+  setUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

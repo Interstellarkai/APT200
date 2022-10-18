@@ -2,14 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const defaultUser = {
   value: {
-    username: "APT20000",
-    firstname: "APT",
-    lastname: "20000",
+    username: "andrewng",
+    firstname: "Andrew",
+    lastname: "Ng",
     _id: "634ba63ed7fec6a4c25959a0",
     isLoggedIn: true,
     products: [
       {
         key: "0",
+        userId: "634ba63ed7fec6a4c25959a0",
         productName: "Adidas Shoes",
         location: null,
         price: 35,
@@ -17,17 +18,18 @@ const defaultUser = {
         category: [["shoes"]],
         description:
           "Recently bought pair of Adidas shoes from Malaysia, not used at all",
-        username: "test",
+        username: "andrewng",
       },
       {
         key: "1",
+        userId: "634ba63ed7fec6a4c25959a0",
         productName: "Unisex Uniqlo unique Shirt",
         location: null,
         price: 35,
         status: ["averageCondition"],
         category: [["men"], ["women"]],
         description: "Around 5 years old",
-        username: "test",
+        username: "andrewng",
       },
     ],
     savedItem: {
@@ -69,6 +71,7 @@ export const userSlice = createSlice({
       state.value.products.push({
         ...data.payload,
         key: data.payload.productName,
+        userId: state.value._id,
       });
     },
 

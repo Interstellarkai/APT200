@@ -1,17 +1,22 @@
-const imagesRouter = require("express").Router();
-const Product = require("../models/product");
-const User = require("../models/user");
-const {
-  getAllImages,
-  getImage,
-  deleteImage,
-} = require("../controllers/crudController");
+import express from "express";
+import Image from "../models/imageModel.js";
+import fs from "fs";
+import multer from "multer";
+
+const router = express.Router();
+// const Product = require("../models/product");
+// const User = require("../models/user");
+// const {
+//   getAllImages,
+//   getImage,
+//   deleteImage,
+// } = require("../controllers/crudController");
 
 //for Image
 
-const Image = require("../models/image");
-const fs = require("fs");
-const multer = require("multer");
+// const Image = require("../models/imageModel");
+// const fs = require("fs");
+// const multer = require("multer");
 const Storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads");
@@ -24,58 +29,51 @@ const Storage = multer.diskStorage({
 const upload = multer({ storage: Storage });
 //end
 
-imagesRouter.get("/", getAllImages);
-/*
-imagesRouter.get('/', async (request, response) => {
-  const allImages = await Image.find()
-  response.json(allImages)
+// router.get("/", getAllImages)
+
+router.get("/", async (request, response) => {
+  const allImages = await Image.find();
+  response.json(allImages);
 });
-*/
 
-imagesRouter.get("/:id", getImage);
-/*
-imagesRouter.get('/:id', async (request, response) => {
-    const img = await Image.findById(request.params.id)
-    if (img) {
-      response.json(img)
-    } else {
-      response.status(404).end()
-    }
-})
-*/
+// router.get("/:id", getImage);
 
-imagesRouter.post(
-  "/",
-  upload.single("img"),
-  async (request, response, next) => {
-    // const prodId = request.body.pid
-    // const product = await Product.findById(prodId)
-    console.log("Printing request img: ", request.file);
-    const saveImage = new Image({
-      name: request.body.name,
-      img: {
-        data: fs.readFileSync("uploads/" + request.file.filename),
-        contentType: "image/png",
-      },
-      // product: product._id
-    });
-
-    // console.log("saveImage: ", saveImage);
-    const savedImage = await saveImage.save();
-    // product.imgs = product.imgs.concat(savedImage._id)
-    // await product.save()
-
-    response.json(savedImage);
+router.get("/:id", async (request, response) => {
+  const img = await Image.findById(request.params.id);
+  if (img) {
+    response.json(img);
+  } else {
+    response.status(404).end();
   }
-);
+});
 
-imagesRouter.delete("/:id", deleteImage);
-/*
-imagesRouter.delete('/:id', async (request, response, next) => {
-      await Image.findByIdAndRemove(request.params.id)
-      response.status(204).end()
-})
-*/
+router.post("/", upload.single("img"), async (request, response, next) => {
+  // const prodId = request.body.pid
+  // const product = await Product.findById(prodId)
+  console.log("Printing request img: ", request.file);
+  const saveImage = new Image({
+    name: request.body.name,
+    img: {
+      data: fs.readFileSync("uploads/" + request.file.filename),
+      contentType: "image/png",
+    },
+    // product: product._id
+  });
+
+  // console.log("saveImage: ", saveImage);
+  const savedImage = await saveImage.save();
+  // product.imgs = product.imgs.concat(savedImage._id)
+  // await product.save()
+
+  response.json(savedImage);
+});
+
+// router.delete("/:id", deleteImage);
+
+router.delete("/:id", async (request, response, next) => {
+  await Image.findByIdAndRemove(request.params.id);
+  response.status(204).end();
+});
 
 /*
 //with image
@@ -145,4 +143,4 @@ productsRouter.put('/upload/:id', upload.single("file"), (req, res) => {
 })
 */
 
-module.exports = imagesRouter;
+export default router;

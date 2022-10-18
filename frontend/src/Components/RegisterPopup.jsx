@@ -1,9 +1,8 @@
-import { Add, Done, Google } from "@mui/icons-material";
+import { Done, Google } from "@mui/icons-material";
 import SaveIcon from "@mui/icons-material/Save";
 import ErrorMessage from "./ErrorMessage";
 import { LoadingButton } from "@mui/lab";
 import {
-  Avatar,
   Box,
   Button,
   CircularProgress,
@@ -11,14 +10,10 @@ import {
   DialogTitle,
   Fab,
   Link,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   TextField,
   Typography,
 } from "@mui/material";
-import { blue, green } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
 import { Stack } from "@mui/system";
 import React from "react";
 import { useEffect } from "react";
@@ -36,11 +31,18 @@ const RegisterPopup = (props) => {
   const { onClose, selectedValue, open, values } = props;
   const [inputValues, setInputValues] = useState({
     username: null,
-    name: null,
+    firstname: null,
+    lastname: null,
     password: null,
     "confirm password": null,
   });
-  const inputs = ["Username", "Name", "Password", "Confirm Password"];
+  const inputs = [
+    "Username",
+    "First Name",
+    "Last Name",
+    "Password",
+    "Confirm Password",
+  ];
   const [errorMessage, setErrorMessage] = useState(null);
   const [validForm, setValidForm] = useState(false);
   const handleClose = () => {
@@ -48,11 +50,15 @@ const RegisterPopup = (props) => {
   };
 
   const isFormValid = () => {
-    let { username, name, password, ...confirm_password } = inputValues;
+    console.log("Input values: ", inputValues);
+    let { username, firstname, lastname, password, ...confirm_password } =
+      inputValues;
     confirm_password = confirm_password["confirm password"];
     if (
-      (username && name && password && confirm_password) === "" ||
-      (username && name && password && confirm_password) === null
+      (username && firstname && lastname && password && confirm_password) ===
+        "" ||
+      (username && firstname && lastname && password && confirm_password) ===
+        null
     ) {
       // console.log("Null");
       return false;
@@ -65,10 +71,14 @@ const RegisterPopup = (props) => {
   };
 
   const handleOnChange = (e) => {
+    console.log("Target name: ", e.target.name);
+    let name = e.target.name;
     let val = e.target.value;
+    if (name === "first name") name = "firstname";
+    else if (name === "last name") name = "lastname";
     setInputValues({
       ...inputValues,
-      [e.target.name]: val,
+      [name]: val,
     });
   };
 
@@ -78,12 +88,10 @@ const RegisterPopup = (props) => {
       setErrorMessage("Password mismatch");
     } else {
       try {
-        const res = await userService.createUser({
-          inputValues,
-        });
+        const res = await userService.createUser(inputValues);
         console.log(res);
         // console.log("HEre");
-        if (res.token) {
+        if (res) {
           setErrorMessage(null);
           setLoading(true);
           setSubmitted(true);
@@ -96,12 +104,13 @@ const RegisterPopup = (props) => {
           }, 3000);
         }
       } catch (e) {
-        console.log("In error");
-        let eMsg = e.response.data.error;
-        console.log(e.response.data);
-        if (eMsg === "username must be unique")
-          setErrorMessage("Username already in use");
-        else setErrorMessage("Name must be more than 8 characters");
+        // console.log("In error");
+        let eMsg = e.response.data.message;
+        console.log("Error message: ", eMsg);
+        setErrorMessage(eMsg);
+        // if (eMsg === "username must be unique")
+        //   setErrorMessage("Username already in use");
+        // else setErrorMessage("Name must be more than 8 characters");
       }
     }
   };

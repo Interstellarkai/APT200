@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const defaultUser = {
   value: {
     username: "APT20000",
-    email: "APT20000@gmail.com",
+    firstname: "APT",
+    lastname: "20000",
+    _id: "634ba63ed7fec6a4c25959a0",
     isLoggedIn: true,
     products: [
       {
@@ -41,11 +43,13 @@ const defaultUser = {
 
 const initialState = {
   value: {
+    _id: null,
     username: null,
-    email: null,
+    firstname: null,
+    lastname: null,
     isLoggedIn: false,
-    products: null,
-    savedItem: null,
+    products: [],
+    savedItem: { location: null },
   },
 };
 
@@ -84,6 +88,18 @@ export const userSlice = createSlice({
       // console.log(data.payload.username);
       state.value = { ...defaultUser.value, username: data.payload.username };
     },
+
+    setUser: (state, data) => {
+      let { username, firstname, lastname, _id } = data.payload;
+      state.value = {
+        ...state.value,
+        username,
+        firstname,
+        lastname,
+        _id,
+        isLoggedIn: true,
+      };
+    },
   },
 });
 
@@ -95,6 +111,7 @@ export const {
   setValue,
   editOneItem,
   setDefaultUser,
+  setUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

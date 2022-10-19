@@ -302,12 +302,12 @@ const ChatBody = ({ curUser, receivingUser }) => {
             </Fab>
             {sending && (
               <CircularProgress
-                size={50}
+                size={45}
                 sx={{
                   // color: green[500],
                   position: "absolute",
-                  top: -6,
-                  left: -6,
+                  top: -3,
+                  left: -4,
                   zIndex: 1,
                 }}
               />

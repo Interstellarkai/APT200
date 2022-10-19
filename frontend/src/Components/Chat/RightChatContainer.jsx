@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import React from "react";
 import ChatBody from "./ChatBody";
 import ChatHeader from "./ChatHeader";
@@ -5,7 +6,7 @@ import ChatHeader from "./ChatHeader";
 const RightChatContainer = ({ receivingUser, curUser }) => {
   return (
     <div>
-      {receivingUser && (
+      {receivingUser ? (
         <div>
           <ChatHeader
             username={receivingUser.username}
@@ -13,6 +14,10 @@ const RightChatContainer = ({ receivingUser, curUser }) => {
             lastname={receivingUser.lastname}
           />
           <ChatBody curUser={curUser} receivingUser={receivingUser} />
+        </div>
+      ) : (
+        <div className="unselected-chat">
+          <Typography bgcolor={"red"}>Click a chat to view!</Typography>
         </div>
       )}
     </div>

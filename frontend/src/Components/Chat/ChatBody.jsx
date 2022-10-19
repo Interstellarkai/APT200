@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import CurrentUserChatBox from "./CurrentUserChatBox";
@@ -8,7 +9,7 @@ const ChatBody = ({ curUser, receivingUser }) => {
 
   return (
     <div className="chat-body-container">
-      {curChat["_id"] !== null ? (
+      {curChat._id ? (
         <div className="chat-body-wrapper">
           {curChat.messages.map((m) =>
             // If it's current user, then right, else left
@@ -30,7 +31,7 @@ const ChatBody = ({ curUser, receivingUser }) => {
           )}
         </div>
       ) : (
-        <div />
+        <Typography>Send a message!</Typography>
       )}
     </div>
   );

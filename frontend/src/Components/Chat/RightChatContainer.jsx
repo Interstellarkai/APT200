@@ -4,7 +4,7 @@ import ChatBody from "./ChatBody";
 import ChatHeader from "./ChatHeader";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 
-const RightChatContainer = ({ receivingUser, curUser }) => {
+const RightChatContainer = ({ receivingUser, curUser, socket }) => {
   return (
     <div>
       {receivingUser ? (
@@ -14,7 +14,11 @@ const RightChatContainer = ({ receivingUser, curUser }) => {
             firstname={receivingUser.firstname}
             lastname={receivingUser.lastname}
           />
-          <ChatBody curUser={curUser} receivingUser={receivingUser} />
+          <ChatBody
+            curUser={curUser}
+            receivingUser={receivingUser}
+            socket={socket}
+          />
         </div>
       ) : (
         <div className="unselected-chat">

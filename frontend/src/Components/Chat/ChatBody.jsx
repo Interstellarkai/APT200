@@ -10,17 +10,29 @@ import { addMessage, getMessages } from "../../Services/MessageRequests";
 import { LoadingButton } from "@mui/lab";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
-import { setChat } from "../../Redux/chatSlice";
+import { addToMessages, setChat } from "../../Redux/chatSlice";
+import { useRef } from "react";
 
-const ChatBody = ({ curUser, receivingUser }) => {
+const ChatBody = ({ curUser, receivingUser, socket }) => {
   const curChat = useSelector((state) => state.chat.value);
   const dispatch = useDispatch();
-  // console.log(curChat);
+  // console.log("current chat: ", curChat);
   const [newMessage, setNewMessage] = useState("");
   const [sending, setSending] = useState(false);
 
+  const scroll = useRef();
+
+  // scroll to last message
+  useEffect(() => {
+    scroll.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
+    });
+  }, []);
+
   const handleChange = (msg) => {
-    console.log(msg);
+    // console.log(msg);
     setNewMessage(msg);
   };
 
@@ -32,15 +44,27 @@ const ChatBody = ({ curUser, receivingUser }) => {
     let senderId = curUser._id;
     try {
       let res = await addMessage({ chatId, senderId, text });
-      console.log(res);
+      // console.log(res);
       setSending(false);
       setNewMessage("");
-      fetchNewMessages();
+      // await fetchNewMessages();
+      dispatch(addToMessages(res.data));
+      // for socket part
+      let receiverId = receivingUser._id;
+      socket.current.emit("send-message", { receiverId, message: res.data });
     } catch (e) {
       console.log(e);
       setSending(false);
     }
   };
+
+  useEffect(() => {
+    socket.current.on("receive-message", async (data) => {
+      console.log("receiving data from socket: ", data);
+      // await fetchNewMessages();
+      dispatch(addToMessages(data.message));
+    });
+  }, []);
 
   const fetchNewMessages = async () => {
     try {
@@ -62,28 +86,24 @@ const ChatBody = ({ curUser, receivingUser }) => {
         {curChat._id ? (
           <div className="chat-body-container">
             <div className="chat-body-wrapper">
-              {curChat.messages.map((m) =>
+              {curChat.messages.map((m) => (
                 // If it's current user, then right, else left
-                {
-                  if (m.senderId === curUser._id) {
-                    return (
-                      <CurrentUserChatBox
-                        key={m._id}
-                        message={m}
-                        user={curUser}
-                      />
-                    );
-                  } else {
-                    return (
-                      <OtherUserChatbox
-                        key={m._id}
-                        message={m}
-                        user={receivingUser}
-                      />
-                    );
-                  }
-                }
-              )}
+                <div ref={scroll}>
+                  {m.senderId === curUser._id ? (
+                    <CurrentUserChatBox
+                      key={m._id}
+                      message={m}
+                      user={curUser}
+                    />
+                  ) : (
+                    <OtherUserChatbox
+                      key={m._id}
+                      message={m}
+                      user={receivingUser}
+                    />
+                  )}
+                </div>
+              ))}
               {/* {curChat.messages.map((m) =>
                 // If it's current user, then right, else left
                 {

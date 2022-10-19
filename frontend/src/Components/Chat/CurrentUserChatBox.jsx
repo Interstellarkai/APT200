@@ -1,10 +1,20 @@
 import { Avatar } from "@mui/material";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { format } from "timeago.js";
 const CurrentUserChatBox = ({ message, user = { user } }) => {
+  const scroll = useRef();
+
+  // scroll to last message
+  useEffect(() => {
+    scroll.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
+    });
+  }, []);
   return (
-    <div className="chat-box-row">
+    <div className="chat-box-row" ref={scroll}>
       <div className="empty-space"> </div>
       <div className="chat-box-container container-current-user">
         <div className="chat-bubble bubble-current-user">

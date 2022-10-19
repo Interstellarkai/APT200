@@ -1,3 +1,6 @@
+.chat-wrapper-container {
+  /* margin-top: 7vh; */
+}
 .chat-wrapper {
   display: flex;
   overflow: hidden;

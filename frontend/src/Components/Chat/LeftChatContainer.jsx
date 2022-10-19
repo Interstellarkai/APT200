@@ -5,7 +5,7 @@ import { useState } from "react";
 import { getUser } from "../../Services/UserRequests";
 import UserChatCard from "./UserChatCard";
 
-const LeftChatContainer = ({ cbFunction, curUser, chats }) => {
+const LeftChatContainer = ({ cbFunction, curUser, chats, onlineUsers }) => {
   const [otherUsers, setOtherUsers] = useState([]);
 
   // Find all other user in chats
@@ -49,6 +49,7 @@ const LeftChatContainer = ({ cbFunction, curUser, chats }) => {
               userId={user.userId}
               chat={user.chat}
               cbFunction={cbFunction}
+              onlineUsers={onlineUsers}
               // username={chat.username}
               // firstname={chat.firstname}
               // lastname={chat.lastname}

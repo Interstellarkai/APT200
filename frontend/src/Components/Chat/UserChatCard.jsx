@@ -1,4 +1,12 @@
-import { Avatar, Button, Card, CardHeader } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardHeader,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+import CircleIcon from "@mui/icons-material/Circle";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { getUser } from "../../Services/UserRequests";
@@ -6,9 +14,18 @@ import { getUser } from "../../Services/UserRequests";
 import { useDispatch } from "react-redux";
 import { setChat } from "../../Redux/chatSlice";
 import { getMessages } from "../../Services/MessageRequests";
+import { Box } from "@mui/system";
 
-const UserChatCard = ({ cbFunction, userId, chat }) => {
+const UserChatCard = ({ cbFunction, userId, chat, onlineUsers }) => {
   const dispatch = useDispatch();
+  const [user, setUser] = useState({
+    username: "",
+    firstname: "",
+    lastname: "",
+  });
+
+  const [isOnline, setOnline] = useState(null);
+
   const handleClick = async () => {
     // console.log(`Chat card ${chat._id} clicked. User ${userId}`);
     try {
@@ -33,11 +50,6 @@ const UserChatCard = ({ cbFunction, userId, chat }) => {
       console.log(e);
     }
   };
-  const [user, setUser] = useState({
-    username: "",
-    firstname: "",
-    lastname: "",
-  });
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -48,6 +60,10 @@ const UserChatCard = ({ cbFunction, userId, chat }) => {
     };
     getUserDetails();
   }, [userId]);
+
+  useEffect(() => {
+    setOnline(onlineUsers.some((u) => u.userId === userId));
+  }, [onlineUsers]);
   return (
     <Button
       sx={{
@@ -76,6 +92,19 @@ const UserChatCard = ({ cbFunction, userId, chat }) => {
           }
           title={user.username}
           subheader={`${user.firstname} ${user.lastname}`}
+          action={
+            <Tooltip title={isOnline ? "Online" : "Offline"}>
+              <Box>
+                <CircleIcon
+                  fontSize="10px"
+                  sx={{
+                    color: `${isOnline ? "#1bdd21ae" : "#c5c5c5"}`,
+                  }}
+                />
+              </Box>
+            </Tooltip>
+          }
+          sx={{ justifyContent: "center", alignItems: "center" }}
         />
       </Card>
     </Button>

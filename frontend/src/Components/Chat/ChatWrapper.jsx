@@ -5,7 +5,7 @@ import { userChats } from "../../Services/ChatRequests";
 
 import "./chat.css";
 import { useState } from "react";
-const ChatWrapper = ({ curUser, socket }) => {
+const ChatWrapper = ({ curUser, socket, onlineUsers }) => {
   // Dummy data
   //   let chats = [
   //     {
@@ -55,6 +55,7 @@ const ChatWrapper = ({ curUser, socket }) => {
           cbFunction={setReceivingUser}
           curUser={curUser}
           chats={chats}
+          onlineUsers={onlineUsers}
         />
       </div>
       {/* Right Side (main) */}

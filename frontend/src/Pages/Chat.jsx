@@ -9,7 +9,7 @@ const Chat = ({ curUser }) => {
   // Add user to socket
   const socket = useRef();
   const [onlineUsers, setOnlineUsers] = useState([]);
-
+  // console.log("Onlineusers: ", onlineUsers);
   useEffect(() => {
     socket.current = io("http://localhost:8800");
     socket.current.emit("new-user-add", curUser._id);
@@ -32,7 +32,11 @@ const Chat = ({ curUser }) => {
     >
       <Navbar />
       <div className="chat-wrapper-container">
-        <ChatWrapper curUser={curUser} socket={socket} />
+        <ChatWrapper
+          curUser={curUser}
+          socket={socket}
+          onlineUsers={onlineUsers}
+        />
       </div>
     </Container>
   );

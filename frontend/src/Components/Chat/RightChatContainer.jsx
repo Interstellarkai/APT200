@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import React from "react";
 import ChatBody from "./ChatBody";
 import ChatHeader from "./ChatHeader";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 
 const RightChatContainer = ({ receivingUser, curUser }) => {
   return (
@@ -17,7 +18,8 @@ const RightChatContainer = ({ receivingUser, curUser }) => {
         </div>
       ) : (
         <div className="unselected-chat">
-          <Typography bgcolor={"red"}>Click a chat to view!</Typography>
+          <QuestionAnswerIcon sx={{ fontSize: "100px", color: "#a09e9eb3" }} />
+          <Typography>Click a chat to view!</Typography>
         </div>
       )}
     </div>

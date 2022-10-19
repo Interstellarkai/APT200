@@ -54,6 +54,72 @@ const LeftChatContainer = ({ cbFunction, curUser, chats }) => {
               // lastname={chat.lastname}
             />
           ))}
+          {/* {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))} */}
         </div>
       </div>
     </div>

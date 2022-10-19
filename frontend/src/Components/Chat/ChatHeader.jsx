@@ -3,7 +3,7 @@ import React from "react";
 
 const ChatHeader = ({ username, firstname, lastname }) => {
   return (
-    <div>
+    <div className="chat-header-container">
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "rgb(56, 142, 223)" }}>

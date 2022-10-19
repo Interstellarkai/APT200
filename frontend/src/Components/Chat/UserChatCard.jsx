@@ -42,10 +42,18 @@ const UserChatCard = ({ cbFunction, userId, chat }) => {
         padding: 0,
         margin: "5px 0",
         textAlign: "left",
+        bgcolor: "red",
       }}
       onClick={handleClick}
     >
-      <Card sx={{ width: "inherit" }}>
+      <Card
+        sx={{
+          width: "inherit",
+          "&:hover": {
+            bgcolor: "#efefef",
+          },
+        }}
+      >
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: "rgb(56, 142, 223)" }}>

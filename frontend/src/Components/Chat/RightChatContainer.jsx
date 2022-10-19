@@ -12,7 +12,7 @@ const RightChatContainer = ({ receivingUser, curUser }) => {
             firstname={receivingUser.firstname}
             lastname={receivingUser.lastname}
           />
-          <ChatBody curUser={curUser} />
+          <ChatBody curUser={curUser} receivingUser={receivingUser} />
         </div>
       )}
     </div>

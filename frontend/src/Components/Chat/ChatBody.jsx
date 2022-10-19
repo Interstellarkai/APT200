@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import CurrentUserChatBox from "./CurrentUserChatBox";
 import OtherUserChatbox from "./OtherUserChatbox";
 
-const ChatBody = ({ curUser }) => {
+const ChatBody = ({ curUser, receivingUser }) => {
   const curChat = useSelector((state) => state.chat.value);
 
   return (
@@ -14,9 +14,17 @@ const ChatBody = ({ curUser }) => {
             // If it's current user, then right, else left
             {
               if (m.senderId === curUser._id) {
-                return <CurrentUserChatBox key={m._id} message={m} />;
+                return (
+                  <CurrentUserChatBox key={m._id} message={m} user={curUser} />
+                );
               } else {
-                return <OtherUserChatbox key={m._id} message={m} />;
+                return (
+                  <OtherUserChatbox
+                    key={m._id}
+                    message={m}
+                    user={receivingUser}
+                  />
+                );
               }
             }
           )}

@@ -29,7 +29,17 @@ const LeftChatContainer = ({ cbFunction, curUser, chats }) => {
   }, [chats]);
   return (
     <div>
-      <Typography variant="h4">Chats</Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          textAlign: "center",
+          margin: "10px 0",
+          borderBottom: "1px solid #9f9f9f79",
+          paddingBottom: "10px",
+        }}
+      >
+        Chats
+      </Typography>
       <div className="chats-container">
         <div className="chats-container-child">
           {otherUsers.map((user) => {

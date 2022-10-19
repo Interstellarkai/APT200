@@ -20,17 +20,6 @@ const ChatBody = ({ curUser, receivingUser, socket }) => {
   const [newMessage, setNewMessage] = useState("");
   const [sending, setSending] = useState(false);
 
-  const scroll = useRef();
-
-  // scroll to last message
-  useEffect(() => {
-    scroll.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "start",
-    });
-  }, []);
-
   const handleChange = (msg) => {
     // console.log(msg);
     setNewMessage(msg);
@@ -88,13 +77,9 @@ const ChatBody = ({ curUser, receivingUser, socket }) => {
             <div className="chat-body-wrapper">
               {curChat.messages.map((m) => (
                 // If it's current user, then right, else left
-                <div ref={scroll}>
+                <div key={m._id}>
                   {m.senderId === curUser._id ? (
-                    <CurrentUserChatBox
-                      key={m._id}
-                      message={m}
-                      user={curUser}
-                    />
+                    <CurrentUserChatBox message={m} user={curUser} />
                   ) : (
                     <OtherUserChatbox
                       key={m._id}

@@ -19,6 +19,16 @@ const UserChatCard = ({ cbFunction, userId, chat }) => {
     // Update current chatId
     cbFunction(user);
     dispatch(setChat({ ...chat, messages }));
+
+    // For < 600px screen - Remove hide class
+    console.log("See conversation");
+    let right = document.getElementsByClassName("right-container");
+    right[0].classList.remove("hide");
+    // add hide class for left-container
+    let left = document.getElementsByClassName("left-container");
+    // console.log(left);
+    left[0].classList.add("hide");
+    // console.log(left);
   };
   const [user, setUser] = useState({
     username: "",

@@ -58,7 +58,7 @@ const ChatWrapper = ({ curUser }) => {
         />
       </div>
       {/* Right Side (main) */}
-      <div className="right-container">
+      <div className="right-container hide">
         <RightChatContainer receivingUser={receivingUser} curUser={curUser} />
       </div>
     </div>

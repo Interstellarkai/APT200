@@ -28,7 +28,8 @@ const LeftChatContainer = ({ cbFunction, curUser, chats }) => {
     getOtherUsers();
   }, [chats]);
   return (
-    <div>
+    // Only render if certain size (such as 600px)
+    <div className="chats-wrapper">
       <Typography
         variant="h4"
         sx={{

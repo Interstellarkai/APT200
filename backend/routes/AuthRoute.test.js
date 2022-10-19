@@ -1,5 +1,10 @@
 const router = require('./AuthRoute.js');
+/*
+ECMAScript 6 add type="module" to script???
 
+import express from "express"
+SyntaxError: Cannot use import statement outside a module
+*/
 describe("POST /register", ()=>{
 	describe("Registering successful", () => {
 		//status 200

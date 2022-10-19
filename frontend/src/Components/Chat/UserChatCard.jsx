@@ -11,24 +11,27 @@ const UserChatCard = ({ cbFunction, userId, chat }) => {
   const dispatch = useDispatch();
   const handleClick = async () => {
     // console.log(`Chat card ${chat._id} clicked. User ${userId}`);
-    // Get mesages
-    let res = await getMessages(chat._id);
-    // console.log("res, ", res);
-    let messages = res.data;
-    // console.log("messages: ", messages);
-    // Update current chatId
-    cbFunction(user);
-    dispatch(setChat({ ...chat, messages }));
-
-    // For < 600px screen - Remove hide class
-    console.log("See conversation");
-    let right = document.getElementsByClassName("right-container");
-    right[0].classList.remove("hide");
-    // add hide class for left-container
-    let left = document.getElementsByClassName("left-container");
-    // console.log(left);
-    left[0].classList.add("hide");
-    // console.log(left);
+    try {
+      // Get mesages
+      let res = await getMessages(chat._id);
+      // console.log("res, ", res);
+      let messages = res.data;
+      // console.log("messages: ", messages);
+      // Update current chatId
+      cbFunction(user);
+      dispatch(setChat({ ...chat, messages }));
+      // For < 600px screen - Remove hide class
+      console.log("See conversation");
+      let right = document.getElementsByClassName("right-container");
+      right[0].classList.remove("hide");
+      // add hide class for left-container
+      let left = document.getElementsByClassName("left-container");
+      // console.log(left);
+      left[0].classList.add("hide");
+      // console.log(left);
+    } catch (e) {
+      console.log(e);
+    }
   };
   const [user, setUser] = useState({
     username: "",

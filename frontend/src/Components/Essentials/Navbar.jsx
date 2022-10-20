@@ -23,10 +23,11 @@ import { useDispatch } from "react-redux";
 import { toggleLoggedIn } from "../../Redux/userSlice";
 import PAGES from "../../pageRoute";
 
-const pages = ["Women", "Men", "Shirts", "Pants", "Shoes"];
+const pages = ["Catalogue", "Women", "Men", "Shirts", "Pants", "Shoes"];
 const mobilePages = [
   "Sign in",
   "Register",
+  "Catalogue",
   "Women",
   "Men",
   "Shirts",
@@ -34,7 +35,7 @@ const mobilePages = [
   "Shoes",
 ];
 
-const settings = ["Profile", "Dashboard", "Logout"];
+const settings = ["Chat", "Dashboard", "Logout"];
 const emails = ["username@gmail.com", "user02@gmail.com"];
 let [a, b, ...mobilePages2] = mobilePages;
 mobilePages2 = settings.concat(mobilePages2);
@@ -59,24 +60,34 @@ const Navbar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (setting) => {
-    if (setting === "Logout") {
-      dispatch(toggleLoggedIn());
-    } else if (setting === "Dashboard") {
-      navigate(PAGES.manageProductsPage);
-    } else if (setting === "Sign in") {
-      navigate(PAGES.loginPage);
-    } else {
-      handleGoCatalogue();
-    }
+  const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = (setting) => {
-    if (setting === "Logout") {
-      dispatch(toggleLoggedIn());
-    } else if (setting === "Dashboard") {
-      navigate(PAGES.manageProductsPage);
+    if (!setting._reactName) {
+      switch (setting) {
+        case "Sign in":
+          navigate(PAGES.loginPage);
+          break;
+        case "Register":
+          handleRegisterClick();
+          break;
+        case "Logout":
+          dispatch(toggleLoggedIn());
+          navigate(PAGES.homePage);
+          break;
+        case "Chat":
+          navigate(PAGES.chat);
+          break;
+        case "Dashboard":
+          navigate(PAGES.manageProductsPage);
+          break;
+        default:
+          // console.log("setting", setting);
+          navigate(PAGES.catalogue);
+          break;
+      }
     }
     setAnchorElUser(null);
   };
@@ -185,13 +196,7 @@ const Navbar = () => {
                 : mobilePages.map((page) => (
                     <MenuItem
                       key={page}
-                      onClick={
-                        page === "Register"
-                          ? handleRegisterClick
-                          : () => {
-                              handleCloseNavMenu(page);
-                            }
-                      }
+                      onClick={() => handleCloseUserMenu(page)}
                     >
                       <Typography textAlign="center">{page}</Typography>
                     </MenuItem>

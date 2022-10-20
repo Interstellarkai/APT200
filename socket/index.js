@@ -8,7 +8,7 @@
 
 const io = require("socket.io")(8800, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://localhost:3000", // React
     },
 });
 
@@ -16,14 +16,14 @@ let activeUsers = [];
 
 // 1. "new-user-add" event is fired when a new user is connected to the server. The event listener adds the new user to the activeUsers array and emits the "get-users" event to all users. The "get-users" event returns the activeUsers array to all users.
 io.on("connection", (socket) => {
-    // add new User
-    socket.on("new-user-add", (newUserId) => {
+    // add new User (Active event on our socket)
+    socket.on("new-user-add", (newUserId) => { // Take in param from react
         // if user is not added previously
         if (!activeUsers.some((user) => user.userId === newUserId)) {
-            activeUsers.push({userId: newUserId, socketId: socket.id});
+            activeUsers.push({userId: newUserId, socketId: socket.id}); // Assign an unique socket.id to the user
             console.log("New User Connected", activeUsers);
         }
-        // send all active users to new user
+        // send all active users to new user (To react client)
         io.emit("get-users", activeUsers);
     });
     // 2. "disconnect" event is fired when a user disconnect from the server. The event listener removes the user from the activeUsers array and emits the "get-users" event to all users. The "get-users" event returns the activeUsers array to all users.

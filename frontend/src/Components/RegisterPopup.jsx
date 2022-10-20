@@ -50,7 +50,7 @@ const RegisterPopup = (props) => {
   };
 
   const isFormValid = () => {
-    console.log("Input values: ", inputValues);
+    // console.log("Input values: ", inputValues);
     let { username, firstname, lastname, password, ...confirm_password } =
       inputValues;
     confirm_password = confirm_password["confirm password"];

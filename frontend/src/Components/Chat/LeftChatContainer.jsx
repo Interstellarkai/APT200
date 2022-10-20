@@ -5,7 +5,7 @@ import { useState } from "react";
 import { getUser } from "../../Services/UserRequests";
 import UserChatCard from "./UserChatCard";
 
-const LeftChatContainer = ({ cbFunction, curUser, chats }) => {
+const LeftChatContainer = ({ cbFunction, curUser, chats, onlineUsers }) => {
   const [otherUsers, setOtherUsers] = useState([]);
 
   // Find all other user in chats
@@ -28,23 +28,99 @@ const LeftChatContainer = ({ cbFunction, curUser, chats }) => {
     getOtherUsers();
   }, [chats]);
   return (
-    <div>
-      <Typography variant="h4">Chats</Typography>
+    // Only render if certain size (such as 600px)
+    <div className="chats-wrapper">
+      <Typography
+        variant="h4"
+        sx={{
+          textAlign: "center",
+          margin: "10px 0",
+          borderBottom: "1px solid #9f9f9f79",
+          paddingBottom: "10px",
+        }}
+      >
+        Chats
+      </Typography>
       <div className="chats-container">
         <div className="chats-container-child">
-          {otherUsers.map((user) => {
-            return (
-              <UserChatCard
-                key={user.userId}
-                userId={user.userId}
-                chat={user.chat}
-                cbFunction={cbFunction}
-                // username={chat.username}
-                // firstname={chat.firstname}
-                // lastname={chat.lastname}
-              />
-            );
-          })}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              onlineUsers={onlineUsers}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {/* {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))}
+          {otherUsers.map((user) => (
+            <UserChatCard
+              key={user.userId}
+              userId={user.userId}
+              chat={user.chat}
+              cbFunction={cbFunction}
+              // username={chat.username}
+              // firstname={chat.firstname}
+              // lastname={chat.lastname}
+            />
+          ))} */}
         </div>
       </div>
     </div>

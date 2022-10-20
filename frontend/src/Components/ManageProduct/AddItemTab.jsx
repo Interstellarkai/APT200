@@ -98,13 +98,16 @@ const AddItemTab = ({ dispatch, curUser }) => {
       setSave(false);
     } else {
       index = 1;
+
       console.log("Adding new item...");
       let key = user.username.concat(values.productName);
       let newItem = {
         ...values,
         username: user.username,
         key: key,
+        userId: curUser.user._id,
       };
+      // console.log(newItem);
       dispatch(curUser.methods.addToItems(newItem));
       dispatch(addProduct(newItem));
     }

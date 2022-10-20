@@ -16,10 +16,13 @@ export const chatSlice = createSlice({
       // console.log(data.payload);
       state.value = data.payload;
     },
+    addToMessages: (state, data) => {
+      state.value.messages.push(data.payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setChat } = chatSlice.actions;
+export const { setChat, addToMessages } = chatSlice.actions;
 
 export default chatSlice.reducer;

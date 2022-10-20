@@ -1,5 +1,5 @@
-import {testAuth} from './testauth.js'
-import {testUser} from './testuser.js'
+import {testAuth} from './testAuth.js'
+import {testUser} from './testUser.js'
 import {testChat} from "./testChat.js";
 import {testMessage} from "./testMessage.js";
 

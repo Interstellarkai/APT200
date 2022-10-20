@@ -17,13 +17,21 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled, useTheme } from "@mui/material/styles";
-import ImageService from "../Services/image";
-const Product = ({ product }) => {
+import ImageService from "../../Services/image";
+import { useNavigate } from "react-router-dom";
+import PAGES from "../../pageRoute";
+
+const Product = ({ item }) => {
   const [fav, setFav] = useState(false);
   const [base64String, setBase64String] = useState(null);
   const theme = useTheme();
+  const navigate = useNavigate();
   const handleFavClick = () => {
     setFav(!fav);
+  };
+
+  const handleGoProduct = () => {
+    navigate(PAGES.product);
   };
 
   useEffect(() => {
@@ -35,8 +43,8 @@ const Product = ({ product }) => {
       );
       return to_return;
     };
-    if (product.img_id) {
-      ImageService.getImageByID(product.img_id)
+    if (item.img_id) {
+      ImageService.getImageByID(item.img_id)
         .then((res) => {
           // Convert to base64
           setBase64String(getBase64(res.img.data.data));
@@ -56,9 +64,27 @@ const Product = ({ product }) => {
         boxShadow: "0px 5px 5px #aaaaaa",
         borderRadius: "20px",
       }}
+      onClick={handleGoProduct}
     >
+      <CardHeader
+        avatar={
+          <Avatar
+            sx={{ bgcolor: theme.palette.primary.main }}
+            aria-label="username"
+          >
+            {item.username.charAt(0)}
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings" onClick={handleFavClick}>
+            <FavoriteIcon sx={{ color: `${fav ? "red" : "none"}` }} />
+          </IconButton>
+        }
+        title={item.username}
+        subheader="September 14, 2016"
+      />
       <CardActionArea sx={{}}>
-        <Box sx={{ m: "10px", mt: "20px" }}>
+        <Box sx={{ m: "10px", mt: "0px" }}>
           <Box
             sx={{
               position: "absolute",
@@ -77,13 +103,13 @@ const Product = ({ product }) => {
           <CardMedia
             component="img"
             paddingTop="56.25%" // 16:9
-            title={product.productName}
+            title={item.productName}
             src={
               base64String !== null
                 ? `data:image/png;base64,${base64String}`
-                : product.img
-                ? product.img
-                : require("../Assets/Item/placeholder.png")
+                : item.img
+                ? item.img
+                : require("../../Assets/Item/placeholder.png")
             }
             height="140"
             width="100%"
@@ -95,17 +121,17 @@ const Product = ({ product }) => {
           <Grid container direction="row" justifyContent="space-between">
             <Grid item>
               <Typography gutterBottom inline variant="h5" component="div">
-                {product.productName}
+                {item.productName}
               </Typography>
             </Grid>
             <Grid item>
               <Typography gutterBottom inline variant="h5" component="h2">
-                ${product.price}
+                ${item.price}
               </Typography>
             </Grid>
           </Grid>
           <Typography variant="body2" color="textSecondary" component="p">
-            {product.description}
+            {item.description}
           </Typography>
         </CardContent>
       </CardActionArea>

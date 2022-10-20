@@ -7,7 +7,7 @@ import Navbar2 from "../Components/Catalogue/Navbar2";
 import Footer from "../Components/Essentials/Footer";
 import Grid from "@mui/system/Unstable_Grid/Grid";
 import Advertisement from "../Components/Advertisement";
-import Products from "../Components/Products";
+import Products from "../Components/Catalogue/Products";
 // import items from "../Data/items";
 import users from "../Data/users";
 import { FormControl, InputLabel, Select } from "@mui/material";

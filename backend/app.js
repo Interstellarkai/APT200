@@ -31,7 +31,7 @@ import ImageRouter from "./routes/images.js";
 
 // documentation
 // import swaggerUi from "swagger-ui-express";
-// import swaggerFile from "./swagger_output.json" assert {type: "json"};
+// import swaggerFile from "./swagger_output.json" assert { type: "json" };
 
 const app = express();
 

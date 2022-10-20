@@ -11,10 +11,19 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import ProductDetailUser from "./ProductDetailUser";
 
+import PAGES from "../pageRoute";
+import { useNavigate } from "react-router-dom";
+
 const ProductDetail = ({ product, user }) => {
-  const listing = product.descriptions.map((description) => {
-    return <li>{description}</li>;
-  });
+  const navigate = useNavigate();
+
+  // const listing = product.descriptions.map((description) => {
+  //   return <li>{description}</li>;
+  // });
+
+  const handleGoChat = () => {
+    navigate(PAGES.chat);
+  };
 
   return (
     <div>
@@ -53,8 +62,8 @@ const ProductDetail = ({ product, user }) => {
               >
                 <CardMedia
                   component="img"
-                  title={product.name}
-                  image={product.media}
+                  title={product.productName}
+                  image={product.img}
                   height="100%"
                   width="100%"
                   sx={{
@@ -97,7 +106,7 @@ const ProductDetail = ({ product, user }) => {
                   sx={{ py: 1 }}
                 >
                   <Typography variant="h3" component="div">
-                    {product.name}
+                    {product.productName}
                   </Typography>
                   <Box
                     bgcolor="#E6F0FB"
@@ -106,7 +115,7 @@ const ProductDetail = ({ product, user }) => {
                     sx={{ borderRadius: "10%" }}
                   >
                     <Typography variant="h5" color="#0064d2" align="center">
-                      {product.history}
+                      {product.key}
                     </Typography>
                   </Box>
                 </Stack>
@@ -139,7 +148,7 @@ const ProductDetail = ({ product, user }) => {
                   <CheckCircleOutlineIcon />
                 </Grid>
                 <Grid item>
-                  <Typography variant="body1">{product.location}</Typography>
+                  <Typography variant="body1">{product.key}</Typography>
                 </Grid>
               </Grid>
               <Grid
@@ -163,6 +172,7 @@ const ProductDetail = ({ product, user }) => {
                     fontWeight: "light",
                     width: "80%",
                   }}
+                  onClick={handleGoChat}
                 >
                   Chat
                 </Button>
@@ -192,7 +202,8 @@ const ProductDetail = ({ product, user }) => {
           <Grid item>
             {/* Set some spacing between each listing */}
             <Typography variant="subtitle1" gutterBottom>
-              <ul>{listing}</ul>
+              {/* <ul>{listing}</ul> */}
+              {product.key}
             </Typography>
           </Grid>
           <Grid item>

@@ -30,34 +30,33 @@ import MessageRoute from "./routes/MessageRoute.js";
 import ImageRouter from "./routes/images.js";
 
 // documentation
-import swaggerUi from "swagger-ui-express";
-import swaggerFile from "./swagger_output.json" assert {type: "json"};
+// import swaggerUi from "swagger-ui-express";
+// import swaggerFile from "./swagger_output.json" assert {type: "json"};
 
 const app = express();
 
 // middleware
-app.use(bodyParser.json({limit: "30mb", extended: true}));
-app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 // to serve images inside public folder
 app.use(express.static("public"));
 app.use("/images", express.static("images"));
 // documentation
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 dotenv.config();
 const PORT = process.env.PORT;
 
 const CONNECTION = process.env.MONGODB_CONNECTION;
 mongoose
-    .connect(CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => {
-        console.info('connected to MongoDB')
-    })
-    .catch((error) => {
-        console.error('error connecting to MongoDB:', error.message)
-    })
-
+  .connect(CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.info("connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("error connecting to MongoDB:", error.message);
+  });
 
 app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);

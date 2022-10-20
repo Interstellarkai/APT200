@@ -93,7 +93,7 @@
   display: flex;
   align-items: center;
   /* justify-content: flex-end; */
-  flex: 1;
+  flex: 3;
   /* text-align: right; */
   max-width: 100%;
   max-height: 100%;
@@ -189,5 +189,18 @@
 
   .show-chat {
     display: block;
+  }
+}
+
+@media (max-height: 900px) {
+  /* .chat-wrapper {
+    height: 50vh;
+  } */
+  .chats-container {
+    height: 80vh;
+  }
+
+  .chat-body-container {
+    height: 70vh;
   }
 }

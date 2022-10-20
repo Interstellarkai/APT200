@@ -1,13 +1,13 @@
 import React from "react";
 
-import { Container, Box } from "@mui/system";
+import { Container, Box, bgcolor } from "@mui/system";
 import { Typography } from "@mui/material";
 import Navbar from "../Components/Essentials/Navbar";
 import Navbar2 from "../Components/Catalogue/Navbar2";
 import Footer from "../Components/Essentials/Footer";
 import Grid from "@mui/system/Unstable_Grid/Grid";
 import Advertisement from "../Components/Advertisement";
-import Products from "../Components/Products";
+import Products from "../Components/Catalogue/Products";
 // import items from "../Data/items";
 import users from "../Data/users";
 import { FormControl, InputLabel, Select } from "@mui/material";
@@ -38,9 +38,8 @@ const typographyStyling_1 = {
   //   borderRadius: 2,
   //   border: "5px solid",
   //   borderColor: "secondary.main",
-  fontSize: 24,
+  fontSize: 22,
   fontWeight: "bold",
-  paddingLeft: 2,
   display: { xs: "flex", md: "flex" },
   textAlign: { xs: "center", md: "none" },
   //   maxWidth: 500,
@@ -50,9 +49,8 @@ const typographyStyling_2 = {
   //   borderRadius: 2,
   //   border: "5px solid",
   //   borderColor: "secondary.main",
-  fontSize: 20,
+  fontSize: 16,
   fontWeight: "bold",
-  paddingLeft: 2,
   display: { xs: "flex", md: "flex" },
   textAlign: { xs: "center", md: "none" },
   //   maxWidth: 500,
@@ -117,35 +115,43 @@ const Catalogue = () => {
             item
             spacing={3}
             xs={12}
-            lg={6}
+            lg={9}
             display={"flex"}
-            flexDirection={{ xs: "None", lg: "row" }}
-            justifyContent={"space-between"}
+            flexDirection={{ xs: "column", lg: "row" }}
+            justifyContent={{ xs: "center", lg: "space-between" }}
             paddingLeft={{ xs: "25px", lg: "150px" }}
             paddingRight={{ xs: "25px", lg: "0px" }}
             sx={{}}
           >
-            <Box>
+            <Box sx={{ marginTop: { xs: "10px", lg: "0px" } }}>
               <Selectbuttons filters={option1} />
             </Box>
-            <Box>
+            <Box sx={{ marginTop: { xs: "10px", lg: "0px" } }}>
               <Selectbuttons filters={option2} />
             </Box>
-            <Box>
+            <Box sx={{ marginTop: { xs: "10px", lg: "0px" } }}>
               <Selectbuttons filters={option3} />
             </Box>
-            <Box>
+            <Box sx={{ marginTop: { xs: "10px", lg: "0px" } }}>
               <Selectbuttons filters={option4} />
             </Box>
           </Grid>
         </Grid>
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={4} sx={{ m: 2 }}>
+          <Grid
+            container
+            spacing={4}
+            sx={{
+              marginBottom: 2,
+              // bgcolor: "red",
+            }}
+          >
             <Grid
               item
-              xs={5}
+              xs={0}
+              lg={5}
               sx={{
-                display: { xs: "flex", md: "flex" },
+                display: { xs: "none", md: "flex" },
                 flexDirection: { xs: "column", md: "column" },
                 alignItems: { xs: "center", md: "center" },
               }}
@@ -156,8 +162,38 @@ const Catalogue = () => {
               <br />
               <Advertisement product={items[1]} />
             </Grid>
-            <Grid item spacing={4} xs={7} sx={{ marginTop: "20px" }}>
-              <Products products={items}></Products>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: { xs: "flex", md: "none" },
+                flexDirection: { xs: "column", md: "column" },
+                alignItems: { xs: "center", md: "center" },
+                marginTop: { xs: "25px", md: "0px" },
+              }}
+            >
+              <Advertisement product={items[0]} />
+            </Grid>
+            <Grid
+              item
+              spacing={4}
+              xs={12}
+              lg={7}
+              sx={{
+                marginTop: "20px",
+              }}
+            >
+              <Box
+                sx={{
+                  // bgcolor: "yellow",
+                  display: { xs: "flex" },
+                  flexDirection: { xs: "column" },
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Products products={items}></Products>
+              </Box>
             </Grid>
           </Grid>
         </Box>

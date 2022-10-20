@@ -71,7 +71,7 @@ const UserChatCard = ({ cbFunction, userId, chat, onlineUsers }) => {
         padding: 0,
         margin: "5px 0",
         textAlign: "left",
-        bgcolor: "red",
+        // bgcolor: "red",
       }}
       onClick={handleClick}
     >

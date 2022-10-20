@@ -93,7 +93,7 @@
   display: flex;
   align-items: center;
   /* justify-content: flex-end; */
-  flex: 1;
+  flex: 3;
   /* text-align: right; */
   max-width: 100%;
   max-height: 100%;
@@ -109,7 +109,6 @@
   flex-direction: column;
   /* align-items: flex-end; */
   /* justify-content: flex-end; */
-
   /* border: 1px solid black; */
   color: rgb(0, 0, 0);
   background-color: rgb(209, 205, 205);
@@ -189,5 +188,18 @@
 
   .show-chat {
     display: block;
+  }
+}
+
+@media (max-height: 900px) {
+  /* .chat-wrapper {
+    height: 50vh;
+  } */
+  .chats-container {
+    height: 80vh;
+  }
+
+  .chat-body-container {
+    height: 62vh;
   }
 }

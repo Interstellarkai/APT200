@@ -81,11 +81,7 @@ const ChatBody = ({ curUser, receivingUser, socket }) => {
                   {m.senderId === curUser._id ? (
                     <CurrentUserChatBox message={m} user={curUser} />
                   ) : (
-                    <OtherUserChatbox
-                      key={m._id}
-                      message={m}
-                      user={receivingUser}
-                    />
+                    <OtherUserChatbox message={m} user={receivingUser} />
                   )}
                 </div>
               ))}

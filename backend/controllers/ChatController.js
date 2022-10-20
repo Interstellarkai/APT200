@@ -5,6 +5,9 @@
 import ChatModel from "../models/chatModel.js";
 
 export const createChat = async (req, res) => {
+    if (!req.body.senderId || !req.body.receiverId) {
+        return res.status(400).json({message: "Missing senderId or receiverId"})
+    }
     const newChat = new ChatModel({
         members: [req.body.senderId, req.body.receiverId],
     });

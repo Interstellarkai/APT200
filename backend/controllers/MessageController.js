@@ -10,6 +10,9 @@
 import MessageModel from "../models/messageModel.js";
 
 export const addMessage = async (req, res) => {
+    if (!req.body.chatId || !req.body.senderId || !req.body.text) {
+        res.status(400).send("Missing chatId, senderId, or text");
+    }
     const {chatId, senderId, text} = req.body;
     const message = new MessageModel({
         chatId,

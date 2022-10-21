@@ -15,6 +15,9 @@ RUN npm install
 # copy local files to app folder
 COPY . .
 
+# increase storage space
+ENV GENERATE_SOURCEMAP=false
+
 EXPOSE 3000
 
 CMD ["npm","start"]

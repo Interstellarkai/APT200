@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",

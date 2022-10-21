@@ -1,6 +1,7 @@
 #  Dockerfile for Node Express Backend api (development)
 
-FROM node
+FROM alpine
+RUN apk add --update npm
 
 ARG NODE_ENV=development
 

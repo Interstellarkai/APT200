@@ -1,6 +1,7 @@
-#  Dockerfile for Node Express Backend api (development)
+#  Dockerfile for Socket server (Chat Feature)
 
-FROM node
+FROM alpine
+RUN apk add --update npm
 
 ARG NODE_ENV=development
 
@@ -15,13 +16,6 @@ RUN npm install
 
 # Copy app source code
 COPY . .
-
-# Exports
-#const io = require("socket.io")(8800, {
-#    cors: {
-#        origin: "http://localhost:3000", // React
-#    },
-#});
 
 # Expose
 EXPOSE 8800

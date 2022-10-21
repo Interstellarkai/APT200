@@ -1,7 +1,8 @@
 # Dockerfile for client
 
 # Stage 1: Build react client
-FROM node
+FROM alpine
+RUN apk add --update npm
 
 # Working directory be frontend
 RUN mkdir -p /usr/app/frontend

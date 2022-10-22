@@ -5,12 +5,12 @@ name: CD AWS EC2
 
 on:
   workflow_run:
-      workflows: [ CI ]
-      branches: [ main ]
-      strategy: wait-all
-      timeout: 5m
-      types:
-        - completed
+    workflows: [ CI Testing ]
+    branches: [ main ]
+    strategy: wait-all
+    timeout: 5m
+    types:
+      - completed
 
 jobs:
   deploy:

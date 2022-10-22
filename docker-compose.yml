@@ -1,54 +1,29 @@
 version: '3.9'
-
 services:
 
-  socket:
-    build:
-      context: ./socket
-      dockerfile: Dockerfile
-    image: apt200-socket
-    command: npm run start
-    volumes:
-      - ./socket/:/usr/app/socket/
-      - /usr/app/socket/node_modules
-    # depends_on:
-    #   - frontend
-    ports:
-      - "8800:8800"
-    networks:
-      - app-network
-
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    image: apt200-frontend
-    command: npm run start
-    volumes:
-      - ./frontend/:/usr/app/frontend/
-      - /usr/app/frontend/node_modules
+    image: interstellarkai/apt200-frontend
     depends_on:
       - backend
       - socket
     ports:
-      - "80:3000"
+      - "3000:3000"
     networks:
       - app-network
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    image: apt200-backend
-    command: npm run start
-    volumes:
-      - ./backend/:/usr/app/backend/
-      - /usr/app/backend/node_modules
+    image: interstellarkai/apt200-backend
     ports:
       - "3001:3001"
     env_file: ./backend/.env
-    environment:
-      - NODE_ENV=development
+    networks:
+      - app-network
+
+  socket:
+    image: interstellarkai/apt200-socket
+    ports:
+      - "8800:8800"
+    env_file: ./frontend/.env
     networks:
       - app-network
 networks:

@@ -1,22 +1,6 @@
 version: '3.9'
 
 services:
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    image: apt200-backend
-    command: npm run start
-    volumes:
-      - ./backend/:/usr/app/backend/
-      - /usr/app/backend/node_modules
-    ports:
-      - "3001:3001"
-    env_file: ./backend/.env
-    environment:
-      - NODE_ENV=development
-    networks:
-      - app-network
 
   socket:
     build:
@@ -27,8 +11,8 @@ services:
     volumes:
       - ./socket/:/usr/app/socket/
       - /usr/app/socket/node_modules
-    depends_on:
-      - frontend
+    # depends_on:
+    #   - frontend
     ports:
       - "8800:8800"
     networks:
@@ -45,11 +29,28 @@ services:
       - /usr/app/frontend/node_modules
     depends_on:
       - backend
+      - socket
     ports:
-      - "3000:3000"
+      - "80:3000"
     networks:
       - app-network
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: apt200-backend
+    command: npm run start
+    volumes:
+      - ./backend/:/usr/app/backend/
+      - /usr/app/backend/node_modules
+    ports:
+      - "3001:3001"
+    env_file: ./backend/.env
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
 networks:
   app-network:
     driver: bridge

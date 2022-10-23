@@ -23,7 +23,6 @@ services:
     image: interstellarkai/apt200-socket
     ports:
       - "8800:8800"
-    env_file: ./frontend/.env
     networks:
       - app-network
 networks:

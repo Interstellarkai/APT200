@@ -205,18 +205,30 @@ const ProductDetail = ({ product, user }) => {
             },
           }}
         >
-          <Grid item sx={{ marginTop: { xs: "10px", lg: "15px" } }}>
+          <Grid
+            item
+            sx={{
+              marginTop: { xs: "10px", lg: "30px" },
+              paddingLeft: { xs: "10px", lg: "0px" },
+            }}
+          >
             <Typography variant="h3" gutterBottom>
               About
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ paddingLeft: { xs: "10px", lg: "0px" } }}>
             {/* Set some spacing between each listing */}
             <Typography variant="subtitle1" gutterBottom>
               {listing}
             </Typography>
           </Grid>
-          <Grid item sx={{ marginTop: { xs: "25px", lg: "50px" } }}>
+          <Grid
+            item
+            sx={{
+              marginTop: { xs: "25px", lg: "40px" },
+              paddingLeft: { xs: "10px", lg: "0px" },
+            }}
+          >
             <Typography variant="h4" gutterBottom>
               You May Also Like
             </Typography>

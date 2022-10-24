@@ -5,6 +5,7 @@ const PAGES = {
   catalogue: "/catalogue",
   chat: "/chat",
   product: "/product",
+  productId: "/product/:productId",
 };
 
 export default PAGES;

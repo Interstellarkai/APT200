@@ -31,7 +31,7 @@ const Product = ({ item }) => {
   };
 
   const handleGoProduct = () => {
-    navigate(PAGES.product);
+    navigate(PAGES.product + "/" + item.key);
   };
 
   useEffect(() => {

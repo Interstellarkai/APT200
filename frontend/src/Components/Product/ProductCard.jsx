@@ -22,6 +22,14 @@ import { useNavigate } from "react-router-dom";
 import PAGES from "../../pageRoute";
 
 const ProductCard = ({ item }) => {
+  // console.log(item.descriptions.length);
+  const mid = Math.ceil(item.descriptions.length / 2);
+  // console.log(mid);
+  let items = item.descriptions.slice(0, mid);
+  const listing = items.map((description) => {
+    return <li>{description}</li>;
+  });
+
   const [fav, setFav] = useState(false);
   const [base64String, setBase64String] = useState(null);
   const theme = useTheme();
@@ -31,7 +39,8 @@ const ProductCard = ({ item }) => {
   };
 
   const handleGoProduct = () => {
-    navigate(PAGES.product);
+    navigate(PAGES.product + "/" + item.key);
+    window.location.reload(false);
   };
 
   useEffect(() => {
@@ -60,7 +69,8 @@ const ProductCard = ({ item }) => {
     <Card
       sx={{
         maxWidth: "100%",
-        minHeight: "300px",
+        minHeight: "400px",
+        maxHeight: "400px",
         boxShadow: "0px 5px 5px #aaaaaa",
         borderRadius: "20px",
       }}
@@ -131,7 +141,7 @@ const ProductCard = ({ item }) => {
             </Grid>
           </Grid>
           <Typography variant="body2" color="textSecondary" component="p">
-            {item.description}
+            {listing}
           </Typography>
         </CardContent>
       </CardActionArea>

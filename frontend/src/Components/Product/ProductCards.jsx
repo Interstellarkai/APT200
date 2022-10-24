@@ -2,10 +2,18 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import ProductCard from "./ProductCard";
 
-import items from "../../Data/items";
-
 const ProductCards = ({ products }) => {
   if (!products.length) return <p>Loading...</p>;
+
+  let shuffledProducts = products
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+
+  let mid = Math.floor(shuffledProducts.length / 2);
+  let productsDisplay = shuffledProducts.slice(0, mid);
+
+  // console.log(productsDisplay);
 
   return (
     // <main
@@ -20,11 +28,14 @@ const ProductCards = ({ products }) => {
       justifyContent={"center"}
       spacing={4}
       xs={12}
-      lg={11}
-      sx={{}}
+      lg={12}
+      sx={{
+        marginBottom: { xs: "20px", lg: "40px" },
+        marginTop: { xs: "5px", lg: "0px" },
+      }}
     >
-      {items.map((item) => (
-        <Grid key={item.key} item xs={12} sm={10} md={8} lg={6} sx={{}}>
+      {productsDisplay.map((item) => (
+        <Grid key={item.key} item xs={12} sm={10} md={4} lg={3} sx={{}}>
           <ProductCard item={item} />
         </Grid>
       ))}

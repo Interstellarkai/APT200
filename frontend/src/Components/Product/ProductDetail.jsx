@@ -9,20 +9,20 @@ import Stack from "@mui/material/Stack";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
-import ProductDetailUser from "./ProductDetailUser";
+import ProductDetailUser from "../ProductDetailUser";
 
-import PAGES from "../pageRoute";
+import PAGES from "../../pageRoute";
 import { useNavigate } from "react-router-dom";
 
 const ProductDetail = ({ product, user }) => {
   const navigate = useNavigate();
 
-  // const listing = product.descriptions.map((description) => {
-  //   return <li>{description}</li>;
-  // });
+  const listing = product.descriptions.map((description) => {
+    return <li>{description}</li>;
+  });
 
   const handleGoChat = () => {
-    navigate(PAGES.chat);
+    navigate(PAGES.chat, { state: { seller: user } });
   };
 
   return (
@@ -31,9 +31,12 @@ const ProductDetail = ({ product, user }) => {
         {/* Set grid's direction as row for webpage, set grid's direction as column for mobile */}
         <Grid
           container
-          direction={{ sm: "column", md: "row" }}
+          direction={{ sm: "column", lg: "row" }}
           alignItems="stretch"
-          padding={2}
+          sx={{
+            paddingLeft: { sm: "10px", lg: "50px" },
+            paddingRight: { sm: "10px", lg: "50px" },
+          }}
         >
           <Grid
             item
@@ -43,34 +46,40 @@ const ProductDetail = ({ product, user }) => {
             sx={{ width: { md: "40%", sm: "100%" } }}
           >
             <Card
-              display="flex"
+              display={"flex"}
               sx={{
                 backgroundColor: "#E6F0FB",
-                justify: "content",
+                justifyContent: "center",
+                alignItems: "center",
                 height: "100%",
                 width: "100%",
-                flexDirection: "column",
+                minHeight: { xs: "400px", lg: "550px" },
+                maxHeight: { xs: "400px", lg: "550px" },
+                minWidth: { xs: "400px", lg: "550px" },
+                maxWidth: { xs: "400px", lg: "550px" },
+                borderRadius: "20px",
               }}
             >
               <Box
-                justifyContent="center"
-                alignItems="center"
+                item
+                display="flex"
                 sx={{
-                  margin: "auto",
-                  width: "80%",
+                  width: "100%",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <CardMedia
+                <Box
                   component="img"
-                  title={product.productName}
-                  image={product.img}
-                  height="100%"
-                  width="100%"
+                  display={"flex"}
+                  src={product.img}
                   sx={{
-                    borderRadius: "5%",
+                    width: "80%",
+                    height: "80%",
                     objectFit: "contain",
                   }}
-                />
+                ></Box>
               </Box>
             </Card>
           </Grid>
@@ -115,7 +124,7 @@ const ProductDetail = ({ product, user }) => {
                     sx={{ borderRadius: "10%" }}
                   >
                     <Typography variant="h5" color="#0064d2" align="center">
-                      {product.key}
+                      {product.date}
                     </Typography>
                   </Box>
                 </Stack>
@@ -132,7 +141,9 @@ const ProductDetail = ({ product, user }) => {
                   <CheckCircleOutlineIcon />
                 </Grid>
                 <Grid item>
-                  <Typography variant="body1">Brand New</Typography>
+                  <Typography variant="body1">
+                    {product.productCondition}
+                  </Typography>
                 </Grid>
               </Grid>
               <Grid item container direction="row" spacing={1}>
@@ -148,7 +159,7 @@ const ProductDetail = ({ product, user }) => {
                   <CheckCircleOutlineIcon />
                 </Grid>
                 <Grid item>
-                  <Typography variant="body1">{product.key}</Typography>
+                  <Typography variant="body1">{product.location}</Typography>
                 </Grid>
               </Grid>
               <Grid
@@ -194,19 +205,18 @@ const ProductDetail = ({ product, user }) => {
             },
           }}
         >
-          <Grid item>
-            <Typography variant="h4" gutterBottom>
+          <Grid item sx={{ marginTop: { xs: "10px", lg: "15px" } }}>
+            <Typography variant="h3" gutterBottom>
               About
             </Typography>
           </Grid>
           <Grid item>
             {/* Set some spacing between each listing */}
             <Typography variant="subtitle1" gutterBottom>
-              {/* <ul>{listing}</ul> */}
-              {product.key}
+              {listing}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ marginTop: { xs: "25px", lg: "50px" } }}>
             <Typography variant="h4" gutterBottom>
               You May Also Like
             </Typography>

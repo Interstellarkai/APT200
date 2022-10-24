@@ -64,7 +64,6 @@ const Product = ({ item }) => {
         boxShadow: "0px 5px 5px #aaaaaa",
         borderRadius: "20px",
       }}
-      onClick={handleGoProduct}
     >
       <CardHeader
         avatar={
@@ -83,7 +82,7 @@ const Product = ({ item }) => {
         title={item.username}
         subheader="September 14, 2016"
       />
-      <CardActionArea sx={{}}>
+      <CardActionArea onClick={handleGoProduct} sx={{}}>
         <Box sx={{ m: "10px", mt: "0px" }}>
           <Box
             sx={{
@@ -117,7 +116,7 @@ const Product = ({ item }) => {
           />
         </Box>
 
-        <CardContent>
+        <CardContent onClick={handleGoProduct}>
           <Grid container direction="row" justifyContent="space-between">
             <Grid item>
               <Typography gutterBottom inline variant="h5" component="div">

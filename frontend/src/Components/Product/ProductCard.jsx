@@ -23,7 +23,10 @@ import PAGES from "../../pageRoute";
 
 const ProductCard = ({ item }) => {
   // console.log(item.descriptions.length);
-  const mid = Math.ceil(item.descriptions.length / 2);
+  let mid = Math.ceil(item.descriptions.length / 2);
+  if (mid > 3) {
+    mid = 3;
+  }
   // console.log(mid);
   let items = item.descriptions.slice(0, mid);
   const listing = items.map((description) => {
@@ -74,7 +77,6 @@ const ProductCard = ({ item }) => {
         boxShadow: "0px 5px 5px #aaaaaa",
         borderRadius: "20px",
       }}
-      onClick={handleGoProduct}
     >
       <CardHeader
         avatar={
@@ -93,7 +95,7 @@ const ProductCard = ({ item }) => {
         title={item.username}
         subheader="September 14, 2016"
       />
-      <CardActionArea sx={{}}>
+      <CardActionArea onClick={handleGoProduct} sx={{}}>
         <Box sx={{ m: "10px", mt: "0px" }}>
           <Box
             sx={{
@@ -127,7 +129,7 @@ const ProductCard = ({ item }) => {
           />
         </Box>
 
-        <CardContent>
+        <CardContent onClick={handleGoProduct}>
           <Grid container direction="row" justifyContent="space-between">
             <Grid item>
               <Typography gutterBottom inline variant="h5" component="div">

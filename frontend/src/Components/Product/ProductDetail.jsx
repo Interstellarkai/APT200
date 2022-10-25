@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import ProductDetailUser from "../ProductDetailUser";
@@ -14,7 +13,7 @@ import ProductDetailUser from "../ProductDetailUser";
 import PAGES from "../../pageRoute";
 import { useNavigate } from "react-router-dom";
 
-const ProductDetail = ({ product, user }) => {
+const ProductDetail = ({ product }) => {
   const navigate = useNavigate();
 
   const listing = product.descriptions.map((description) => {
@@ -22,7 +21,7 @@ const ProductDetail = ({ product, user }) => {
   });
 
   const handleGoChat = () => {
-    navigate(PAGES.chat, { state: { seller: user } });
+    navigate(PAGES.chat, { state: { seller: product.userId } });
   };
 
   return (
@@ -131,7 +130,7 @@ const ProductDetail = ({ product, user }) => {
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                   Joined 7 years ago | Very Responsive | Verified
                 </Typography>
-                <ProductDetailUser user={user} />
+                <ProductDetailUser user={product.username} />
                 <Typography variant="h3" sx={{ py: 2 }}>
                   ${product.price}
                 </Typography>

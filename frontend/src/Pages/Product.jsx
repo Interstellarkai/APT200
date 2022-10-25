@@ -35,10 +35,7 @@ const Product = () => {
           marginTop: { xs: "10px", lg: "20px" },
         }}
       >
-        <ProductDetail
-          product={product}
-          user={product.username}
-        ></ProductDetail>
+        <ProductDetail product={product}></ProductDetail>
       </Box>
 
       <Box

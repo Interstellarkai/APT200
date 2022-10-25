@@ -31,7 +31,7 @@ import ImageRouter from "./routes/images.js";
 
 // documentation
 import swaggerUi from "swagger-ui-express";
-import swaggerFile from "./swagger_output.json" assert { type: "json" };
+// import swaggerFile from "./swagger_output.json" assert { type: "json" };
 
 const app = express();
 
@@ -43,7 +43,7 @@ app.use(cors());
 app.use(express.static("public"));
 app.use("/images", express.static("images"));
 // documentation
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 dotenv.config();
 const PORT = process.env.PORT;

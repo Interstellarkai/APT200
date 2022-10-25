@@ -7,6 +7,8 @@ import { io } from "socket.io-client";
 import ChatWrapper from "../Components/Chat/ChatWrapper";
 import Navbar from "../Components/Essentials/Navbar";
 
+import { getUser } from "../Services/UserRequests";
+
 const Chat = ({ curUser }) => {
   // Add user to socket
   const socket = useRef();
@@ -21,15 +23,9 @@ const Chat = ({ curUser }) => {
     });
   }, [curUser]);
 
-  // Get user for chat
-  const userSlice = useSelector((state) => state.user.value);
-  console.log(userSlice);
-  console.log(userSlice._id);
-  curUser = userSlice;
-
   // Get the seller to chat
   const location = useLocation();
-  console.log(location.state.seller);
+  console.log("Seller: ", location.state.seller);
 
   return (
     <Container

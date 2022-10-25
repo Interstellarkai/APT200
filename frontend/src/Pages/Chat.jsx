@@ -1,15 +1,12 @@
 import { Container } from "@mui/system";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import ChatWrapper from "../Components/Chat/ChatWrapper";
 import Navbar from "../Components/Essentials/Navbar";
 
-import { getUser } from "../Services/UserRequests";
-
 const Chat = ({ curUser }) => {
+  // console.log(curUser);
   // Add user to socket
   const socket = useRef();
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -22,10 +19,6 @@ const Chat = ({ curUser }) => {
       setOnlineUsers(users);
     });
   }, [curUser]);
-
-  // Get the seller to chat
-  const location = useLocation();
-  console.log("Seller: ", location.state.seller);
 
   return (
     <Container

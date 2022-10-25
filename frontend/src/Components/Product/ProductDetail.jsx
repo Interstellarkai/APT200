@@ -14,9 +14,10 @@ import PAGES from "../../pageRoute";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { createChat } from "../../Services/ChatRequests";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setChat } from "../../Redux/chatSlice";
+import { getUser } from "../../Services/UserRequests";
+import { getMessages } from "../../Services/MessageRequests";
 
 const ProductDetail = ({ product }) => {
   const curUser = useSelector((state) => state.user.value);
@@ -38,15 +39,23 @@ const ProductDetail = ({ product }) => {
         let res = await createChat(members);
         let chat = res.data;
         // console.log("Chat: ", chat);
-        dispatch(setChat({ ...chat, messages: [] }));
-        console.log("Chat Created!");
+        // dispatch(setChat({ ...chat, messages: [] }));
+        // console.log("Chat Created!");
+
+        let seller_res = await getUser(product.userId);
+        console.log(product.userId);
+        let seller = seller_res.data;
+        // console.log("Seller: ", seller);
+        res = await getMessages(chat._id);
+        let messages = res.data;
+        console.log("Messages: ", messages);
+        dispatch(setChat({ ...chat, messages }));
+        navigate(PAGES.chat, { state: { seller, chat } });
       } catch (e) {
         console.log("Error!", e);
       }
     };
     CreateChat();
-
-    navigate(PAGES.chat, { state: { seller: product.userId } });
   };
 
   return (

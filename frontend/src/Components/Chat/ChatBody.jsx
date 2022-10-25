@@ -1,4 +1,4 @@
-import { CircularProgress, Fab, IconButton, Typography } from "@mui/material";
+import { CircularProgress, Fab, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CurrentUserChatBox from "./CurrentUserChatBox";
@@ -7,11 +7,10 @@ import InputEmoji from "react-input-emoji";
 import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
 import { addMessage, getMessages } from "../../Services/MessageRequests";
-import { LoadingButton } from "@mui/lab";
+
 import { Box } from "@mui/system";
 import { useEffect } from "react";
 import { addToMessages, setChat } from "../../Redux/chatSlice";
-import { useRef } from "react";
 
 const ChatBody = ({ curUser, receivingUser, socket }) => {
   const curChat = useSelector((state) => state.chat.value);
@@ -72,7 +71,7 @@ const ChatBody = ({ curUser, receivingUser, socket }) => {
   return (
     <div>
       <div className="chat-body">
-        {curChat._id ? (
+        {curChat.messages !== null && curChat.messages.length > 0 ? (
           <div className="chat-body-container">
             <div className="chat-body-wrapper">
               {curChat.messages.map((m) => (

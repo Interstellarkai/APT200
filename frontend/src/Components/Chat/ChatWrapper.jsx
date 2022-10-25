@@ -5,6 +5,8 @@ import { userChats } from "../../Services/ChatRequests";
 
 import "./chat.css";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
+
 const ChatWrapper = ({ curUser, socket, onlineUsers }) => {
   // Dummy data
   //   let chats = [
@@ -30,6 +32,7 @@ const ChatWrapper = ({ curUser, socket, onlineUsers }) => {
 
   const [chats, setChats] = useState([]);
   const [receivingUser, setReceivingUser] = useState(null);
+  const location = useLocation();
   // receiving users
   useEffect(() => {
     // Find all user chats
@@ -44,8 +47,25 @@ const ChatWrapper = ({ curUser, socket, onlineUsers }) => {
         console.log("Error!", e);
       }
     };
+
+    const showProductOwnerChat = async () => {
+      console.log(location);
+      if (location.state !== null) {
+        try {
+          let chat = location.state.chat._id;
+          setReceivingUser(location.state.seller);
+          // let res = await getMessages(chat._id);
+          // let messages = res.data;
+          // console.log("Messages: ", messages);
+          // dispatch(setChat({ ...chat, messages }));
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    };
     getUserChats();
-    //
+    // If routed from product page, show the chat of product owner
+    showProductOwnerChat();
   }, []);
   return (
     <div className="chat-wrapper">

@@ -26,7 +26,7 @@ const ProductDetail = ({ product }) => {
   // console.log(curUser);
 
   const listing = product.descriptions.map((description) => {
-    return <li>{description}</li>;
+    return <li key={description.toString()}>{description}</li>;
   });
 
   const handleGoChat = () => {

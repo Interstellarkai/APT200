@@ -24,6 +24,7 @@ const ProductCards = ({ products }) => {
     //   {/* <div theme.mixins.toolbar />{" "} */}
     <Grid
       container
+      item
       display={"flex"}
       justifyContent={"center"}
       spacing={4}

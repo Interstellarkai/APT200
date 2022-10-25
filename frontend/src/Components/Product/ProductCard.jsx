@@ -21,7 +21,17 @@ import ImageService from "../../Services/image";
 import { useNavigate } from "react-router-dom";
 import PAGES from "../../pageRoute";
 
+import { getUser } from "../../Services/UserRequests";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { createChat } from "../../Services/ChatRequests";
+import { setChat } from "../../Redux/chatSlice";
+import { getMessages } from "../../Services/MessageRequests";
+
 const ProductCard = ({ item }) => {
+  const curUser = useSelector((state) => state.user.value);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // console.log(item.descriptions.length);
   let mid = Math.ceil(item.descriptions.length / 2);
   if (mid > 3) {
@@ -30,13 +40,12 @@ const ProductCard = ({ item }) => {
   // console.log(mid);
   let items = item.descriptions.slice(0, mid);
   const listing = items.map((description) => {
-    return <li>{description}</li>;
+    return <li key={description.toString()}>{description}</li>;
   });
 
   const [fav, setFav] = useState(false);
   const [base64String, setBase64String] = useState(null);
   const theme = useTheme();
-  const navigate = useNavigate();
   const handleFavClick = () => {
     setFav(!fav);
   };
@@ -44,6 +53,35 @@ const ProductCard = ({ item }) => {
   const handleGoProduct = () => {
     navigate(PAGES.product + "/" + item.key);
     window.location.reload(false);
+  };
+
+  const handleGoChat = () => {
+    // Create Chat
+    const CreateChat = async () => {
+      try {
+        // console.log(curUser._id);
+        // console.log(product.userId);
+        let members = { senderId: curUser._id, receiverId: item.userId };
+        let res = await createChat(members);
+        let chat = res.data;
+        // console.log("Chat: ", chat);
+        // dispatch(setChat({ ...chat, messages: [] }));
+        // console.log("Chat Created!");
+
+        let seller_res = await getUser(item.userId);
+        console.log(item.userId);
+        let seller = seller_res.data;
+        // console.log("Seller: ", seller);
+        res = await getMessages(chat._id);
+        let messages = res.data;
+        console.log("Messages: ", messages);
+        dispatch(setChat({ ...chat, messages }));
+        navigate(PAGES.chat, { state: { seller, chat } });
+      } catch (e) {
+        console.log("Error!", e);
+      }
+    };
+    CreateChat();
   };
 
   useEffect(() => {
@@ -95,7 +133,7 @@ const ProductCard = ({ item }) => {
         title={item.username}
         subheader="September 14, 2016"
       />
-      <CardActionArea onClick={handleGoProduct} sx={{}}>
+      <CardActionArea sx={{}}>
         <Box sx={{ m: "10px", mt: "0px" }}>
           <Box
             sx={{
@@ -108,25 +146,32 @@ const ProductCard = ({ item }) => {
               paddingRight: { xs: "20px", lg: "30px" },
             }}
           >
-            <Fab size="small" color="white" aria-label="chat">
+            <Fab
+              size="small"
+              color="white"
+              aria-label="chat"
+              onClick={handleGoChat}
+            >
               <ChatIcon />
             </Fab>
           </Box>
-          <CardMedia
-            component="img"
-            paddingTop="56.25%" // 16:9
-            title={item.productName}
-            src={
-              base64String !== null
-                ? `data:image/png;base64,${base64String}`
-                : item.img
-                ? item.img
-                : require("../../Assets/Item/placeholder.png")
-            }
-            height="140"
-            width="100%"
-            objectFit="contain"
-          />
+          <Box onClick={handleGoProduct}>
+            {" "}
+            <CardMedia
+              component="img"
+              paddingtop="56.25%" // 16:9
+              title={item.productName}
+              src={
+                base64String !== null
+                  ? `data:image/png;base64,${base64String}`
+                  : item.img
+                  ? item.img
+                  : require("../../Assets/Item/placeholder.png")
+              }
+              height="140"
+              width="100%"
+            />
+          </Box>
         </Box>
 
         <CardContent onClick={handleGoProduct}>

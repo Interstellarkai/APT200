@@ -13,7 +13,6 @@ import items from "../Data/items";
 
 const Product = () => {
   const params = useParams();
-
   const productFilter = items.filter((item) => item.key === params.productId);
 
   const product = productFilter[0];

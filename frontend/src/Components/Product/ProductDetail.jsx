@@ -12,15 +12,40 @@ import ProductDetailUser from "../ProductDetailUser";
 
 import PAGES from "../../pageRoute";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { createChat } from "../../Services/ChatRequests";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setChat } from "../../Redux/chatSlice";
 
 const ProductDetail = ({ product }) => {
+  const curUser = useSelector((state) => state.user.value);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // console.log(curUser);
 
   const listing = product.descriptions.map((description) => {
     return <li>{description}</li>;
   });
 
   const handleGoChat = () => {
+    // Create Chat
+    const CreateChat = async () => {
+      try {
+        // console.log(curUser._id);
+        // console.log(product.userId);
+        let members = { senderId: curUser._id, receiverId: product.userId };
+        let res = await createChat(members);
+        let chat = res.data;
+        // console.log("Chat: ", chat);
+        dispatch(setChat({ ...chat, messages: [] }));
+        console.log("Chat Created!");
+      } catch (e) {
+        console.log("Error!", e);
+      }
+    };
+    CreateChat();
+
     navigate(PAGES.chat, { state: { seller: product.userId } });
   };
 

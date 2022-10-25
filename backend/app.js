@@ -30,7 +30,11 @@ import MessageRoute from "./routes/MessageRoute.js";
 import ImageRouter from "./routes/images.js";
 
 // documentation
+<<<<<<< HEAD
 import swaggerUi from "swagger-ui-express";
+=======
+// import swaggerUi from "swagger-ui-express";
+>>>>>>> 8e5924861618e3a3fc7983aa5333dc77f8c51fe9
 // import swaggerFile from "./swagger_output.json" assert { type: "json" };
 
 const app = express();

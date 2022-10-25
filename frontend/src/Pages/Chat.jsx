@@ -28,8 +28,8 @@ const Chat = ({ curUser }) => {
   curUser = userSlice;
 
   // Get the seller to chat
-  const location = useLocation();
-  console.log(location.state.seller);
+  // const location = useLocation();
+  // console.log(location.state.seller);
 
   return (
     <Container

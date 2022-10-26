@@ -33,15 +33,44 @@ const Product = ({ item }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // console.log(item.descriptions.length);
-  let mid = Math.ceil(item.descriptions.length / 2);
-  if (mid > 3) {
-    mid = 3;
-  }
-  // console.log(mid);
-  let items = item.descriptions.slice(0, mid);
-  const listing = items.map((description) => {
-    return <li>{description}</li>;
+  useEffect(() => {
+    const getBase64 = (buffer) => {
+      const to_return = btoa(
+        new Uint8Array(buffer).reduce(function (data, byte) {
+          return data + String.fromCharCode(byte);
+        }, "")
+      );
+      return to_return;
+    };
+    if (item.img_id) {
+      ImageService.getImageByID(item.img_id)
+        .then((res) => {
+          // Convert to base64
+          setBase64String(getBase64(res.img.data.data));
+        })
+        .catch((e) => {
+          console.log("Error geting image by id.");
+          setBase64String(null);
+        });
+    }
   });
+
+  let listing = ["a"];
+
+  if (item.description !== undefined) {
+    console.log("In here", item.description);
+    listing = <li>{[item.description]}</li>;
+  } else {
+    let mid = Math.ceil(item.descriptions.length / 2);
+    if (mid > 3) {
+      mid = 3;
+    }
+    // console.log(mid);
+    let items = item.descriptions.slice(0, mid);
+    listing = items.map((description) => {
+      return <li>{description}</li>;
+    });
+  }
 
   const [fav, setFav] = useState(false);
   const [base64String, setBase64String] = useState(null);
@@ -82,28 +111,6 @@ const Product = ({ item }) => {
     };
     CreateChat();
   };
-
-  useEffect(() => {
-    const getBase64 = (buffer) => {
-      const to_return = btoa(
-        new Uint8Array(buffer).reduce(function (data, byte) {
-          return data + String.fromCharCode(byte);
-        }, "")
-      );
-      return to_return;
-    };
-    if (item.img_id) {
-      ImageService.getImageByID(item.img_id)
-        .then((res) => {
-          // Convert to base64
-          setBase64String(getBase64(res.img.data.data));
-        })
-        .catch((e) => {
-          console.log("Error geting image by id.");
-          setBase64String(null);
-        });
-    }
-  });
 
   return (
     <Card

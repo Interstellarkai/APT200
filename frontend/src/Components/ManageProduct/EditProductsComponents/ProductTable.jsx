@@ -246,7 +246,7 @@ const ProductTable = ({ dispatch, curUser }) => {
     // console.log(tmpData);
     dispatch(curUser.methods.editOneItem(values));
 
-    dispatch(editOneProduct(values));
+    dispatch(editOneProduct({ ...values, username: curUser.user.username }));
     // dispatch(addProduct(values));
     // Reset editing cause done
     setEditingRow(null);

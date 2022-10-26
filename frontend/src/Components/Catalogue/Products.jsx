@@ -5,7 +5,8 @@ import Product from "./Product";
 import items from "../../Data/items";
 
 const Products = ({ products }) => {
-  if (!products.length) return <p>Loading...</p>;
+  // if (!products.length) return <p>Loading...</p>;
+  // console.log(products);
 
   return (
     // <main
@@ -23,7 +24,7 @@ const Products = ({ products }) => {
       lg={11}
       sx={{}}
     >
-      {items.map((item) => (
+      {products.map((item) => (
         <Grid key={item.key} item xs={12} sm={10} md={8} lg={6} sx={{}}>
           <Product item={item} />
         </Grid>

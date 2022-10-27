@@ -15,8 +15,8 @@ import Selectbuttons from "../Components/Catalogue/Selectbuttons";
 import { useSelector } from "react-redux";
 
 const option1 = {
-  title: "Computers & Tech",
-  options: ["Option1", "Option2"],
+  title: "All",
+  options: ["Men", "Women", "Wearable", "Shoes"],
 };
 
 const option2 = {

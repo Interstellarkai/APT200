@@ -18,6 +18,7 @@ const defaultUser = {
         category: [["shoes"]],
         description:
           "Recently bought pair of Adidas shoes from Malaysia, not used at all",
+
         username: "andrewng",
       },
       {

@@ -1,14 +1,13 @@
 import "antd/dist/antd.min.css";
 
-import Products from "./Components/Products";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Advertisement from "./Components/Advertisement";
-import ProductDetail from "./Components/ProductDetail";
 import ManageProducts from "./Pages/ManageProducts";
 
 import Catalogue from "./Pages/Catalogue";
 import Chat from "./Pages/Chat";
+import Product from "./Pages/Product";
 import colors from "./Components/colors";
 
 import PAGES from "./pageRoute";
@@ -87,6 +86,8 @@ const App = () => {
             path={PAGES.chat}
             element={<Chat curUser={curUser} />}
           ></Route>
+          <Route exact path={PAGES.product} element={<Product />}></Route>
+          <Route path={PAGES.productId} element={<Product />}></Route>
         </Routes>
       </Router>
     </ThemeProvider>

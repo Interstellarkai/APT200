@@ -61,9 +61,10 @@ export const updateUser = async (req, res) => {
             const user = await UserModel.findByIdAndUpdate(id, req.body, {
                 new: true,
             });
-            const token = jwt.sign({username: user.username, id: user._id}, process.env.JWTKEY, {expiresIn: "1h"});
-            console.log({user, token});
-            res.status(200).json({user, token})
+            res.status(200).json(user)
+            // const token = jwt.sign({username: user.username, id: user._id}, process.env.JWTKEY, {expiresIn: "1h"});
+            // console.log({user, token});
+            // res.status(200).json({user, token})
         } catch (error) {
             console.log("Error");
             res.status(500).json(error);

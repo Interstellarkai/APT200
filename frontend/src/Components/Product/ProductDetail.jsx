@@ -6,15 +6,57 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
-import ProductDetailUser from "./ProductDetailUser";
+import ProductDetailUser from "../ProductDetailUser";
 
-const ProductDetail = ({ product, user }) => {
+import PAGES from "../../pageRoute";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { createChat } from "../../Services/ChatRequests";
+import { useDispatch } from "react-redux";
+import { setChat } from "../../Redux/chatSlice";
+import { getUser } from "../../Services/UserRequests";
+import { getMessages } from "../../Services/MessageRequests";
+
+const ProductDetail = ({ product }) => {
+  const curUser = useSelector((state) => state.user.value);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // console.log(curUser);
+
   const listing = product.descriptions.map((description) => {
-    return <li>{description}</li>;
+    return <li key={description.toString()}>{description}</li>;
   });
+
+  const handleGoChat = () => {
+    // Create Chat
+    const CreateChat = async () => {
+      try {
+        // console.log(curUser._id);
+        // console.log(product.userId);
+        let members = { senderId: curUser._id, receiverId: product.userId };
+        let res = await createChat(members);
+        let chat = res.data;
+        // console.log("Chat: ", chat);
+        // dispatch(setChat({ ...chat, messages: [] }));
+        // console.log("Chat Created!");
+
+        let seller_res = await getUser(product.userId);
+        console.log(product.userId);
+        let seller = seller_res.data;
+        // console.log("Seller: ", seller);
+        res = await getMessages(chat._id);
+        let messages = res.data;
+        console.log("Messages: ", messages);
+        dispatch(setChat({ ...chat, messages }));
+        navigate(PAGES.chat, { state: { seller, chat } });
+      } catch (e) {
+        console.log("Error!", e);
+      }
+    };
+    CreateChat();
+  };
 
   return (
     <div>
@@ -22,9 +64,12 @@ const ProductDetail = ({ product, user }) => {
         {/* Set grid's direction as row for webpage, set grid's direction as column for mobile */}
         <Grid
           container
-          direction={{ sm: "column", md: "row" }}
+          direction={{ sm: "column", lg: "row" }}
           alignItems="stretch"
-          padding={2}
+          sx={{
+            paddingLeft: { sm: "10px", lg: "50px" },
+            paddingRight: { sm: "10px", lg: "50px" },
+          }}
         >
           <Grid
             item
@@ -34,34 +79,40 @@ const ProductDetail = ({ product, user }) => {
             sx={{ width: { md: "40%", sm: "100%" } }}
           >
             <Card
-              display="flex"
+              display={"flex"}
               sx={{
                 backgroundColor: "#E6F0FB",
-                justify: "content",
+                justifyContent: "center",
+                alignItems: "center",
                 height: "100%",
                 width: "100%",
-                flexDirection: "column",
+                minHeight: { xs: "400px", lg: "550px" },
+                maxHeight: { xs: "400px", lg: "550px" },
+                minWidth: { xs: "400px", lg: "550px" },
+                maxWidth: { xs: "400px", lg: "550px" },
+                borderRadius: "20px",
               }}
             >
               <Box
-                justifyContent="center"
-                alignItems="center"
+                item
+                display="flex"
                 sx={{
-                  margin: "auto",
-                  width: "80%",
+                  width: "100%",
+                  height: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <CardMedia
+                <Box
                   component="img"
-                  title={product.name}
-                  image={product.media}
-                  height="100%"
-                  width="100%"
+                  display={"flex"}
+                  src={product.img}
                   sx={{
-                    borderRadius: "5%",
+                    width: "80%",
+                    height: "80%",
                     objectFit: "contain",
                   }}
-                />
+                ></Box>
               </Box>
             </Card>
           </Grid>
@@ -97,7 +148,7 @@ const ProductDetail = ({ product, user }) => {
                   sx={{ py: 1 }}
                 >
                   <Typography variant="h3" component="div">
-                    {product.name}
+                    {product.productName}
                   </Typography>
                   <Box
                     bgcolor="#E6F0FB"
@@ -106,14 +157,14 @@ const ProductDetail = ({ product, user }) => {
                     sx={{ borderRadius: "10%" }}
                   >
                     <Typography variant="h5" color="#0064d2" align="center">
-                      {product.history}
+                      {product.date}
                     </Typography>
                   </Box>
                 </Stack>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
                   Joined 7 years ago | Very Responsive | Verified
                 </Typography>
-                <ProductDetailUser user={user} />
+                <ProductDetailUser user={product.username} />
                 <Typography variant="h3" sx={{ py: 2 }}>
                   ${product.price}
                 </Typography>
@@ -123,7 +174,9 @@ const ProductDetail = ({ product, user }) => {
                   <CheckCircleOutlineIcon />
                 </Grid>
                 <Grid item>
-                  <Typography variant="body1">Brand New</Typography>
+                  <Typography variant="body1">
+                    {product.productCondition}
+                  </Typography>
                 </Grid>
               </Grid>
               <Grid item container direction="row" spacing={1}>
@@ -163,6 +216,7 @@ const ProductDetail = ({ product, user }) => {
                     fontWeight: "light",
                     width: "80%",
                   }}
+                  onClick={handleGoChat}
                 >
                   Chat
                 </Button>
@@ -184,18 +238,30 @@ const ProductDetail = ({ product, user }) => {
             },
           }}
         >
-          <Grid item>
-            <Typography variant="h4" gutterBottom>
+          <Grid
+            item
+            sx={{
+              marginTop: { xs: "10px", lg: "30px" },
+              paddingLeft: { xs: "10px", lg: "0px" },
+            }}
+          >
+            <Typography variant="h3" gutterBottom>
               About
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ paddingLeft: { xs: "10px", lg: "0px" } }}>
             {/* Set some spacing between each listing */}
             <Typography variant="subtitle1" gutterBottom>
-              <ul>{listing}</ul>
+              {listing}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid
+            item
+            sx={{
+              marginTop: { xs: "25px", lg: "40px" },
+              paddingLeft: { xs: "10px", lg: "0px" },
+            }}
+          >
             <Typography variant="h4" gutterBottom>
               You May Also Like
             </Typography>

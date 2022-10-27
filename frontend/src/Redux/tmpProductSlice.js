@@ -14,7 +14,8 @@ let messy_user_products = [
     category: [["shoes"]],
     description:
       "Recently bought pair of Adidas shoes from Malaysia, not used at all",
-    username: "test",
+
+    username: "andrewng",
   },
   {
     key: "1",
@@ -24,7 +25,7 @@ let messy_user_products = [
     status: ["averageCondition"],
     category: [["men"], ["women"]],
     description: "Around 5 years old",
-    username: "test",
+    username: "andrewng",
   },
 ];
 
@@ -56,6 +57,7 @@ export const tmpProductSlice = createSlice({
       let tmpProducts = [...state.value.products];
       let index = tmpProducts.findIndex((p) => p.key === data.payload.key);
       tmpProducts.splice(index, 1, data.payload);
+      console.log("TmpProducts: ", tmpProducts);
       state.value.products = tmpProducts;
     },
 

@@ -6,8 +6,20 @@ const items = [
     productName: "Nike Shirt",
     price: 20,
     img: require("../Assets/Item/shirt.png"),
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+    descriptions: [
+      "Men's T-Shirt",
+      "CLASSIC COMFORT",
+      "The Nike Sportswear Club T-Shirt sets you up with soft cotton jersey and a classic logo embroidered on the chest.",
+      "Standard fit for a relaxed, easy feel",
+      "Used once or twice. As good as new.",
+      "Shoulder 33cm",
+      "Ptp 36cm",
+      "Length 57cm",
+      "Return possible",
+    ],
+    productCondition: "Used Once or Twice",
+    location: "Pioneer MRT Station",
+    date: "2 weeks ago",
   },
   {
     key: "0000001",
@@ -16,8 +28,17 @@ const items = [
     productName: "Nike Shoe",
     price: 20,
     img: require("../Assets/Item/shoe.png"),
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+    descriptions: [
+      "New Solarcontrol Women Running Shoes",
+      "Bought a US 9 size on 7 Oct 2022 at Adidas VivoCity",
+      "and worn ONCE, only to realise it is half a size larger than my usual shoe size",
+      "Too loose to use for my runs",
+      "Retail @ $200, selling at $40 loss - $160!",
+      "Value for money",
+    ],
+    productCondition: "Used Multiple",
+    location: "Eunos MRT Station",
+    date: "1 week ago",
   },
   {
     key: "0000002",
@@ -26,8 +47,17 @@ const items = [
     productName: "XL Pants",
     price: 20,
     img: require("../Assets/Item/male-pants.png"),
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+    descriptions: [
+      "authentic",
+      "worn once; no defects",
+      "tagged 11-12Y but fits uk4-6 well!",
+      "waist 12 across unstretched, length 35 down",
+      "selling as athleisure is not my style anymore HAHA",
+      "no negotiations. selling at a huge loss already.",
+    ],
+    productCondition: "Used Once or Twice",
+    location: "Woodlands MRT Station",
+    date: "3 days ago",
   },
   {
     key: "0000003",
@@ -36,8 +66,15 @@ const items = [
     productName: "Assorted Shirts",
     price: 20,
     img: require("../Assets/Item/shirts.png"),
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+    descriptions: [
+      "consists of different brands ranging from Uniqlo jacket, United Benetton sweater, Abercombie & Fitch t shirt",
+      "almost brand new t shirt, nike top, sweater",
+      "size uniqlo 140",
+      "suitable for 10 years old",
+    ],
+    productCondition: "Brand New",
+    location: "Pasir Ris MRT Station",
+    date: "Today",
   },
   {
     key: "0000004",
@@ -46,18 +83,35 @@ const items = [
     productName: "Pink Pants",
     price: 20,
     img: require("../Assets/Item/women-pants.png"),
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+    descriptions: [
+      "Used with some minor signs of wear",
+      "May have minor flaws to be noted in the description",
+      "Pink woven cotton pants",
+      "100% cotton",
+      "Tapered cutting ",
+    ],
+    productCondition: "Used Once or Twice",
+    location: "Changi Airport",
+    date: "1 month ago",
   },
   {
     key: "0000005",
-    userId: "634e47ec594153285d0cc7d9",
+    userId: "6350a42deeed065f6429f743",
     username: "ODJAPOISDJAP",
     productName: "Jacket",
     price: 20,
     img: require("../Assets/Item/jacket.png"),
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown",
+    descriptions: [
+      "Letting this go at $60",
+      "Worn only once",
+      "Classic Superdry fit - relaxed fit, not too slim, not too loose",
+      "Size S - women’s cut",
+      "Two front zipped pockets, fully lined padding",
+      "Great for autumn and light winter travels",
+    ],
+    productCondition: "Used Once or Twice",
+    location: "Expo MRT Station",
+    date: "3 months ago",
   },
 ];
 

@@ -6,6 +6,7 @@ import ChatWrapper from "../Components/Chat/ChatWrapper";
 import Navbar from "../Components/Essentials/Navbar";
 
 const Chat = ({ curUser }) => {
+  // console.log(curUser);
   // Add user to socket
   const socket = useRef();
   const [onlineUsers, setOnlineUsers] = useState([]);

@@ -9,7 +9,7 @@
     "@mui/lab": "^5.0.0-alpha.128",
     "@mui/material": "^5.12.2",
     "@mui/system": "^5.11.15",
-    "@react-oauth/google": "^0.9.0",
+    "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "antd": "^4.24.9",
     "axios": "^0.27.2",

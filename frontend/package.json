@@ -8,7 +8,7 @@
     "@mui/icons-material": "^5.17.1",
     "@mui/lab": "^5.0.0-alpha.176",
     "@mui/material": "^5.17.1",
-    "@mui/system": "^5.16.14",
+    "@mui/system": "^5.18.0",
     "@react-oauth/google": "^0.12.2",
     "@reduxjs/toolkit": "^1.9.7",
     "antd": "^4.24.16",

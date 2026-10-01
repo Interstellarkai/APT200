@@ -22,7 +22,7 @@
     "react-router-dom": "^7.18.4",
     "react-scripts": "5.0.1",
     "react-swipeable-views": "^0.14.2",
-    "socket.io-client": "^4.8.3",
+    "socket.io-client": "^4.8.4",
     "timeago.js": "^4.0.2"
   },
   "scripts": {
